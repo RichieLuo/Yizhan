@@ -1,0 +1,196 @@
+﻿@{
+    Layout = null;
+}
+@using YiZhan.Common.JsonModels
+@using YiZhan.ViewModels.BusinessManagement
+@using YiZhan.Entities.BusinessManagement.Commodities
+@model YZ_CommodityVM
+
+<div class="area-right-head">
+    <h3>
+        @{
+            var pageTitle = "";
+            if (Model.State == YZ_CommodityState.IsReject)
+            {
+                pageTitle = "修改驳回的商品";
+            }
+            else
+            {
+                if (!Model.IsNew)
+                {
+                    pageTitle = "添加闲置商品";
+                }
+                else
+                {
+                    pageTitle = "修改闲置商品";
+
+                }
+            }
+            @pageTitle
+        }
+    </h3>
+    <input type="hidden" name="PageIndex" value="@ViewBag.PageIndex" />
+</div>
+<div class="area-right-container">
+    <div id="AddOrEditCommodityArea" class="AddOrEditCommodityArea">
+        <form class="form-horizontal" name="AddOrEditCommodityForm" role="form" action="../../CommoditiesManager/AddOrEditCommodity" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <input type="hidden" name="IsNew" value="@(Model.Id == Guid.Empty ? "true" : "false")" />
+            <div class="form-group addOrEditCommodityFormItem">
+                <label class="col-sm-4 control-label">商品名称</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control name" name="Name" placeholder="请输入商品名称..." value="@Model.Name" maxlength="30" required />
+                </div>
+            </div>
+            <div class="form-group addOrEditCommodityFormItem">
+                <label class="col-sm-4 control-label">商品描述</label>
+                <div class="col-sm-5">
+                    <textarea class="form-control description" name="Description" placeholder="请输入商品描述..." maxlength="80" required>@Model.Description</textarea>
+                </div>
+            </div>
+            <div class="form-group addOrEditCommodityFormItem">
+                <label class="col-sm-4 control-label">转卖价格</label>
+                <div class="col-sm-5">
+                    <input type="number" class="form-control" name="Price" placeholder="请输入转卖价格..." value="@Model.Price" maxlength="12" required />
+                </div>
+            </div>
+            <div class="form-group addOrEditCommodityFormItem">
+                <label class="col-sm-4 control-label">转卖数量</label>
+                <div class="col-sm-5">
+                    <input type="number" class="form-control" name="Stock" placeholder="请输入转卖数量..." value="@Model.Stock" maxlength="6" required />
+                </div>
+            </div>
+            <div class="form-group addOrEditCommodityFormItem">
+                <label class="col-sm-4 control-label">商品单位</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control unit" name="Unit" placeholder="请输入商品单位..." value="@Model.Unit" maxlength="6" required />
+                </div>
+            </div>
+            <div class="form-group addOrEditCommodityFormItem">
+                <label class="col-sm-4 control-label">选择分类</label>
+                <div class="col-sm-5">
+                    <select name="CategoryId" class="form-control" required>
+                        @{
+                            foreach (var item in ViewBag.Category as List<YZ_CommodityCategory>)
+                            {
+                                var isSelect = item == Model.Category ? true : false;
+                                <option value="@item.Id" selected="@isSelect">@item.Name</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="form-group addOrEditCommodityFormItem">
+                <label class="col-sm-4 control-label">是否支持讲价</label>
+                <div class="col-sm-5">
+                    @if (Model.Id == Guid.Empty)
+                    {
+                        <input type="radio" class="isBargain" name="IsBargain" value="true" /><span>是</span>
+                        <input type="radio" class="isBargain" name="IsBargain" value="false" checked /><span>否</span>
+                    }
+                    else
+                    {
+                        <input type="radio" class="isBargain" name="IsBargain" value="true" @(Model.IsBargain ? "checked" : "") /><span>是</span>
+                        <input type="radio" class="isBargain" name="IsBargain" value="false" @(Model.IsBargain ? "" : "checked") /><span>否</span>
+                    }
+                </div>
+            </div>
+            <div class="form-group addOrEditCommodityFormItem">
+                <label class="col-sm-4 control-label">交易方式</label>
+                <div class="col-sm-5">
+                    @*@if (Model.Id == Guid.Empty)
+                    {
+                        <input type="radio" class="way" name="Way" value="@TransactionWayAndRange.线下交易" checked /><span>线下交易(平台不担保)</span>
+                        <input type="radio" class="way" name="Way" value="@TransactionWayAndRange.线上交易" /><span>线上交易</span>
+                    }
+                    else
+                    {
+                        <input type="radio" class="way" name="Way" value="@TransactionWayAndRange.线下交易" @(Model.Way == TransactionWayAndRange.线下交易 ? "checked" : "") /><span>线下交易(平台不担保)</span>
+                        <input type="radio" class="way" name="Way" value="@TransactionWayAndRange.线上交易" @(Model.Way == TransactionWayAndRange.线上交易 ? "checked" : "") /><span> 线上交易</span>
+                    }*@
+                    <input type="radio" class="way" name="Way" value="@TransactionWayAndRange.线下交易" checked /><span>线下交易(平台不担保)</span>
+                </div>
+            </div>
+            <div class="form-group addOrEditCommodityFormItem">
+                <label class="col-sm-4 control-label">交易范围</label>
+                <div class="col-sm-5">
+                    @*@if (Model.Id == Guid.Empty)
+                    {
+                        <input type="radio" class="range" name="Range" value="@TransactionWayAndRange.校园内" checked /><span>校园内</span>
+                        <input type="radio" class="range" name="Range" value="@TransactionWayAndRange.同城" /><span>同城</span>
+                    }
+                    else
+                    {
+                        <input type="radio" class="range" name="Range" value="@TransactionWayAndRange.校园内" @(Model.Range == TransactionWayAndRange.校园内 ? "checked" : "") /><span>校园内</span>
+                        <input type="radio" class="range" name="Range" value="@TransactionWayAndRange.同城" @(Model.Range == TransactionWayAndRange.同城 ? "checked" : "") /><span>同城</span>
+                    }*@
+                     <input type="radio" class="range" name="Range" value="@TransactionWayAndRange.校园内" checked /><span>校园内</span>
+                </div>
+            </div>
+            <div class="form-group addOrEditCommodityFormItem">
+                <label class="col-sm-4 control-label">选择商品图片</label>
+                <input type="file" name="file" multiple id="img-file-input" />
+                <div id="uploadArea" class="col-sm-5"></div>
+            </div>
+            <div class="form-group" id="errorMessage" style="display:none">
+                <div class="col-sm-12 text-center">
+                    <p class="yzError">请将商品信息填写完整后再提交保存！</p>
+                </div>
+            </div>
+            <div class="form-group addOrEditCommodityFormItem">
+                <label class="col-sm-4 control-label"></label>
+                <div class="col-sm-4">
+                    <button type="button" id="addOrEditCommoditySubmit" class="form-control rightSaveBtn">提交保存</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $(function () {
+        var options = {};
+        var upload = tinyImgUpload('#uploadArea', options);
+        var $errorArea = $("#errorMessage");
+        $(".name,.description,.unit").click(function () {
+            $errorArea.hide();
+        })
+        //表单提交
+        $(document).on("click", "#addOrEditCommoditySubmit", function () {
+            if (validateForm()) {
+                $("form[name=AddOrEditCommodityForm]").ajaxSubmit(function (data) {
+                    if (data.result) {
+                        loadPage($("input[name=PageIndex]").val());
+                    } else {
+                        alert(data.message);
+                    }
+                })
+            }
+        })
+        function validateForm() {
+            var _name = $(".name");
+            var _description = $(".description");
+            var _unit = $(".unit");
+            if (_name.val() === "" || _description.val() === "" || _unit.val() === "") {
+                console.info(_name.val() + " " + _description.val() + " " + _unit.val());
+                $errorArea.show();
+                return false;
+            } else {
+                $errorArea.hide();
+                return true;
+            }
+        }
+        function loadPage(index) {
+            if (index == 7) {
+                LoadMySecondhandView();
+            } else if (index == 8) {
+                LoadAwaitExamineCommoditiesView();
+            } else if (index == 9) {
+                LoadIsNotExamineCommoditiesView();
+            }
+            console.info(index);
+            LoadDefaultViewCss(index);
+            toastr.success("添加成功");
+        }
+    })
+
+</script>

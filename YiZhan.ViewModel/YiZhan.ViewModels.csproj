@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.4</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="BusinessManagement\GoodsVM\**" />
+    <EmbeddedResource Remove="BusinessManagement\GoodsVM\**" />
+    <None Remove="BusinessManagement\GoodsVM\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\YiZhan.Common\YiZhan.Common.csproj" />
+    <ProjectReference Include="..\YiZhan.DataAccess\YiZhan.DataAccess.csproj" />
+    <ProjectReference Include="..\YiZhan.Entities\YiZhan.Entities.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,89 @@
+﻿@{
+    Layout = "_LayoutForIndex";
+    ViewData["Title"] = "搜索";
+}
+@using YiZhan.Common.JsonModels
+@using YiZhan.ViewModels.BusinessManagement
+@model IEnumerable<YZ_CommodityVM>
+<div class="searchForIndex" id="searchForIndex">
+    <!--分类别-->
+    <div class="searchByCategory">
+        <p class="searchByCategoryTitle">
+            分类查询
+            <a href="../../Home/UserFeedback" target="_blank" class="pull-right" title="反馈给客服">对查询结果不满意？</a>
+        </p>
+        <div class="categorys scCommon">
+            <ul>
+                <li>全部类型：</li>
+                @foreach (var category in ViewBag.CommodityCategory as List<YZ_CommodityCategoryVM>)
+                {
+                    <li class="searchKeyword"><a href="javascript:" title="@category.Name">@category.Name</a></li>
+                }
+            </ul>
+        </div>
+        <div class="userLikes scCommon">
+            <ul>
+                <li>猜您想搜：</li>
+                @foreach (var guessYouSearch in ViewBag.GuessYouSearch as List<YZ_UserSearchLogVM>)
+                {
+                    <li class="searchKeyword"><a href="javascript:" title="@guessYouSearch.Name">@guessYouSearch.Name</a></li>
+                }               
+            </ul>
+        </div>
+    </div>
+    <!--大家都在找-->
+    <div class="peopleLikeFind">
+        <span class="pull-left">大家都在找：</span>
+        <ul>
+            @foreach (var hotSearch in ViewBag.HotSearch as List<YZ_UserSearchLogVM>)
+            {
+                <li class="searchKeyword"><a href="javascript:" title="@hotSearch.Name">@hotSearch.Name</a></li>
+            }
+        </ul>
+    </div>
+    <!--排序查询-->
+    <div class="searchSort">
+        <ul>
+            <li class="text-center searchActive">
+                <a href="javascript:">搜索结果</a>
+            </li>           
+        </ul>
+    </div>
+
+    <!--查询结果说明-->
+    <div class="searchExplain">
+        @if (ViewBag.Keyword != null)
+        {
+            <p>您好，“@ViewBag.Keyword” 相关内容的商品：共找到 @Model.Count() 件</p>
+        }
+        else
+        {
+            <p>您好，本次搜索没有输入关键词，以下是最新的闲置商品。</p>
+        }
+    </div>
+    <!--查询的结果-->
+    <div class="fCommonContent">
+        <ul class="fCommonContentCommodity">
+            @foreach (var item in Model)
+            {
+                <li class="fCommonContentCommodityItem">
+                    <a href="../../Home/GetCommodityDetail?id=@item.Id" title="@item.Description">
+                        <img src="@item.Images.FirstOrDefault(f=>f.Type==ImageType.CommodityCover).UploadPath" alt="@item.Name" />
+                    </a>
+                    <div class="fCCItemDetail">
+                        <a href="../../Home/GetCommodityDetail?id=@item.Id" title="@item.Description">
+                            <p>@item.Description</p>
+                        </a>
+                        <div class="fCCItemPriceAndBtn">
+                            <div class="priceContent">
+                                <span class="priceSymbol">￥:</span>
+                                <span class="priceColor">@item.Price</span>
+                            </div>
+                            <a href="../../Home/GetCommodityDetail?id=@item.Id" class="contactSeller">查看</a>
+                        </div>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

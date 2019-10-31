@@ -1,0 +1,133 @@
+﻿@using YiZhan.ViewModels.ApplicationOrganization
+@model ApplicationUserVM
+@{
+    Layout = "_LayoutForIndex";
+    ViewData["Title"] = "个人中心";
+
+    @*若需要加载模态框，必须要预先引用模态框，放在花括号内防止占位现象*@
+    @Html.Partial("../../Views/Account/UserCenterPartialViews/_ChangeMyProfileModal", Model);
+    @Html.Partial("../../Views/Account/UserCenterPartialViews/_UserBigAvatarPreviewModal", Model);
+}
+
+<div id="userCenterArea" class="userCenterArea">
+    <div class="area-left">
+        <div class="user-information">
+            <div class="user-avatar">
+                <img src="@Model.AvatarPath" alt="头像" title="修改头像" onclick="LoadBigAvatarPreviewModal()" />
+            </div>
+            <div class="user-links">
+                <ul style="display:inline-block">
+                    <li><a title="腾讯QQ" class="socialContactIcon tx-QQ" target="_blank" href="@ViewBag.TXQQLink"></a></li>
+                    <li><a title="微信" class="socialContactIcon tx-WeChat" target="_blank" href="@ViewBag.TXWechatLink"></a></li>
+                    <li><a title="QQ空间" class="socialContactIcon tx-Qzone" target="_blank" href="@ViewBag.TXQzoneLink"></a></li>
+                    <li><a title="新浪微博" class="socialContactIcon xl-Weibo" target="_blank" href="@ViewBag.XLWeiboLink"></a></li>
+                </ul>
+                <p id="userDescription" style="color:#f1bc40">@(string.IsNullOrEmpty(Model.Description) ? "还没有个性签名，完善一下吧" : Model.Description)</p>
+            </div>
+            <p class="user-integrity">
+                信息完善度：<span class="userInfoIntegrity">@ViewBag.UserInfoIntegrity<span>%</span></span>
+                <a href="javascript:" onclick="LoadChangeMyProfileModal()" id="profileBtn">@(ViewBag.UserInfoIntegrity == 100 ? "修改信息>>" : "完善信息>>")</a>
+            </p>
+        </div>
+        <div class="user-nav">
+            <ul>
+                <li><a href="javascript:" onclick="LoadUserCenterIndexView()"><span class="icon glyphicon glyphicon-home"></span>首页</a></li>
+                <li><a href="javascript:" onclick="LoadMyProfileView()"><span class="icon glyphicon glyphicon-time"></span>个人信息</a></li>
+                <li><a href="javascript:" onclick="LoadChangePasswordView()"><span class="icon glyphicon glyphicon-time"></span>修改密码</a></li>
+                <li><a href="javascript:" onclick="LoadChangeAvatarView()"><span class="icon glyphicon glyphicon-time"></span>修改头像</a></li>
+                @*<li><a href="javascript:" onclick=""><span class="icon glyphicon glyphicon-time"></span>安全中心</a></li>*@
+                <li><a href="javascript:" onclick="LoadMyNotificationsView()"><span class="icon glyphicon glyphicon-time"></span>消息中心<span class="notificationCount">0</span></a></li>
+                <li><a href="javascript:" onclick="LoadMySecondhandView()"><span class="icon glyphicon glyphicon-time"></span>我的闲置</a></li>
+                <li><a href="javascript:" onclick="LoadAwaitExamineCommoditiesView()"><span class="icon glyphicon glyphicon-time"></span>发布待审</a></li>
+                <li><a href="javascript:" onclick="LoadIsNotExamineCommoditiesView()"><span class="icon glyphicon glyphicon-time"></span>审核驳回</a></li>
+                <li><a href="javascript:" onclick="LoadMyOrdersView()"><span class="icon glyphicon glyphicon-heart-empty"></span>订单管理</a></li>
+                <li><a href="javascript:" onclick="LoadMyVistorLogsView()"><span class="icon glyphicon glyphicon-time"></span>我的足迹</a></li>
+                <li><a href="javascript:" onclick="LoadMyMyFeedbacksView()"><span class="icon glyphicon glyphicon-time"></span>反馈中心</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="area-right" id="userCenterMain">
+        @*根据左侧导航进行对应的页面填充区域*@
+    </div>
+</div>
+<script src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>
+<script src="~/js/Index/userCenter/loadUserCenterMainByNavMenu.js" asp-append-version="true"></script>
+<script src="~/js/Index/userCenter/userCenterOperation.js" asp-append-version="true"></script>
+<script>
+    $(function () {
+        document.getElementsByTagName("body")[0].style.background = "#fafafa";
+        function getNotifications() {
+            $.get("../../Account/NotificationsCount", "", function (data) {
+                if (data.count > 0) {
+                    if ($(".notificationCount").text() != data.count) {
+                        $(".notificationCount").show();
+                        $(".notificationCount").text(data.count);
+                        toastr.info("您有" + data.count + "条未读消息,请注意查收！");
+                    }
+                }
+                else {
+                    $(".notificationCount").hide();
+                    $(".notificationCount").text("");
+                }
+            })
+        }
+        getNotifications();
+        setInterval(function () {
+            getNotifications();
+        }, 20000);
+
+        //修改用户信息（弹窗）
+        $(document).on("click", "#ChangeProfileSaveBtn", function () {
+            $("#ChangeProfileForm").ajaxSubmit(function (data) {
+                if (data.result) {
+                    $("#ModalCloseBtn").click();
+                    $(".userInfoIntegrity").text(data.integrity);
+                    if (data.integrity == "100%") { $("#profileBtn").text("修改信息>>"); }
+                    else { $("#profileBtn").text("完善信息>>"); }
+                    var _userDescription = $("input[name=Description]").val();
+                    $("#userNameArea").text(data.username);
+                    if (_userDescription == "") { $("#userDescription").text("还没有个性签名，完善一下吧"); }
+                    else { $("#userDescription").text(_userDescription); }
+                    toastr.success("信息修改成功！");
+                } else {
+                    alert(data.message);
+                }
+            })
+        })
+
+        //修改用户信息(非弹窗)
+        $(document).on("click", "#ChangeProfileSaveTwoBtn", function () {
+            $("#ChangeProfileFormTwo").ajaxSubmit(function (data) {
+                if (data.result) {
+                    $(".userInfoIntegrity").text(data.integrity);
+                    if (data.integrity == "100%") { $("#profileBtn").text("修改信息>>"); }
+                    else { $("#profileBtn").text("完善信息>>"); }
+                    var _userDescription = $("input[name=Description]").val();
+                    $("#userNameArea").text(data.username);
+                    if (_userDescription == "") { $("#userDescription").text("还没有个性签名，完善一下吧"); }
+                    else { $("#userDescription").text(_userDescription); }
+                    toastr.success("信息修改成功！");
+                } else {
+                    alert(data.message);
+                }
+            })
+        })
+
+        //删除浏览历史
+        $(document).on("click", ".deleteVistorLog", function () {
+            console.info(111);
+            var _val = $(this).val();
+            if (confirm("您确认要删除吗？")) {
+                $.post("../../CommoditiesManager/DeleteVistorLog", { id: _val }, function (data) {
+                    if (data.result) {
+                        toastr.success("删除成功！");
+                        LoadMyVistorLogsView();
+                        LoadDefaultViewCss(10);
+                    } else {
+                        alert(data.message);
+                    }
+                })
+            }
+        })
+    })
+</script>

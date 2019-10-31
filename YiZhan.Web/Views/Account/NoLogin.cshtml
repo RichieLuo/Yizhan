@@ -1,0 +1,27 @@
+﻿@{
+    Layout = "_LayoutForIndex";
+    ViewData["Title"] = "未登录系统";
+}
+<div class="container noLoginContainer">
+    <div class="panel-content">
+        <div class="text-center">
+            <h2 class="panel-top">               
+                @ViewData["Message"]
+            </h2>
+            <div>
+                <div class="float-left">
+                    <img src="~/images/Index/login/ds-1.gif">
+                    <p class="btn btn-default">啊哈~亲，您是不是忘记登录了 </p>
+                </div>
+                <div class="float-right">
+                    <img src="~/images/Index/login/ds-2.png" width="260">
+                </div>
+            </div>
+            <div class="padding-big">
+                <a href="../../Account/Index" class="btn btn-success">立即前往登录</a>
+                <a href="../../Account/Index?state=register" class="btn btn-warning">立即前往注册</a>
+            </div>
+        </div>
+    </div>
+
+</div>

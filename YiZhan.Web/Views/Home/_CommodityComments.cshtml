@@ -1,0 +1,41 @@
+﻿@{
+    Layout = null;
+}
+@using YiZhan.ViewModels.BusinessManagement.CommodityVM
+@model List<YZ_CommodityCommentVM>
+
+@if (Model.Count() > 0)
+{
+    @foreach (var item in Model)
+    {
+        var user = string.IsNullOrEmpty(item.CommentUser.Name) ? "该用户未修改名称" : item.CommentUser.Name;
+        var userAvatarPath = item.CommentUser.Avatar == null ? "images/Avatar" : item.CommentUser.Avatar.UploadPath;
+
+        <li class="commentListItem">
+            <input type="hidden" name="isNullComment" value="false" />
+            <div class="commentListLeft">
+                <img src="@userAvatarPath" alt="用户头像" />
+            </div>
+            <div class="commentListRight">
+                <div class="userNameAndTime">
+                    <a class="commentUser @(user.Length<3?"text-center":"")" href="javascript:">@user：</a><span class="commentTime">@item.CreateTime.ToString("yyyy年MM月dd日 HH:mm:ss")</span>
+                </div>
+                <div class="commentContent">
+                    @item.Description
+                </div>
+            </div>
+            <div class="commentListActions">
+                @if (item.IsShowDeleteBtn)
+                {
+                    <button class="btn btn-danger commentDelete" value="@item.Id" title="删除评论">删除</button>
+                }
+            </div>
+        </li>
+    }
+}
+else
+{
+    <li class="commentListItem text-center commentItemBorderNone">
+        <h4>该商品下的留言空空如也~</h4>
+    </li>
+}

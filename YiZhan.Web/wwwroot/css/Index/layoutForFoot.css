@@ -1,0 +1,41 @@
+
+/*全局页面底部CSS开始*/
+.foot{width: 100%;min-width: 1200px;height: auto;background: #fff;box-sizing: border-box;padding-top:10px;padding-bottom: 20px;/*border-top:1px solid #eee;*/ }
+.indexFoot-guaranteeBox{box-sizing:border-box;background:#333;width: 100%;min-width: 1200px;padding: 30px 0; }
+.indexFoot-guaranteeBox .indexFoot-guarantee{text-align: center;background:#333;width: 1200px;min-width: 1200px;height: 120px;margin: 0 auto}
+/*.foot-guarantee a{display: inline;  float: left;width: 125px;height: 125px;margin: 0 40px;overflow: hidden;*/
+    /*background: url(../images/index/foot-guarantee.png) no-repeat 0 0;}*/
+.indexFoot-guarantee img{width: 567px;height: 100%;}
+.foot .foot-friendLinks{width: 1200px;height: auto;margin: 0 auto;box-sizing: border-box;padding: 10px 0;border-bottom: 1px solid #ddd;}
+.foot-friendLinks ul {overflow: hidden;line-height: 30px;}
+.foot-friendLinks ul li{float: left;height: 30px;margin: 0 5px;}
+.foot-friendLinks ul li h3{margin-top: 0;}
+.foot-friendLinks ul li a{display: block;color: #9d9d9d;}
+.foot-friendLinks ul li a:hover{font-size:16px;transition:all 0.5s;color: #2375b0; }
+
+.foot .foot-usLinks{width: 100%;height: auto;}
+.foot-usLinks .usLinks-About{overflow: hidden;width: 1200px;margin: 0 auto;padding-top: 20px;box-sizing: border-box;}
+.usLinks-About ul {overflow: hidden;float: left;width: 650px;}
+.usLinks-About ul li{float: left;margin: 0 5px;}
+.usLinks-About ul li a{display: block;color: #000;}
+.usLinks-About ul li a:hover{color:#2375b0;}
+
+.foot-usLinks .usLinks-Copyright{float: left;text-align: right;width: 550px;}
+.usLinks-Copyright p a{color: #000;}
+.usLinks-Copyright p a:hover{color: #2375b0;}
+.foot-usLinks .usLinks-Licence{width: 1200px;margin: 0 auto;padding: 10px 0;box-sizing: border-box;}
+.usLinks-Licence ul{overflow: hidden;}
+.usLinks-Licence ul li{float: left;margin: 0 5px;}
+.usLinks-Licence ul li a{color: #000;}
+.usLinks-Licence ul li a:hover{color:#2375b0;}
+
+.foot .foot-imgLinks{width: 1200px;margin: 0 auto;padding: 10px 0;box-sizing: border-box;}
+.foot-imgLinks .bgIMG{background-image: url(../../images/Index/licence/licence.jpg);}
+.foot-imgLinks ul {overflow: hidden;}
+.foot-imgLinks ul li{float: left;height: 35px;margin: 0 15px;}
+.foot-imgLinks ul li:first-child{background-image: url(../../images/Index/licence/netPolice.gif);margin-left: 0 !important;}
+.foot-imgLinks ul li a{display: block;height: 100%;}
+
+
+
+/*全局页面底部CSS结束*/

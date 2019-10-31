@@ -1,0 +1,55 @@
+﻿@using YiZhan.ViewModels.WebSettingManagement
+@model AdvertisementVM
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+        &times;
+    </button>
+    <h4 class="modal-title" id="editAdvertisementModalLabel">
+        编辑（@Model.Name）
+    </h4>
+</div>
+<div class="modal-body">
+    <form class="form-horizontal" action="../../SiteManager/EditAdvertisement" method="post" a role="form" id="EditAdvertisementForm">
+        <input type="hidden" name="Id" value="@Model.Id" />
+        <div class="form-group">
+            <label for="Link" class="col-sm-3 control-label">消息链接：</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" name="Link" placeholder="消息链接，没有可为空" value="@Model.Link">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Image" class="col-sm-3 control-label">图片：</label>
+            <div class="col-sm-7">
+                @if (Model.Image == null)
+                {
+                    <img class="logoPreview" style="width: 100%;height: 150px;" id="logoPreview" src="~/images/Index/logo-blue.png" alt="Image" />
+                }
+                else
+                {
+                    <img class="logoPreview" style="width: 100%;height: 150px;" id="logoPreview" src="@Model.Image.UploadPath" alt="Image" />
+                }
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-7">
+                <div class="uploadLogoBtnArea" style="height:35px;">
+                    <button type="button" style="top:0;left:0;" class="btn leftSaveBtn uploadLogoBtn form-control" title="选择一张图片" id="uploadLogoBtn">选择一张图片</button>
+                    <input type="file" style="top:0;left:0;width:100%;height:34px" id="uploadLogoInput" name="Logo" onchange="imgPreview(this)" value="" title="选择图片" required />
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-7">
+                <button type="button" class="btn leftSaveBtn" style="width: 202px;" id="EditAdvertisementSaveBtn">保存编辑</button>
+                <button type="button" class="btn yzFormBtn" id="ModalCloseBtn" data-dismiss="modal" aria-hidden="true" data-target="#editAdvertisementModal">关闭</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer text-center">
+    <div class="text-center">
+        <a href="../../AdminCenter/Index" title="易站-校园二手交易平台">
+            易站-管理中心
+        </a>
+    </div>
+</div>

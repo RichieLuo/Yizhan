@@ -1,0 +1,23 @@
+ /*搜索页面*/
+ #searchForIndex{width: 1200px;min-width: 1200px;margin: 10px auto;}
+ .searchByCategory{height: 170px;border: 1px solid #f5f5f5;margin-bottom: 10px;width: 100%;}
+ .searchByCategoryTitle{padding:0 10px;height: 40px;background-color: #f5f5f5;line-height: 40px;font-size: 18px}
+ .searchByCategoryTitle>a{text-decoration: none;color: #62bcfa ;font-size: 14px}
+ .scCommon{padding-top: 10px;padding-left:10px;overflow: hidden;}
+ .scCommon ul li:first-child{/*font-weight: bold;*/font-size: 16px;}
+ .scCommon ul li{float: left;font-size: 14px;margin: 5px;}
+ .scCommon ul li a{color: #5e5e5e;}
+ .scCommon ul li a:hover {text-decoration:underline!important}
+ .peopleLikeFind{height: 40px;border: 1px solid #f5f5f5;margin-bottom: 10px;line-height: 40px;padding-left: 10px;}
+ .peopleLikeFind ul li{float: left;padding-left: 10px;padding: 0 6px;}
+ .peopleLikeFind ul li a{color: #ef983d;}
+  .peopleLikeFind ul li a:hover {text-decoration:underline!important}
+ .searchSort {overflow: hidden;width: 1200px;background-color: #f5f5f5;line-height: 40px;border: solid 1px #f5f5f5;}
+ .searchSort ul li{float: left;width: 70px;height: 40px;}
+ .searchSort ul li:first-child{width: 80px;border-left:0;}
+ .searchSort a {color: #000;width: 100%;height: 40px;display: block;text-decoration: none} 
+ .searchActive {background-color: #fff;border-left: solid 1px #e8e8e8;border-right: solid 1px #f5f5f5}
+ .searchSort a:hover { background-color: #fff;border-left: solid 1px #e8e8e8;	border-right: solid 1px #f5f5f5} 
+ .searchExplain{height: 40px;background-color: #FFF1DC;border: 1px solid #FFE3B8;line-height: 40px;margin-bottom:5px;}
+ .searchExplain>p{padding-left: 10px;}
+ 

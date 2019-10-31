@@ -1,0 +1,103 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.15
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00.公共功能组件", "00.公共功能组件", "{92FC9815-6792-4B2A-9B88-F335071F57D3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01.业务实体模型", "01.业务实体模型", "{4D7369C0-9885-4FC7-A06B-1C10C5E0B208}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02.数据处理", "02.数据处理", "{262B1BB8-556D-4A3F-B645-B44B942B127D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03.视图模型", "03.视图模型", "{5229DA0E-6EC2-4338-918C-C3179DF45F72}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04.Web 站点", "04.Web 站点", "{2B76856B-A35D-40A1-A163-F5549A1494EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YiZhan.Common", "YiZhan.Common\YiZhan.Common.csproj", "{D2F812C1-D8FA-416B-A004-68917608DBF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YiZhan.Entities", "YiZhan.Entities\YiZhan.Entities.csproj", "{CEBBEE1D-41E9-4D3B-AFEA-62D4D868C40A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YiZhan.DataAccess", "YiZhan.DataAccess\YiZhan.DataAccess.csproj", "{AE060250-CE97-426F-8C95-61C92A2A0D77}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YiZhan.ViewModels", "YiZhan.ViewModel\YiZhan.ViewModels.csproj", "{B65ABABD-8F30-4BCD-BEA9-64DE7617610C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YiZhan.CustomMvcCoreExtension", "YiZhan.CustomMvcCoreExtension\YiZhan.CustomMvcCoreExtension.csproj", "{73074450-60E1-428C-85C7-9C38CCA3665E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YiZhan.Web", "YiZhan.Web\YiZhan.Web.csproj", "{0308126B-3039-4438-ADE2-9CAFBBC3F2ED}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D2F812C1-D8FA-416B-A004-68917608DBF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2F812C1-D8FA-416B-A004-68917608DBF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2F812C1-D8FA-416B-A004-68917608DBF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2F812C1-D8FA-416B-A004-68917608DBF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEBBEE1D-41E9-4D3B-AFEA-62D4D868C40A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEBBEE1D-41E9-4D3B-AFEA-62D4D868C40A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEBBEE1D-41E9-4D3B-AFEA-62D4D868C40A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEBBEE1D-41E9-4D3B-AFEA-62D4D868C40A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE060250-CE97-426F-8C95-61C92A2A0D77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE060250-CE97-426F-8C95-61C92A2A0D77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE060250-CE97-426F-8C95-61C92A2A0D77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE060250-CE97-426F-8C95-61C92A2A0D77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B65ABABD-8F30-4BCD-BEA9-64DE7617610C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B65ABABD-8F30-4BCD-BEA9-64DE7617610C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B65ABABD-8F30-4BCD-BEA9-64DE7617610C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B65ABABD-8F30-4BCD-BEA9-64DE7617610C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73074450-60E1-428C-85C7-9C38CCA3665E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73074450-60E1-428C-85C7-9C38CCA3665E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73074450-60E1-428C-85C7-9C38CCA3665E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73074450-60E1-428C-85C7-9C38CCA3665E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0308126B-3039-4438-ADE2-9CAFBBC3F2ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0308126B-3039-4438-ADE2-9CAFBBC3F2ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0308126B-3039-4438-ADE2-9CAFBBC3F2ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0308126B-3039-4438-ADE2-9CAFBBC3F2ED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D2F812C1-D8FA-416B-A004-68917608DBF0} = {92FC9815-6792-4B2A-9B88-F335071F57D3}
+		{CEBBEE1D-41E9-4D3B-AFEA-62D4D868C40A} = {4D7369C0-9885-4FC7-A06B-1C10C5E0B208}
+		{AE060250-CE97-426F-8C95-61C92A2A0D77} = {262B1BB8-556D-4A3F-B645-B44B942B127D}
+		{B65ABABD-8F30-4BCD-BEA9-64DE7617610C} = {5229DA0E-6EC2-4338-918C-C3179DF45F72}
+		{73074450-60E1-428C-85C7-9C38CCA3665E} = {5229DA0E-6EC2-4338-918C-C3179DF45F72}
+		{0308126B-3039-4438-ADE2-9CAFBBC3F2ED} = {2B76856B-A35D-40A1-A163-F5549A1494EF}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2F2F6C23-BB4C-4CED-8423-C896E609150B}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 7
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://lzzyyizhan.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = YiZhan.Common\\YiZhan.Common.csproj
+		SccProjectTopLevelParentUniqueName1 = YiZhan.sln
+		SccProjectName1 = YiZhan.Common
+		SccLocalPath1 = YiZhan.Common
+		SccProjectUniqueName2 = YiZhan.Entities\\YiZhan.Entities.csproj
+		SccProjectTopLevelParentUniqueName2 = YiZhan.sln
+		SccProjectName2 = YiZhan.Entities
+		SccLocalPath2 = YiZhan.Entities
+		SccProjectUniqueName3 = YiZhan.DataAccess\\YiZhan.DataAccess.csproj
+		SccProjectTopLevelParentUniqueName3 = YiZhan.sln
+		SccProjectName3 = YiZhan.DataAccess
+		SccLocalPath3 = YiZhan.DataAccess
+		SccProjectUniqueName4 = YiZhan.ViewModel\\YiZhan.ViewModels.csproj
+		SccProjectTopLevelParentUniqueName4 = YiZhan.sln
+		SccProjectName4 = YiZhan.ViewModel
+		SccLocalPath4 = YiZhan.ViewModel
+		SccProjectUniqueName5 = YiZhan.CustomMvcCoreExtension\\YiZhan.CustomMvcCoreExtension.csproj
+		SccProjectTopLevelParentUniqueName5 = YiZhan.sln
+		SccProjectName5 = YiZhan.CustomMvcCoreExtension
+		SccLocalPath5 = YiZhan.CustomMvcCoreExtension
+		SccProjectUniqueName6 = YiZhan.Web\\YiZhan.Web.csproj
+		SccProjectTopLevelParentUniqueName6 = YiZhan.sln
+		SccProjectName6 = YiZhan.Web
+		SccLocalPath6 = YiZhan.Web
+	EndGlobalSection
+EndGlobal

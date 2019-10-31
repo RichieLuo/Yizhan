@@ -1,0 +1,56 @@
+﻿@{
+    Layout = null;
+}
+<!-- 模态框（Modal） -->
+<div class="modal fade yzModalCenter" id="sendNotificationsModal" tabindex="-1" role="dialog"
+     aria-labelledby="sendNotificationsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="changeMyProfileModalLabel">
+                    发送消息
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" action="../../AdminCenter/SendNotifications" method="post" role="form" id="SendNotificationsForm">
+                    <div class="form-group">
+                        <label for="Name" class="col-sm-4 control-label">消息标题：</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="Name" placeholder="消息标题" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Link" class="col-sm-4 control-label">消息链接：</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="Link" placeholder="消息链接，没有可为空" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Description" class="col-sm-4 control-label">消息内容：</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" name="Description" placeholder="消息内容" ></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-4 col-sm-8">
+                            <button type="button" class="btn leftSaveBtn" id="SendNotificationsBtn">确认发送</button>
+                            <button type="button" class="btn yzFormBtn" id="ModalCloseBtn" data-dismiss="modal" aria-hidden="true" data-target="#sendNotificationsModal">关闭</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer text-center">
+                <div class="text-center">
+                    <a href="../../AdminCenter/Index" title="易站-校园二手交易平台">
+                        易站-管理中心中心
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal -->
+</div>

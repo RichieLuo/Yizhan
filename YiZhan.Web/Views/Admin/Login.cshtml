@@ -1,0 +1,69 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8">
+    <title>登录管理中心 - 易站校园后台管理系统</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/Admin/adminLogin.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="bg">
+        <img src="~/images/Admin/adbg_01.jpg" />
+    </div>
+    <div id="adLogin" class="adLogin text-center">
+        <div class="adAvatar">
+            <img src="~/images/Avatars/defaultAvatar.jpg" alt="头像" />
+        </div>
+        <form>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon borderNone adIcon"><span class="glyphicon glyphicon-user"></span></span>
+                    <input type="text" id="UserName" class="form-control clearErrorMessage" placeholder="请输入账号">
+                </div>
+            </div>
+            <div class="form-group no-bottom">
+                <div class="input-group">
+                    <span class="input-group-addon borderNone adIcon"><span class="glyphicon glyphicon-lock"></span></span>
+                    <input type="password" id="Password" class="form-control clearErrorMessage" placeholder="请输入密码">
+                </div>
+            </div>
+            <div class="form-group adLoginGo">
+                <p id="adLoginErrorMessage"></p>
+                <button type="button" class="btn btn-default" onclick="GoToLogin()" id="adLogin-btn">登 录</button>
+            </div>
+        </form>
+        <p><a href="/">返回首页</a></p>
+    </div>
+    <div id="adSiteFoot" class="adSiteFoot text-center">
+        <p>
+            Power By
+            <a href="../../Home/OurTeam" target="_blank">设计团队</a>
+            Copyright©
+            <span id="cStartTime">2017</span> - <span id="cEndTime">2018</span> &nbsp;
+            <a href="/" class="copyrightInfo">易站校园</a>
+            &nbsp;All Right Reserved
+        </p>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/js/Admin/adminLogin.js"></script>
+    <script>
+        $(function () { 
+              //获取网站的信息
+            function loadSiteInfo() {
+                $.get("../../SiteManager/GetSiteSettings", null, function (data) { 
+                   var _installTime = new Date(data.installTime);
+                    $("#cStartTime").text(_installTime.getFullYear());
+                    $(".copyrightInfo").text(data.copyright);
+                 
+                })
+            }
+            loadSiteInfo();
+        })
+    </script>
+</body>
+</html>

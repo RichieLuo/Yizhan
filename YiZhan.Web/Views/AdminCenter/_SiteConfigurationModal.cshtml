@@ -1,0 +1,84 @@
+﻿@{
+    Layout = null;
+}
+@*@using YiZhan.ViewModels.WebSettingManagement
+    @model SiteConfigurationVM*@
+@{
+    var _isChecked = "checked";
+}
+<!-- 模态框（Modal） -->
+<div class="modal fade yzModalCenter" id="setSiteConfigurationModal" tabindex="-1" role="dialog"
+     aria-labelledby="setSiteConfigurationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="setSiteConfigurationModalLabel">
+                    站点配置
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" action="../../SiteManager/SetSiteConfiguration" method="post" role="form" id="SetSiteConfigurationForm">
+                    <div class="form-group">
+                        <label for="CanRegister" class="col-sm-6 control-label">站点注册：</label>
+                        <div class="col-sm-6">
+                            <div class="switch canRegisterSwitch" data-on="success" data-off="warning">
+                                @*<input type="checkbox" @(Model.CanRegister ? _isChecked : "") class="canRegister" name="CanRegister" />*@
+                                <input type="checkbox" class="canRegister siteSwitchCheckbox" name="CanRegister" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="CanLogin" class="col-sm-6 control-label">站点登录：</label>
+                        <div class="col-sm-6">
+                            <div class="switch canLoginSwitch" data-on="success" data-off="warning">
+                                @*<input type="checkbox" @(Model.CanLogin ? _isChecked : "") class="canLogin" name="CanLogin" />*@
+                                <input type="checkbox" class="canLogin siteSwitchCheckbox" name="CanLogin" />
+                            </div>
+                        </div>
+                    </div>
+                      <div class="form-group">
+                        <label for="IsOpenCode" class="col-sm-6 control-label">登录验证码：</label>
+                        <div class="col-sm-6">
+                            <div class="switch isOpenCodeSwitch" data-on="success" data-off="warning">                              
+                                <input type="checkbox" class="isOpenCode siteSwitchCheckbox" name="IsOpenCode" />
+                            </div>
+                        </div>
+                    </div>
+                      <div class="form-group">
+                        <label for="IsOpenCS" class="col-sm-6 control-label">站内客服：</label>
+                        <div class="col-sm-6">
+                            <div class="switch isOpenCSSwitch" data-on="success" data-off="warning">                              
+                                <input type="checkbox" class="isOpenCS siteSwitchCheckbox" name="IsOpenCS" />
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="form-group">
+                        <label for="IsOpenAd" class="col-sm-6 control-label">站内广告位：</label>
+                        <div class="col-sm-6">
+                            <div class="switch isOpenAdSwitch" data-on="success" data-off="warning">                            
+                                <input type="checkbox" class="isOpenAd siteSwitchCheckbox" name="IsOpenAd" />
+                            </div>
+                        </div>
+                    </div>*@
+                    <div class="form-group">
+                        <label for="" class="col-xs-3 control-label"></label>
+                        <div class="col-xs-6">
+                            <button type="button" class="btn btn-default form-control" data-dismiss="modal" aria-hidden="true" data-target="#setSiteConfigurationModal">关闭</button>
+                        </div>
+                        <div class="col-xs-3"></div>
+                    </div>                   
+                </form>
+            </div>
+            <div class="modal-footer text-center">
+                <div class="text-center">
+                    <a href="javascript:">
+                        管理中心
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,595 @@
+﻿@{
+    Layout = "_LayoutForIndex";
+    ViewData["Title"] = "易站";
+}
+@using YiZhan.Common.JsonModels
+@using YiZhan.ViewModels.BusinessManagement
+@using YiZhan.ViewModels.WebSettingManagement
+@using YiZhan.Entities.WebSettingManagement
+@model List<YZ_CommodityVM>
+@{
+    var oneFMaxShowCount = 0;
+    var twoFMaxShowCount = 0;
+    var threeFMaxShowCount = 0;
+    var fourFMaxShowCount = 0;
+    var fiveFMaxShowCount = 0;
+    var sixFMaxShowCount = 0;
+
+}
+@*加载等待页面*@
+<div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+    <div class="load_title">
+        正在加载
+        <span style="display: block;">易站.V.0.1</span>
+    </div>
+</div>
+
+<!--首页主体内容-->
+<div class="indexArea yzContentTop" id="indexArea">
+    <!--首页顶部 分类 轮播 右边区域-->
+    <div class="indexHeadContent">
+        <div class="indexCategoryList">
+            <ul>
+                <li>
+                    <span class="glyphicon glyphicon-headphones categoryListIcon"></span>
+                    <a href="#indexFloorOne" class="i-list-aBold">数码产品</a>
+                    <span class="i-list-item">
+                        <a class="searchKeyword" href="javascript:" title="电脑">电脑</a>
+                        <a class="searchKeyword" href="javascript:" title="iPad">iPad</a>
+                        <a class="searchKeyword" href="javascript:" title="手机">手机</a>
+                        <a class="searchKeyword" href="javascript:" title="硬盘">硬盘</a>
+                        <a class="searchKeyword" href="javascript:" title="内存条">内存条</a>
+                    </span>
+                </li>
+                <li>
+                    <span class="glyphicon glyphicon-glass categoryListIcon"></span>
+                    <a href="#indexFloorTwo" class="i-list-aBold">生活用品</a>
+                    <span class="i-list-item">
+                        <a class="searchKeyword" href="javascript:" title="杯子">杯子</a>
+                        <a class="searchKeyword" href="javascript:" title="台灯">台灯</a>
+                        <a class="searchKeyword" href="javascript:" title="保温壶">保温壶</a>
+                        <a class="searchKeyword" href="javascript:" title="饮水机">饮水机</a>
+                    </span>
+                </li>
+                <li>
+                    <span class="glyphicon glyphicon-piggy-bank categoryListIcon"></span>
+                    <a href="#indexFloorThree" class="i-list-aBold">运动装备</a>
+                    <span class="i-list-item">
+                        <a class="searchKeyword" href="javascript:" title="运动背包">运动背包</a>
+                        <a class="searchKeyword" href="javascript:" title="运动鞋">运动鞋</a>
+                        <a class="searchKeyword" href="javascript:" title="护腕护膝">护腕护膝</a>
+                    </span>
+                </li>
+                <li>
+                    <span class="glyphicon glyphicon-user categoryListIcon"></span>
+                    <a href="#indexFloorFour" class="i-list-aBold">衣服鞋帽</a>
+                    <span class="i-list-item">
+                        <a class="searchKeyword" href="javascript:" title="上衣">上衣</a>
+                        <a class="searchKeyword" href="javascript:" title="下装">下装</a>
+                        <a class="searchKeyword" href="javascript:" title="外套">外套</a>
+                        <a class="searchKeyword" href="javascript:" title="鞋子">鞋子</a>
+                        <a class="searchKeyword" href="javascript:" title="帽子">帽子</a>
+                    </span>
+                </li>
+                <li>
+                    <span class="glyphicon glyphicon-thumbs-up categoryListIcon"></span>
+                    <a href="#indexFloorFive" class="i-list-aBold">首饰饰品</a>
+                    <span class="i-list-item">
+                        <a class="searchKeyword" href="javascript:" title="项链">项链</a>
+                        <a class="searchKeyword" href="javascript:" title="包包挂饰">包包挂饰</a>
+                        <a class="searchKeyword" href="javascript:" title="手机挂饰">手机挂饰</a>
+                    </span>
+                </li>
+                <li>
+                    <span class="glyphicon glyphicon-heart categoryListIcon"></span>
+                    <a href="#indexFloorSix" class="i-list-aBold">化妆品区</a>
+                    <span class="i-list-item">
+                        <a class="searchKeyword" href="javascript:" title="粉底液">粉底液</a>
+                        <a class="searchKeyword" href="javascript:" title="清洁霜">清洁霜</a>
+                        <a class="searchKeyword" href="javascript:" title="香水">香水</a>
+                        <a class="searchKeyword" href="javascript:" title="遮瑕膏">遮瑕膏</a>
+                    </span>
+                </li>
+            </ul>
+            <div class="cListShow">
+                <div>
+                    内容待填充
+                </div>
+                <div>
+                    内容待填充
+                </div>
+                <div>
+                    内容待填充
+                </div>
+                <div>
+                    内容待填充
+                </div>
+                <div>
+                    内容待填充
+                </div>
+                <div>
+                    内容待填充
+                </div>
+            </div>
+        </div>
+
+        <!--首页轮播图-->
+        <div class="indexBanner" id="indexBanner">
+            <div id="show-area">
+                <ul>
+                    @foreach (var item in ViewBag.Advertisements as List<AdvertisementVM>)
+                    {
+                        if (item.Position == AdvertisementPosition.IndexBanner)
+                        {
+                            <li><a href="@(string.IsNullOrEmpty(item.Link)?"javascript":item.Link)"><img src="@item.Image.UploadPath"></a></li>
+                        }
+                    }
+                </ul>
+                <div id="tab-lr">
+                    <div id="tab-left" title="下一张"><</div>
+                    <div id="tab-right" title="上一张">></div>
+                </div>
+                <div id="controler"></div>
+            </div>
+        </div>
+        <div class="indexHeadRight websiteBulletinArea">
+            @*轮播图右侧内容*@
+            <div class="websiteBulletinHead">
+                <span class="glyphicon glyphicon-bullhorn"></span>
+                <h4>站内公告</h4>
+                <a href="../../Home/SiteNotices" target="_blank" class="moreSiteNotices">More +</a>
+            </div>
+            <div class="websiteBulletinContent">
+                <ol></ol>
+            </div>
+        </div>
+    </div>
+    <!--首页猜你喜欢模块-->
+    <div class="indexGuessYouLike">
+        <div class="indexGuess-User">
+            <div class="i-User-Head">
+                @if (ViewBag.Avatar != null)
+                {
+                    <a href="../../Account/UserCenter">
+                        <img class="u-h-img" src="@ViewBag.Avatar" alt="头像">
+                    </a>
+                }
+                else
+                {
+                    <a href="../../Account/Index" title="登录">
+                        <img class="u-h-img" src="~/images/Avatars/defaultAvatar.jpg" alt="默认头像">
+                    </a>
+                }
+                <div class="u-h-text">
+                    @if (ViewBag.CurrUserName != null)
+                    {
+                        <p>
+                            Hi，进入 <a href="../../Account/UserCenter" style="color:dodgerblue"> 个人中心 </a>。
+                        </p>
+                    }
+                    else
+                    {
+                        <p>
+                            Hi，请先 <a href="../../Account/Index"> 登录 </a> 吧！
+                        </p>
+                    }
+                    <p>这里有更多你感兴趣的！</p>
+                </div>
+            </div>
+            <div class="i-User-Foot">
+                <ul>
+                    @foreach (var item in Model)
+                    {
+                        <li class="searchKeyword"><a href="javascript:" title="@item.Name">@item.Name</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="indexGuess-Ylike">
+            <div class="i-Ylike-tabHead">
+                <ul class="i-tabHead-tabMenu">
+                    <li class="i-tabMenu-active"><a href="javascript:">猜你喜欢</a></li>
+                    <li><a href="javascript:">最新闲置</a></li>
+                </ul>
+                <a href="javascript:" class="likeChange">
+                    <span class="glyphicon glyphicon-refresh"></span>
+                    换一换
+                </a>
+                <a href="../../Home/Search" class="moreSecond-hand moreKeyword">More +</a>
+            </div>
+            <div class="i-Ylike-tabContent">
+                <div class="tabContentItems i-tabContent-active">
+                    @if (ViewBag.GuessWhatYouLike != null)
+                    {
+                        foreach (var youLikeItem in ViewBag.GuessWhatYouLike as List<YZ_CommodityVM>)
+                        {
+                            <div class="tab-c-item">
+                                <a href="../../Home/GetCommodityDetail?id=@youLikeItem.Id" target="_blank" title="@youLikeItem.Description">
+                                    <img src="@youLikeItem.Images.FirstOrDefault().UploadPath" alt="@youLikeItem.Name" title="@youLikeItem.Description" />
+                                    <p>@youLikeItem.Name</p>
+                                </a>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="tab-c-item">
+                            <img src="~/images/Index/systemImg/noGuessYouLike.gif" alt="还没有推荐内容哦~" style="width:100%;height:100%" />
+                        </div>
+                    }
+
+                </div>
+                <div class="tabContentItems">
+                    @{
+                        var countForNew = 0;
+                        foreach (var item in Model)
+                        {
+                            if (countForNew >= 5)
+                            {
+                                break;
+                            }
+                            <div class="tab-c-item">
+                                <a href="../../Home/GetCommodityDetail?id=@item.Id" title="@item.Description">
+                                    <img src="@item.Images.FirstOrDefault().UploadPath" alt="@item.Description" />
+                                    <p>@item.Description</p>
+                                </a>
+                            </div>
+                            countForNew++;
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*商品楼层1楼：数码产品*@
+    <div id="indexFloorOne" class="indexFloorCommon">
+        <div class="fCommonHead">
+            <!--楼层头部：左侧标题，右侧更多-->
+            <div class="fCommonHeadTitle">
+                <h4><span class="glyphicon glyphicon-home"></span><span class="fNum">1</span>楼：数码产品</h4>
+            </div>
+            <div class="fCommonHeadMore">
+                <a href="javascript:" class="moreKeyword">
+                    <input type="hidden" value="数码产品" />
+                    <span class="fch-more">More +</span>
+                </a>
+            </div>
+        </div>
+        <div class="fCommonContent">
+            <!--楼层内容：商品展示-->
+            <ul class="fCommonContentCommodity">
+                @foreach (var item in Model)
+                {
+                    if (oneFMaxShowCount >= 10)
+                    {
+                        break;
+                    }
+                    if (item.Category.Category == CommodityCategoryEnum.Electronics)
+                    {
+                        <li class="fCommonContentCommodityItem">
+                            <a href="../../Home/GetCommodityDetail?id=@item.Id" title="@item.Description">
+                                <img src="@item.Images.FirstOrDefault(f=>f.Type==ImageType.CommodityCover).UploadPath" alt="@item.Name" />
+                            </a>
+                            <div class="fCCItemDetail">
+                                <a href="../../Home/GetCommodityDetail?id=@item.Id" title="@item.Description">
+                                    <p>@item.Description</p>
+                                </a>
+                                <div class="fCCItemPriceAndBtn">
+                                    <div class="priceContent">
+                                        <span class="priceSymbol">￥:</span>
+                                        <span class="priceColor">@item.Price</span>
+                                    </div>
+                                    <a href="../../Home/GetCommodityDetail?id=@item.Id" class="contactSeller">查看</a>
+                                </div>
+                            </div>
+                        </li>
+                        oneFMaxShowCount++;
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+
+    @*商品楼层2楼：生活用品*@
+    <div id="indexFloorTwo" class="indexFloorCommon">
+        <div class="fCommonHead">
+            <!--楼层头部：左侧标题，右侧更多-->
+            <div class="fCommonHeadTitle">
+                <h4><span class="glyphicon glyphicon-home"></span><span class="fNum">2</span>楼：生活用品</h4>
+            </div>
+            <div class="fCommonHeadMore">
+                <a href="javascript:" class="moreKeyword">
+                    <input type="hidden" value="生活用品" />
+                    <span class="fch-more">More +</span>
+                </a>
+            </div>
+        </div>
+        <div class="fCommonContent">
+            <!--楼层内容：商品展示-->
+            <ul class="fCommonContentCommodity">
+                @foreach (var item in Model)
+                {
+                    if (twoFMaxShowCount >= 10)
+                    {
+                        break;
+                    }
+                    if (item.Category.Category == CommodityCategoryEnum.Supplies)
+                    {
+                        <li class="fCommonContentCommodityItem">
+                            <a href="../../Home/GetCommodityDetail?id=@item.Id" title="@item.Description">
+                                <img src="@item.Images.FirstOrDefault(f => f.Type == ImageType.CommodityCover).UploadPath" alt="@item.Name" />
+                            </a>
+                            <div class="fCCItemDetail">
+                                <a href="../../Home/GetCommodityDetail?id=@item.Id" title="@item.Description">
+                                    <p>@item.Description</p>
+                                </a>
+                                <div class="fCCItemPriceAndBtn">
+                                    <div class="priceContent">
+                                        <span class="priceSymbol">￥:</span>
+                                        <span class="priceColor">@item.Price</span>
+                                    </div>
+                                    <a href="../../Home/GetCommodityDetail?id=@item.Id" class="contactSeller">查看</a>
+                                </div>
+                            </div>
+                        </li>
+                        twoFMaxShowCount++;
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+
+    @*商品楼层3楼：运动装备*@
+    <div id="indexFloorThree" class="indexFloorCommon">
+        <div class="fCommonHead">
+            <!--楼层头部：左侧标题，右侧更多-->
+            <div class="fCommonHeadTitle">
+                <h4><span class="glyphicon glyphicon-home"></span><span class="fNum">3</span>楼：运动装备</h4>
+            </div>
+            <div class="fCommonHeadMore">
+                <a href="javascript:" class="moreKeyword">
+                    <input type="hidden" value="运动装备" />
+                    <span class="fch-more">More +</span>
+                </a>
+            </div>
+        </div>
+        <div class="fCommonContent">
+            <!--楼层内容：商品展示-->
+            <ul class="fCommonContentCommodity">
+                @{
+                    var isNull = true;
+                    foreach (var item in Model)
+                    {
+                        if (threeFMaxShowCount >= 10)
+                        {
+                            break;
+                        }
+                        if (item.Category.Category == CommodityCategoryEnum.SportsEquipment)
+                        {
+                            isNull = false;
+                            <li class="fCommonContentCommodityItem">
+                                <a href="../../Home/GetCommodityDetail?id=@item.Id" title="@item.Description">
+                                    <img src="@item.Images.FirstOrDefault(f => f.Type == ImageType.CommodityCover).UploadPath" alt="@item.Name" />
+                                </a>
+                                <div class="fCCItemDetail">
+                                    <a href="../../Home/GetCommodityDetail?id=@item.Id" title="@item.Description">
+                                        <p>@item.Description</p>
+                                    </a>
+                                    <div class="fCCItemPriceAndBtn">
+                                        <div class="priceContent">
+                                            <span class="priceSymbol">￥:</span>
+                                            <span class="priceColor">@item.Price</span>
+                                        </div>
+                                        <a href="../../Home/GetCommodityDetail?id=@item.Id" class="contactSeller">查看</a>
+                                    </div>
+                                </div>
+                            </li>
+                            threeFMaxShowCount++;
+                        }
+                    }
+                    if (isNull)
+                    {
+                        <li class="fCommonContentCommodityItem">
+                            <a href="javascript:" title="商品名称">
+                                <img src="~/images/DefaultImg/CommoditiesImg/commodity_001.jpg" alt="商品图片" />
+                            </a>
+                            <div class="fCCItemDetail">
+                                <a href="javascript:" title="商品描述">
+                                    <p>该楼层暂无商品</p>
+                                </a>
+                                <div class="fCCItemPriceAndBtn">
+                                    <div class="priceContent">
+                                        <span class="priceSymbol">￥:</span>
+                                        <span class="priceColor">0</span>
+                                    </div>
+                                    <a href="javascript:" class="contactSeller">查看</a>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+
+    @*商品楼层4楼：衣服鞋帽*@
+    <div id="indexFloorFour" class="indexFloorCommon">
+        <div class="fCommonHead">
+            <!--楼层头部：左侧标题，右侧更多-->
+            <div class="fCommonHeadTitle">
+                <h4><span class="glyphicon glyphicon-home"></span><span class="fNum">4</span>楼：衣服鞋帽</h4>
+            </div>
+            <div class="fCommonHeadMore">
+                <a href="javascript:" class="moreKeyword">
+                    <input type="hidden" value="衣服鞋帽" />
+                    <span class="fch-more">More +</span>
+                </a>
+            </div>
+        </div>
+        <div class="fCommonContent">
+            <!--楼层内容：商品展示-->
+            <ul class="fCommonContentCommodity">
+                @foreach (var item in Model)
+                {
+                    if (fourFMaxShowCount >= 10)
+                    {
+                        break;
+                    }
+                    if (item.Category.Category == CommodityCategoryEnum.Clothing)
+                    {
+                        <li class="fCommonContentCommodityItem">
+                            <a href="../../Home/GetCommodityDetail?id=@item.Id" title="@item.Description">
+                                <img src="@item.Images.FirstOrDefault(f => f.Type == ImageType.CommodityCover).UploadPath" alt="@item.Name" />
+                            </a>
+                            <div class="fCCItemDetail">
+                                <a href="../../Home/GetCommodityDetail?id=@item.Id" title="@item.Description">
+                                    <p>@item.Description</p>
+                                </a>
+                                <div class="fCCItemPriceAndBtn">
+                                    <div class="priceContent">
+                                        <span class="priceSymbol">￥:</span>
+                                        <span class="priceColor">@item.Price</span>
+                                    </div>
+                                    <a href="../../Home/GetCommodityDetail?id=@item.Id" class="contactSeller">查看</a>
+                                </div>
+                            </div>
+                        </li>
+                        fourFMaxShowCount++;
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+
+    @*商品楼层5楼：首饰饰品*@
+    <div id="indexFloorFive" class="indexFloorCommon">
+        <div class="fCommonHead">
+            <!--楼层头部：左侧标题，右侧更多-->
+            <div class="fCommonHeadTitle">
+                <h4><span class="glyphicon glyphicon-home"></span><span class="fNum">5</span>楼：首饰饰品</h4>
+            </div>
+            <div class="fCommonHeadMore">
+                <a href="javascript:" class="moreKeyword">
+                    <input type="hidden" value="首饰饰品" />
+                    <span class="fch-more">More +</span>
+                </a>
+            </div>
+        </div>
+        <div class="fCommonContent">
+            <!--楼层内容：商品展示-->
+            <ul class="fCommonContentCommodity">
+                @foreach (var item in Model)
+                {
+                    if (fiveFMaxShowCount >= 10)
+                    {
+                        break;
+                    }
+                    if (item.Category.Category == CommodityCategoryEnum.Jewelry)
+                    {
+                        <li class="fCommonContentCommodityItem">
+                            <a href="../../Home/GetCommodityDetail?id=@item.Id" title="@item.Description">
+                                <img src="@item.Images.FirstOrDefault(f => f.Type == ImageType.CommodityCover).UploadPath" alt="@item.Name" />
+                            </a>
+                            <div class="fCCItemDetail">
+                                <a href="../../Home/GetCommodityDetail?id=@item.Id" title="@item.Description">
+                                    <p>@item.Description</p>
+                                </a>
+                                <div class="fCCItemPriceAndBtn">
+                                    <div class="priceContent">
+                                        <span class="priceSymbol">￥:</span>
+                                        <span class="priceColor">@item.Price</span>
+                                    </div>
+                                    <a href="../../Home/GetCommodityDetail?id=@item.Id" class="contactSeller">查看</a>
+                                </div>
+                            </div>
+                        </li>
+                        fiveFMaxShowCount++;
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+
+    @*商品楼层6楼：化妆品区*@
+    <div id="indexFloorSix" class="indexFloorCommon">
+        <div class="fCommonHead">
+            <!--楼层头部：左侧标题，右侧更多-->
+            <div class="fCommonHeadTitle">
+                <h4><span class="glyphicon glyphicon-home"></span><span class="fNum">6</span>楼：化妆品区</h4>
+            </div>
+            <div class="fCommonHeadMore">
+                <a href="javascript:" class="moreKeyword">
+                    <input type="hidden" value="化妆品" />
+                    <span class="fch-more">More +</span>
+                </a>
+            </div>
+        </div>
+        <div class="fCommonContent">
+            <!--楼层内容：商品展示-->
+            <ul class="fCommonContentCommodity">
+                @foreach (var item in Model)
+                {
+                    if (sixFMaxShowCount >= 10)
+                    {
+                        break;
+                    }
+                    if (item.Category.Category == CommodityCategoryEnum.Cosmetics)
+                    {
+                        <li class="fCommonContentCommodityItem">
+                            <a href="../../Home/GetCommodityDetail?id=@item.Id" title="@item.Name">
+                                <img src="@item.Images.FirstOrDefault(f => f.Type == ImageType.CommodityCover).UploadPath" alt="@item.Name" />
+                            </a>
+                            <div class="fCCItemDetail">
+                                <a href="../../Home/GetCommodityDetail?id=@item.Id" title="@item.Description">
+                                    <p>@item.Description</p>
+                                </a>
+                                <div class="fCCItemPriceAndBtn">
+                                    <div class="priceContent">
+                                        <span class="priceSymbol">￥:</span>
+                                        <span class="priceColor">@item.Price</span>
+                                    </div>
+                                    <a href="../../Home/GetCommodityDetail?id=@item.Id" class="contactSeller">查看</a>
+                                </div>
+                            </div>
+                        </li>
+                        sixFMaxShowCount++;
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+
+    @*首页底部保障内容*@
+    <div class="indexFoot-guaranteeBox">
+        <div class="indexFoot-guarantee">
+            <img src="~/images/Index/foot-guarantee.png" alt="易站保障图片">
+        </div>
+    </div>
+</div>
+<script>
+    window.onload = function () {
+        $('body').addClass('loaded');
+        $('#loader-wrapper .load_title').remove();
+
+        $.get("../../SiteManager/GetSiteNotices", function (data) {
+            var _html = "";
+            $.each(data, function (index, e) {
+                _html += '<li class="bulletinLi siteNoticeLink">'
+                    + '<a href = "../../Home/SiteNotices?index=' + (index+1) + '&noticeId=' + e.id + '" class="siteNoticeLink" target= "_blank" title= "' + e.description + '"> ' + e.name + '</a>'
+                    + '<span>' + dateToStr(e.createTime) + '</span></li>';
+            })
+            $(".websiteBulletinContent ol").html(_html);
+        })
+        function dateToStr(date) {
+            var newDate = new Date(date);
+            var newMonth = (newDate.getMonth() + 1) < 10 ? ("0" + (newDate.getMonth() + 1)) : (newDate.getMonth() + 1);
+            var newDay = newDate.getDate < 10 ? "0" + newDate.getDate() : newDate.getDate();
+            var result = newDate.getFullYear() + "-" + newMonth + "-" + newDay;
+            return result;
+        }      
+    }
+</script>

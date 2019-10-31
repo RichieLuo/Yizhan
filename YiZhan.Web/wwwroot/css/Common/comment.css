@@ -1,0 +1,28 @@
+/*留言样式*/
+.commentArea{width: 836px;max-height: 720px;margin: 0 auto;}
+.commentArea .commentListArea{overflow: hidden;padding: 10px 0;}
+.commentListArea>h5{border-bottom: 1px solid #dddfe1;padding-bottom: 5px;color: #9e9e9e;}
+.commentListArea ul{max-height:600px;overflow-y:auto;}
+.commentListArea .commentListItem{min-height: 80px;padding: 10px;border-bottom: 1px solid #dddfe1;box-sizing: border-box;overflow:hidden}
+.commentListItem .commentListLeft{float: left;width: 78px;height: 58px;margin-right: 10px;line-height:58px;text-align: center;}
+.commentListLeft img{width: 50px;height: 50px;border-radius: 50%!important;}
+
+.commentListItem .commentListRight{float: left;width: 626px;min-height: 58px;max-height: 70px;margin-right: 10px;overflow: hidden;}
+.commentListRight .userNameAndTime{height: 35px;line-height: 35px;}
+.userNameAndTime .commentUser{font-weight: 700;margin-right: 10px;display:inline-block;min-width:80px;}
+.userNameAndTime .commentTime{color:#62bcfa ;}
+.commentListRight .commentContent{/*height: 23px;overflow: hidden;*/}
+.commentListActions{float: left;width: 92px;line-height: 58px;text-align: center;}
+
+.commentTextarea { 
+    resize: none;
+}
+.commentFocus{
+	height: 70px!important;
+}
+
+.commentInputAreaHead > h4 {
+font-weight:bold;
+}
+.commentBtn{min-width:100px;}
+.commentItemBorderNone{border-bottom:none!important;}

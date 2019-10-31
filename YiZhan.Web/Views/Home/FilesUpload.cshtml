@@ -1,0 +1,76 @@
+﻿@{
+    Layout = "_LayoutForIndex";
+    ViewData["Title"] = "文件上传实例";
+}
+<div class="yzContentTop" style="width:100%;margin:10px 0px;">
+    <div class="text-center" style="width:100%;margin:0 auto;width:1200px;height:380px;">
+        <h2>@ViewData["Title"].</h2>
+        <h3>@ViewData["Message"]</h3>
+
+        <div class="text-center" style="margin: 0 auto;">
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#fileUploadModal">打开上传模态框</button>
+        </div>
+
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="fileUploadModal" tabindex="-1" role="dialog" aria-labelledby="fileUploadModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="fileUploadModalLabel">
+                        文件上传
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form id="fileUploadForm" action="../../FilesManager/FilesForAjaxUpload"
+                          enctype="multipart/form-data" method="post" runat="server"
+                          data-ajax-mode="replace"
+                          data-ajax='true' data-toggle="validator">
+                        <div class="file-loading">
+                            <input id="filesUploadInput" name="files" type="file" multiple>
+                        </div>
+                        <br />
+                        <p id="fileUploadError" class="redColor"></p>
+                        <button type="button" class="btn btn-success" onclick="FilesUploadSubmit()" style="width: 91px;">保存</button>
+                        <button type="reset" class="btn btn-default" style="width: 69px;">重置</button>
+                    </form>
+                </div>
+                <div class="modal-footer text-center">
+                    <div class="text-center">
+                        文件管理模块：
+                        <a href="/" target="_blank" title="易站-校园二手交易平台">
+                            使用 Bootstrap FileInput插件 文件上传示例
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+</div>
+</div>
+<script>
+
+    //提交上传
+    function FilesUploadSubmit() {
+        //var uploadFilesFormOptions = {
+        //    //dataType: 'json',   // 将整个Form回传，不需要转换为 json,由服务端处理相应的 Request 即可。
+        //    success: function (data) {
+        //        if (data.isOk) {
+        //            $("#fileUploadError").html(data.message + "文件个数：" + data.fileCount);
+        //            //RefreshFilesTable();
+        //        }
+        //        else {
+        //            $("#fileUploadError").html(data.message);
+        //        }
+        //    }
+        //};
+        //$("#fileUploadForm").ajaxSubmit(uploadFilesFormOptions);
+        $(".fileinput-upload-button").click();
+
+    }
+    function RefreshFilesTable() { }
+</script>

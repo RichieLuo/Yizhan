@@ -1,0 +1,33 @@
+﻿@{
+    Layout = null;
+}
+@using YiZhan.ViewModels.ApplicationOrganization
+@model ApplicationUserVM
+<!-- 模态框（Modal） -->
+<div class="modal fade text-center" id="userBigAvatarPreviewModal" tabindex="-1" role="dialog" aria-labelledby="userBigAvatarPreviewModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width:100%;min-width:1000px;width:1000px;max-height:60%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="userBigAvatarPreviewModalLabel">
+                    头像大图查看
+                </h4>
+            </div>
+            <div class="modal-body">
+                <img src="@Model.AvatarPath" alt="@Model.Avatar.DisplayName" id="bigAvatarPreview" />
+            </div>
+            <div class="modal-footer text-center">
+                <div class="text-center">
+                    用户中心模块：
+                    <a href="../../Account/UserCenter" title="易站-校园二手交易平台">
+                        用户头像大图查看，使用弹窗Demo
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal -->
+</div>

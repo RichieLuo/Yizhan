@@ -1,0 +1,8 @@
+/*这里是修改头像的css样式*/
+#avatarArea{width: 200px;height: auto;margin:150px auto;}
+#avatarArea .avatar{width: 220px;height: 220px;margin: 10px auto;border-radius: 50%!important;}
+.avatarUploadArea{width: 220px;margin: 10px auto;}
+.chooseAvatarBtn{position: relative;padding: 0;margin-right: 10px;}
+.chooseAvatarBtn .btnText{position: absolute;top: 7px ;left: 7px;cursor: pointer;}
+#avatarFile{width: 96px;opacity: 0;cursor: pointer!important;}
+.submitUploadBtn{width: 88px;height: 36px;}

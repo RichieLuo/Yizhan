@@ -1,0 +1,277 @@
+﻿@{
+    Layout = null;
+}
+@{
+    var isOpenCode = ViewBag.IsOpenCode;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="2015级软件技术2班：莫广源丨毕设指导老师：秦晖丨柳州职业技术学院">
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <title>登录/注册易站 - 校园二手交易平台</title>
+    <!--CSS引包-->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Index/layoutForHead.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Index/layoutForFoot.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Index/login/userLogin.css" asp-append-version="true" />
+</head>
+
+<body>
+    <div class="headBox" id="headBox" style="height: auto;">
+        <div class="navBig" style="background: none;">
+            <div class="navBig-content" style="background: none;">
+                <div class="navBig-logo">
+                    <a href="/">
+                        <img src="~/images/Index/logo-blue.png" alt="易站LOGO">
+                    </a>
+                </div>
+                <div class="navBig-right">
+                    <div class="navBig-right-search">
+                        <div class="input-group">
+                            <input type="text" id="YiZhanSearchKeyword" class="form-control" placeholder="请输入商品名/描述等关键字..." style="margin-top:28px">
+                            <span class="input-group-btn">
+                                <a href="javascript:" class="btn btn-default" id="YiZhanSearch">搜索</a>
+                            </span>
+                        </div>
+                    </div>
+                    <ul>
+                        <li><a href="/">首页</a></li>
+                        <li><a href="../../Account/UserCenter">发布闲置</a></li>
+                        <li><a href="../../Account/UserCenter">我的闲置</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--登录注册内容页面-->
+    <div class="loginAndRegisterArea">
+        <div class="loginAndRegisterAreaContent">
+            <div class="login" id="login" style="@(isOpenCode ? "" :"padding: 40px 40px 35px 40px!important")">
+                <div class="login-head text-center">
+                    <img src="~/images/Avatars/defaultAvatar.jpg" alt="头像" />
+                </div>
+                <div class="login-title text-center">
+                    <h3>登录</h3>
+                </div>
+                <div class="login-body">
+                    <form action="" class="form-horizontal">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon addOnStyle"><span class="glyphicon glyphicon-user"></span></span>
+                                <input type="text" id="lUserName" class="form-control clearErrorMessage" placeholder="请输入账号" maxlength="12" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon addOnStyle"><span class="glyphicon glyphicon-lock"></span></span>
+                                <input type="password" id="lPassword" class="form-control clearErrorMessage" placeholder="请输入密码" maxlength="16" />
+                                <span class="input-group-addon addOnWadnH">
+                                    <input type="button" id="forgetPass" value="忘记密码" onclick="javascript:alert('忘记密码，此处请填写找回密码链接(#^.^#)！')">
+                                </span>
+                            </div>
+                        </div>
+                        @if (isOpenCode)
+                        {
+                            <div class="form-group no-bottom" style="padding-bottom: 9px;">
+                                <div class="input-group">
+                                    <span class="input-group-addon addOnStyle"><span class="glyphicon glyphicon-bookmark"></span></span>
+                                    <input type="text" id="codeValidValue" class="form-control clearErrorMessage" placeholder="请输入验证码" maxlength="4" />
+                                    <span class="input-group-addon addOnWadnH">
+                                        <input type="button" id="code" onclick="createCode()" />
+                                    </span>
+                                </div>
+                            </div>
+                        }
+                        <div class="checkbox remember">
+                            <label>
+                                @*<input type="checkbox" name="rememberMe" id="rememberMe">记住我*@
+                            </label>
+                        </div>
+                        <div class="form-group loginGo">
+                            <button type="button" class="btn pull-left" onclick="@(isOpenCode?"Login()":"GoToLogin()")" id="login-btn">登录</button>
+                            <a href="javascript:" class="btn btn-default pull-right" onclick="TabRegister()" id="goRegister">没有账号？立即注册</a>
+                        </div>
+                    </form>
+                </div>
+                <div class="login-foot text-center">
+                    <span class="loginModalErrMessage" id="loginModalErrMessage"></span>
+                    <hr />
+                    <a class="goIndex" href="/">返回首页</a>
+                </div>
+            </div>
+            <!--注册-->
+            <div class="register" id="register">
+                <div class="register-head text-center">
+                    <h3>注册</h3>
+                </div>
+                <div class="register-body">
+                    <form action="../../Account/Register" class="form-horizontal" data-ajax-mode='replace'
+                          data-ajax='true' data-toggle="validator" method="post" id="RegisterForm">
+                        <input type="hidden" name="ID" value="" />
+                        <input type="hidden" name="IsNew" value="true" />
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon addOnStyle"><span class="glyphicon glyphicon-user"></span></span>
+                                <input type="text" class="form-control clearErrorMessage" name="UserName" id="rUserName" placeholder="请输入用户名" maxlength="12" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon addOnStyle"><span class="glyphicon glyphicon-envelope"></span></span>
+                                <input type="text" class="form-control clearErrorMessage" name="EMail" id="rEmail" placeholder="请输入电子邮箱" maxlength="30" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon addOnStyle"><span class="glyphicon glyphicon-lock"></span></span>
+                                <input type="password" class="form-control clearErrorMessage" name="password" id="rPassword" placeholder="请输入密码" maxlength="16" />
+                            </div>
+                        </div>
+                        <div class="form-group no-bottom">
+                            <div class="input-group">
+                                <span class="input-group-addon addOnStyle"><span class="glyphicon glyphicon-lock"></span></span>
+                                <input type="password" class="form-control clearErrorMessage" name="confirmPassword" id="rConfirmPassword" placeholder="请再次确认密码" maxlength="16" />
+                            </div>
+                        </div>
+                        <div class="checkbox agree">
+                            <label>
+                                <input type="checkbox" name="iAgree" id="iAgree">我同意<a href="../../Account/SiteTermsAndStatement" target="_blank">《易站使用条款》</a>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn pull-left" onclick="GoToRegister()" id="register-btn">注册</button>
+                            <a href="javascript:" class="btn btn-default pull-right" onclick="BackLogin()" id="backLogin">已有账号？返回登录</a>
+                        </div>
+                    </form>
+                </div>
+                <div class="register-foot text-center">
+                    <span class="registerModalErrMessage" id="registerModalErrMessage"></span>
+                    <hr />
+                    <a class="goIndex" href="/">返回首页</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="foot" id="foot" style="border-top: 0;">
+        <div class="foot-friendLinks">
+            <ul>
+                <li class="FriendshipLinksTitle"><h3>友情链接：</h3></li>
+            </ul>
+        </div>
+        <div class="foot-usLinks">
+            <div class="usLinks-About">
+                <ul>
+                    <li><a href="../../Home/About">关于易站</a></li>
+                    <li><a href="../../Home/Contact">联系我们</a></li>
+                    <li><a href="../../Home/CopyRight" class="redColor">版权声明</a></li>
+                    <li><a href="javascript:">合作伙伴</a></li>
+                    <li><a href="javascript:">联系客服</a></li>
+                    <li><a href="javascript:">知识产权</a></li>
+                    <li><a href="javascript:">法律声明及隐私权政策</a></li>
+                </ul>
+                <div class="usLinks-Copyright">
+                    <p id="siteInfoForFoot"> 
+                        Copyright&copy;
+                        <span id="cStartTime"></span> - <span id="cEndTime"></span>
+                        &nbsp;<a href="/" class="copyrightInfo">易站校园</a>
+                        &nbsp;All Right Reserved
+                    </p>
+                </div>
+            </div>
+
+            <div class="usLinks-Licence">
+                <ul>
+                    <li>
+                        网络文化经营许可证：
+                        <a href="javascript:">某网文[2018]0000-000号</a>
+                    </li>
+                    <li>
+                        增值电信业务许可证：
+                        <a href="javascript:">某A0-00000000</a>
+                    </li>
+                    <li>易站官方邮箱：<span id="YiZhanEmail"></span></li>
+                    <li>网站备案：<span id="YiZhanICP"></span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="foot-imgLinks">
+            <ul>
+                <li>
+                    <a style="width: 35px;" href="javascript:alert('网络经营举报中心/网络许可证！')"></a>
+                </li>
+                <li>
+                    <a class="bgIMG" style="background-position: 0px 0;width: 30px;" href="javascript:alert('网络经营举报中心/网络许可证！')"></a>
+                </li>
+                <li>
+                    <a class="bgIMG" style="background-position: -40px 0;width: 33px;" href="javascript:alert('网络经营举报中心/网络许可证！')"></a>
+                </li>
+                <li>
+                    <a class="bgIMG" style="background-position: -80px 0;width: 50px;" href="javascript:alert('网络经营举报中心/网络许可证！')"></a>
+                </li>
+                <li>
+                    <a class="bgIMG" style="background-position: -140px 0;width: 83px;" href="javascript:alert('网络经营举报中心/网络许可证！')"></a>
+                </li>
+                <li>
+                    <a class="bgIMG" style="background-position: -240px 0;width: 94px;" href="javascript:alert('网络经营举报中心/网络许可证！')"></a>
+                </li>
+                <li>
+                    <a class="bgIMG" style="background-position: -431px 0px;width: 214px;" href="javascript:alert('网络经营举报中心/网络许可证！')"></a>
+                </li>
+                <li>
+                    <a class="bgIMG" style="background-position: -650px 0;width: 105px;" href="javascript:alert('网络经营举报中心/网络许可证！')"></a>
+                </li>
+                <li>
+                    <a class="bgIMG" style="background-position: -345px 0;width: 82px;" href="javascript:alert('网络经营举报中心/网络许可证！')"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>
+    <script src="~/js/Index/login/jquery.form.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
+    <script src="~/js/Index/index.js" asp-append-version="true"></script>
+    <script src="~/js/Index/login/loginAndRegister.js" asp-append-version="true"></script>
+    <script src="~/js/yiZhanSearch.js" asp-append-version="true"></script>
+    <script>
+        $(function () {
+            function loadFriendshipLinks() {
+                $.ajax({
+                    url: "../../SiteManager/GetFriendshipLinks"
+                }).done(function (data) {
+                    var _html = "";
+                    $.each(data, function (index, e) {
+                        var _isBlank = "";
+                        if (e.isBlank) {
+                            _isBlank = 'target="_blank"';
+                        }
+                        _html += '<li><a href="' + e.link + '" title="' + e.name + '" ' + _isBlank + ' >' + e.name + '</a></li>';
+                    })
+                    $(".FriendshipLinksTitle").after(_html);
+                })
+            }
+
+            //获取网站的信息
+            function loadSiteInfo() {
+                $.get("../../SiteManager/GetSiteSettings", null, function (data) {               
+                    $("meta[name=keywords]").prop("content", data.keyWords);
+                    $("meta[name=description]").prop("content", data.description);
+                    $(".copyrightInfo").text(data.copyright);
+                    $("#YiZhanICP").text(data.icp == "" ? "未设置备案信息" : data.icp);        
+                    $("#YiZhanEmail").text(data.siteEmail);
+                    var _installTime = new Date(data.installTime);
+                    $("#cStartTime").text(_installTime.getFullYear());      
+                })
+            }
+            loadFriendshipLinks();
+            loadSiteInfo();
+        })
+    </script>
+</body>
+
+</html>

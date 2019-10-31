@@ -1,0 +1,176 @@
+﻿/*自定义全局样式*/
+#backTop {
+    display: none;
+    position: fixed;
+    right: 150px;
+    bottom: 100px;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 40px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50% !important;
+    background: #e6e6e6;
+    color: #62bcfa
+}
+
+/*#IndexContent {
+}*/
+
+.yzContentTop {
+    padding-top: 10px;
+}
+/*全局按钮样式开始*/
+.leftSaveBtn {
+    background: #62bcfa !important;
+    color: #fff !important;
+    margin-right: 10px;
+    border: 1px solid #62bcfa !important;
+    border-radius: 0 !important;
+}
+
+.rightSaveBtn {
+    background: #62bcfa !important;
+    color: #fff !important;
+    border: 1px solid #62bcfa !important;
+    border-radius: 0 !important;
+}
+
+    .leftSaveBtn:hover, .rightSaveBtn:hover {
+        border: 1px solid #62bcfa !important;
+    }
+
+.yzFormBtn {
+    width: 100px !important;
+    border-radius: 0 !important;
+}
+/*全局按钮样式结束*/
+
+/*全局文本颜色样式开始*/
+.isRed {
+    color: red !important
+}
+
+.yzError {
+    color: red !important
+}
+
+.yzSuccess {
+    color: #62bcfa !important
+}
+
+
+/*全局文本颜色样式结束*/
+
+/*全局border样式开始*/
+.borderNone {
+    border: none !important;
+}
+
+.borderRadiusNone {
+    border-radius: 0 !important;
+}
+
+.yzModalCenter {
+    margin: 100px auto !important;
+    margin-bottom: 0 !important;
+}
+
+/*全局border样式结束*/
+
+table > thead > tr > th {
+    text-align: center !important;
+}
+
+.table-bordered > tbody > tr > td {
+    vertical-align: middle;
+}
+
+.showPartText {
+    word-break: break-all;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.shw {
+    width: 150px;
+    -webkit-line-clamp: 3;
+}
+
+.gtName {
+    width: 160px;
+    -webkit-line-clamp: 3;
+}
+
+.gtDescription {
+    width: 510px;
+    -webkit-line-clamp: 3;
+}
+
+.clearFloat {
+    overflow: hidden;
+}
+
+
+.FloatBar {
+    position: fixed;
+    bottom: 105px;
+    right: 0px;
+    height: 190px;
+    width: 45px;
+    border: 1px solid #eee;
+    line-height: 50px;
+    text-align: center;
+    font-weight: bold;
+    border-bottom: 1px solid #eee;
+    z-index: 999;
+}
+
+    .FloatBar .FloatBarItem {
+        display: inline-block;
+        cursor: pointer;
+        height: 25%;
+        width: 43px;
+        padding: 2px;
+        line-height: 54px;
+        text-align: center;
+        border-bottom: 1px solid #eee;
+        margin: 0;
+        float: left;
+        overflow: hidden;
+    }
+
+        .FloatBar .FloatBarItem i {
+            margin: 0;
+            font-size: 24px;
+            color: #999;
+        }
+
+.yzInput {
+    width: 300px;
+}
+
+#createOrEditSiteNoticeModal .col-xs-4 {
+    padding-right: 0 !important
+}
+
+.aWarmWarningArea {
+    background: #fff;
+    height: 570px;
+    width: 1200px;
+    min-width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.aWarmWarningContent {
+    width: 306px;
+    height: 246px;
+    margin: 110px auto;
+}
+
+    .aWarmWarningContent img {
+        width: 100%;
+        height: 100%;
+    }

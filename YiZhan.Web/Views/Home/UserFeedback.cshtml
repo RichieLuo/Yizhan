@@ -1,0 +1,135 @@
+﻿@{
+    Layout = "_LayoutForIndex";
+    ViewData["Title"] = "问题反馈";
+}
+@using YiZhan.Entities.WebSettingManagement
+<div id="YzUserFeedbackArea">
+    <div class="row">
+        <div class="col-md-8 feedbackLeftArea">
+            <h3 class="feedbackLeftTitle">用户反馈提交</h3>
+            <form class="form-horizontal" action="#" method="post" id="FeedbackForm">
+                @Html.AntiForgeryToken()
+                <div class="row rowMarginTopAndBottom">
+                    <div class="col-md-3 text-right">
+                        <h4><strong>选择类型：</strong></h4>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <select class="form-control feedbackCategory feedbackInputWidth" name="Type" required>
+                                <option value="@UserFeedbackType.未选择">--请选择--</option>
+                                <option value="@UserFeedbackType.商品举报">商品举报</option>
+                                <option value="@UserFeedbackType.订单问题">订单问题</option>
+                                <option value="@UserFeedbackType.系统错误">系统错误</option>
+                                <option value="@UserFeedbackType.搜索内容">搜索内容</option>
+                                <option value="@UserFeedbackType.其他类型">其他类型</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row rowMarginTopAndBottom pageLink">
+                    <div class="col-md-3 text-right">
+                        <h4><strong>页面链接：</strong></h4>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input disabled="disabled" type="text" class="form-control feedbackInputWidth pageLink" name="Link" placeholder="请填写错误的页面链接，方便我们快速处理" value=""/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row rowMarginTopAndBottom rowMarginBottomNone">
+                    <div class="col-md-3 text-right">
+                        <h4><strong>QQ号码/邮箱：</strong></h4>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="text" class="form-control feedbackInputWidth" name="ContactWay" placeholder="填写您的QQ或电子邮件，方便我们给您回复" value="" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 text-right">
+                    </div>
+                    <div class="col-md-9">
+                        <h5 style="color:red">*填写有效的信息以便进一步联络,我们会为您严格保密。</h5>
+                    </div>
+                </div>
+                <div class="row rowMarginTopAndBottom rowMarginBottomNone">
+                    <div class="col-md-3 text-right">
+                        <h4><strong>反馈描述：</strong></h4>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <textarea style="height: 200px;" class="form-control feedbackInputWidth" name="Description" placeholder="请在此处输入你要反馈的内容描述，尽可能描述清楚会提高解决效率。" value=""  required ></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 text-right">
+                    </div>
+                    <div class="col-md-9" style="margin-left: -8px;">
+                        <button type="button" class="btn  leftSaveBtn submitFeedbackBtn" id="submitFeedbackBtn" style="width:200px;">确认提交</button>
+                        <button type="reset" class="btn btn-default " id="restFeedbackBtn" style="width:186px;">重置</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4 feedbackRightArea">
+            <div class="rightAreaOne text-center">
+                <div class="rightAreaCommonTitle"><h4>在线客服</h4></div>
+                <ul>
+                    <li><img src="~/images/Index/systemImg/timg.jpg" style="width: 100px;height: 100px;" alt="" /></li>
+                    <li><span>周一至周五</span><span>9：30-18：00</span></li>
+                    <li><a href="javascript:" class="btn yzFormBtn consultationBtn">立即咨询</a></li>
+                </ul>
+            </div>          
+            <div class="rightAreaTwo text-center">
+                <div class="rightAreaCommonTitle"><h4>常见问题</h4></div>
+                <ul>
+                    <li><a href="javascript:">易站如何注册？</a></li>
+                    <li><a href="javascript:">如何联系客服？</a></li>
+                    <li><a href="javascript:">订单如何支付？</a></li>
+                    <li><a href="javascript:">如何发布闲置？</a></li>
+                    <li><a href="javascript:">忘记密码怎么办？</a></li>
+                </ul>
+            </div>
+            <div class="rightAreaThree text-center">
+                <div class="rightAreaCommonTitle"><h4>客服中心热线</h4></div>
+                <ul>
+                    <li class="clearfix">
+                        <img src="~/images/Index/systemImg/dianhua.jpg" style="width: 50px;height: 50px;" />
+                        <img src="~/images/Index/systemImg/haoma.jpg" style="width: 150px;height: 50px;" />
+                    </li>
+                    <li>服务时间：<span>09:30-18:00 (工作日)</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.onload = function () {
+        document.getElementsByTagName("body")[0].style.background = "rgb(250, 250, 250)";
+
+        $("#submitFeedbackBtn").click(function () {
+            var _formData = $("#FeedbackForm").serializeArray();
+            $.ajax({
+                url: "../../SiteManager/SubmitFeedback",
+                data: _formData,
+                dataType: 'json',
+                type: 'post'
+            }).done(function (data) {
+                if (data.result) {
+                    toastr.success("提交成功，感谢您的反馈！");
+                    $("#restFeedbackBtn").click();
+                } else {
+                    if (!data.result && data.contentNull) {
+                        alert(data.message);
+                    } else {
+                        alert("提交失败了...");
+                    }
+                    }
+                }).fail(function () { 
+                })
+        })
+    };
+</script>

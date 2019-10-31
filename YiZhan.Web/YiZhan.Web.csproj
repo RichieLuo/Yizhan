@@ -1,0 +1,77 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;</PackageTargetFallback>
+    <AssemblyName>YiZhan.Web</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Views\GoodsManegement\**" />
+    <Compile Remove="wwwroot\images\UploadFiles\**" />
+    <Content Remove="Views\GoodsManegement\**" />
+    <Content Remove="wwwroot\images\UploadFiles\**" />
+    <EmbeddedResource Remove="Views\GoodsManegement\**" />
+    <EmbeddedResource Remove="wwwroot\images\UploadFiles\**" />
+    <None Remove="Views\GoodsManegement\**" />
+    <None Remove="wwwroot\images\UploadFiles\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="jQuery.Form" Version="4.2.1" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="1.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="1.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="1.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.1.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="1.1.1" />
+    <PackageReference Include="SweetAlert" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\YiZhan.Common\YiZhan.Common.csproj" />
+    <ProjectReference Include="..\YiZhan.CustomMvcCoreExtension\YiZhan.CustomMvcCoreExtension.csproj" />
+    <ProjectReference Include="..\YiZhan.DataAccess\YiZhan.DataAccess.csproj" />
+    <ProjectReference Include="..\YiZhan.Entities\YiZhan.Entities.csproj" />
+    <ProjectReference Include="..\YiZhan.ViewModel\YiZhan.ViewModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\Shopping\" />
+    <Folder Include="wwwroot\images\DefaultImg\CommoditiesImg\Supplies\" />
+    <Folder Include="wwwroot\images\DefaultImg\CommoditiesImg\SportsEquipment\" />
+    <Folder Include="wwwroot\images\DefaultImg\CommoditiesImg\Clothing\" />
+    <Folder Include="wwwroot\images\DefaultImg\CommoditiesImg\Jewelry\" />
+    <Folder Include="wwwroot\images\DefaultImg\CommoditiesImg\Cosmetics\" />
+    <Folder Include="wwwroot\images\UploadImages\Advertisements\" />
+    <Folder Include="wwwroot\images\UploadImages\Avatars\" />
+    <Folder Include="wwwroot\images\UploadImages\Banners\" />
+    <Folder Include="wwwroot\images\UploadImages\CommodityImgs\" />
+    <Folder Include="wwwroot\images\UploadImages\Logo\" />
+    <Folder Include="wwwroot\images\UploadImages\Notices\" />
+    <Folder Include="wwwroot\lib\FilesUpload\fonts\" />
+    <Folder Include="wwwroot\lib\FilesUpload\img\" />
+    <Folder Include="wwwroot\lib\FilesUpload\themes\" />
+    <Folder Include="wwwroot\lib\FilesUpload\css\" />
+    <Folder Include="wwwroot\lib\FilesUpload\js\" />
+    <Folder Include="wwwroot\UploadFiles\" />
+  </ItemGroup>
+
+</Project>

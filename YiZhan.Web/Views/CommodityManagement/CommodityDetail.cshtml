@@ -1,0 +1,310 @@
+﻿@using YiZhan.Common.JsonModels
+@using YiZhan.ViewModels.BusinessManagement
+@using YiZhan.ViewModels.WebSettingManagement
+@using YiZhan.Entities.WebSettingManagement
+@model YZ_CommodityVM
+@{
+    ViewData["Title"] = Model.Name;
+    Layout = "~/Views/Shared/_LayoutForIndex.cshtml";
+}
+<input type="hidden" name="commodityId" value="@Model.Id" />
+<div id="commodityDetailArea" class="commodityDetailArea yzContentTop">
+    <div class="commodityDetailHead">
+        <!--商品综合信息-->
+        <div class="userInfo">
+            <div class="userInfoLeft pull-left">
+                <div class="userInfoAvatar">
+                    <a href="javascript:" id="getUserDetail" title="查看用户信息">
+                        <img src="@(Model.AscriptionUser.Avatar == null ? "/images/Avatars/defaultAvatar.jpg" : Model.AscriptionUser.Avatar.UploadPath)" alt="用户头像" />
+                    </a>
+                </div>
+                <div class="userInfoDetail pull-left">
+                    <div>
+                        <h5>
+                            @(Model.AscriptionUser.ChineseFullName == null ? Model.AscriptionUser.UserName : Model.AscriptionUser.ChineseFullName)
+                            @*<a href="javascript:" id="getUserDetail" title="查看用户信息">（查看用户信息）</a>*@
+                        </h5>
+                    </div>
+                    <div>
+                        <img class="pull-left" src="~/images/Index/systemImg/passShiming.png" title="已经实名认证" alt="已经实名" />
+                        <p class="pull-left"><span>注册时间：</span><span>@Model.AscriptionUser.CreateTime.ToString("yyyy-MM-dd")</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="userInfoRight pull-left">
+                <div class="userLookCount userInfoCommon pull-left text-center">
+                    <p>商品浏览次数</p>
+                    <p>@Model.LookCount.LookCount</p>
+                </div>
+                <div class="userLastEdit userInfoCommon pull-left text-center">
+                    <p>最近编辑</p>
+                    <p>@Model.EditTime.ToString("yyyy-MM-dd HH:mm:ss")</p>
+                </div>
+                <a class="pull-right reportTheCommodity" href="../../Home/UserFeedback" target="_blank" title="举报该商品">举报该商品</a>
+            </div>
+        </div>
+        <div class="commodityDetail">
+            <div id="bannerBox">
+                <div class="commodityImages">
+                    <ul>
+                        @{
+                            if (Model.Images.Count > 0)
+                            {
+                                foreach (var image in Model.Images)
+                                {
+                                    <li>
+                                        <img src="@image.UploadPath" alt="@Model.Name" />
+                                    </li>
+                                }
+                            }
+                            else
+                            {
+                                <li>
+                                    <img src="~/images/Index/systemImg/commodNoIMG.png" alt="@Model.Name" />
+                                </li>
+                            }
+                        }
+                    </ul>
+                    <div class="tab-lr">
+                        <span class="tab-left"><</span>
+                        <span class="tab-right">></span>
+                    </div>
+                </div>
+                <div class="banner-thumbnail">
+                    <ol>
+                        @{
+                            if (Model.Images.Count > 0)
+                            {
+                                var isCurrent = true;
+                                foreach (var image in Model.Images)
+                                {
+                                    if (isCurrent)
+                                    {
+                                        <li class="current">
+                                            <img src="@image.UploadPath" alt="@Model.Name" />
+                                        </li>
+                                        isCurrent = false;
+                                    }
+                                    else
+                                    {
+                                        <li>
+                                            <img src="@image.UploadPath" alt="@Model.Name" />
+                                        </li>
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                <li class="current">
+                                    <img src="~/images/Index/systemImg/commodNoIMG.png" alt="@Model.Name" />
+                                </li>
+                            }
+                        }
+                    </ol>
+                </div>
+            </div>
+            <div id="buyContent" class="buyContent">
+                <div class="buyAbout">
+                    <h3 class="commodityName">@Model.Name</h3>
+                    <p class="commodityHr">
+                        <span class="detailNameItem">转卖价格：</span>
+                        <span class="priceSymbol">￥</span>
+                        <span class="commodityPrice">@Model.Price</span>
+                        @if (!Model.IsBargain)
+                        {
+                            <span class="isBargain"><i class="glyphicon glyphicon-remove-circle"></i>该商品拒绝讲价！</span>
+                        }
+                    </p>
+                    <p><span class="detailNameItem">交易范围：</span><span>@Model.Range</span></p>
+                    @{
+                        var wayResult = "";
+                        var hasWay = string.IsNullOrEmpty(Model.AscriptionUser.QQNumber) && string.IsNullOrEmpty(Model.AscriptionUser.MobileNumber);
+                        var mobileOrQQOrNull = "";
+                        if (hasWay)
+                        {
+                            mobileOrQQOrNull = "";
+                            wayResult = "该用户未填写联系方式";
+                        }
+                        else
+                        {
+                            mobileOrQQOrNull = string.IsNullOrEmpty(Model.AscriptionUser.QQNumber) ? "（手机）" : "（QQ）";
+                            wayResult = string.IsNullOrEmpty(Model.AscriptionUser.QQNumber) ? Model.AscriptionUser.MobileNumber : Model.AscriptionUser.QQNumber;
+                        }
+                        <p><span class="detailNameItem">联系方式 @mobileOrQQOrNull：</span><span>@wayResult</span></p>
+                    }
+                    @{
+                        var way = Model.Way == TransactionWayAndRange.线下交易 ? (TransactionWayAndRange.线下交易.ToString()) : TransactionWayAndRange.线上交易.ToString();
+                        <p class="lastP"><span class="detailNameItem">交易方式：</span><span>@way</span></p>
+                    }
+                    <button type="button" class="btn btn-default" id="sendLeavingAMessage">给卖家留言</button>
+                    @if (!string.IsNullOrEmpty(Model.AscriptionUser.QQNumber))
+                    {
+                        <a class="btn rightSaveBtn" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=@(Model.AscriptionUser.QQNumber)&site=qq&menu=yes">
+                            <img style="width:18px;height:18px;margin-right:3px;" src="~/images/Index/systemImg/QQ_Icon002.png" alt="点击这里给我发消息" title="点击这里给我发消息" />联系卖家
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="btn rightSaveBtn sendQQMessgae" target="_blank" href="javascript:">
+                            <img style="width:18px;height:18px;margin-right:3px;" src="~/images/Index/systemImg/QQ_Icon002.png" alt="点击这里给我发消息" title="点击这里给我发消息" />联系卖家
+                        </a>
+                    }
+
+                    <a class="btn rightSaveBtn" href="/Shopping/Buy_now/@Model.Id" title="立即购买">立即购买</a>
+                     
+                </div>
+                <div class="platformDeclaration">
+                    <div class="declarationOne declarationCommon">
+                        <img class="declarationStyle" src="~/images/Index/systemImg/danbao_icon_001.png" alt="" />
+                        <h4 class="declarationStyle">平台担保</h4>
+                        <p class="declarationStyle">已经通过平台认证担保，可放心交易！</p>
+                    </div>
+                    <div class="declarationTwo declarationCommon">
+                        <img class="declarationStyle" src="~/images/Index/systemImg/shiming_icon_001.png" alt="" />
+                        <h4 class="declarationStyle">实名认证</h4>
+                        <p class="declarationStyle">经本平台核实身份信息，真实可靠！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearFloat">
+        <!--tab栏 ：商品详细介绍、卖家介绍、购买须知、用户留言-->
+        <div class="commodityDetailConetnt pull-left">
+            <ul class="nav nav-tabs commodityDetailNav">
+                <li class="active">
+                    <a href="#commodityIntroduce" data-toggle="tab" aria-expanded="true">商品详细介绍</a>
+                </li>
+                <li>
+                    <a href="#purchaseNotice" data-toggle="tab" aria-expanded="true">购买须知</a>
+                    @*<form action="Buy"asp-controller="Shopping" asp-action="Buy" method="post">
+                            <input type="hidden" name="Id" value="@Model.Id"/>
+                            <input type="submit"  value="购买" />
+                        </form>*@
+                </li>
+                <li id="userCommentLi">
+                    <a href="#userComment" data-toggle="tab" aria-expanded="true">用户留言</a>
+                </li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade in active" id="commodityIntroduce">
+                    <div class="blankArea">
+                        <h4>商品介绍</h4>
+                        <p>@Model.Description</p>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="purchaseNotice">
+                    <div class="blankArea">
+                        <h4>购买须知</h4>
+                        <ul>
+                            <li><p>须知一、所有问题，请务必在商品成交之前询问清楚。收到商品的顾客，请当面拆开，清点商品。</p></li>
+                            <li><p>须知二、本系统目前是一个展示商品的平台，如您有需要可以通过联系卖家购买商品。</p></li>
+                            <li><p>须知三、线下交易本站均不负责，请您购买时务必阅读相关说明！</p></li>
+                            <li><p>须知四、本站商品主要来源于校内的学生，商品多数为二手商品，请您购买时多多注意商品！</p></li>
+                            <li><p>须知五、为了安全起见，本站建议购买线下交易在校园内部进行！</p></li>
+                            <li><p>须知六、这里填写更多购买须知...</p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="userComment">
+                    <div class="blankArea">
+                        <div class="commentArea" id="commentArea">
+                            <div class="commentInputArea">
+                                <div class="commentInputAreaHead">
+                                    <!--留言输入区域头部-->
+                                    <h4>给卖家留言：</h4>
+                                </div>
+                                <div class="commentInputAreaBody">
+                                    <!--留言输入区域主体-->
+                                    <form action="../../CommoditiesManager/SubmitComment" method="post" class="form-horizontal" name="commentForm">
+                                        <input type="hidden" name="Id" value="@Model.Id" />
+                                        @Html.AntiForgeryToken()
+                                        <div class="input-group input-group-sm">
+                                            <textarea type="text" name="Description" class="form-control commentTextarea" placeholder="有意购买，就给卖家留个言吧(60字左右)。。。" aria-describedby="sizing-addon" maxlength="66" required="required"></textarea>
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn rightSaveBtn commentBtn" id="commentBtn">发送留言</button>
+                                            </span>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="commentInputAreaFoot">
+                                    <!--留言输入区域底部-->
+                                </div>
+                            </div>
+                            <div class="commentListArea">
+                                <h5>留言数量（<span class="commentCount" id="commentCount"></span>）</h5>
+                                <!--留言列表-->
+                                <ul id="commentListItemsFullArea">
+
+                                    @if (Model.Comments.Count() > 0)
+                                    {
+                                        @foreach (var item in Model.Comments)
+                                        {
+                                            var user = string.IsNullOrEmpty(item.CommentUser.Name) ? "该用户未修改名称" : item.CommentUser.Name;
+                                            var userAvatarPath = item.CommentUser.Avatar == null ? "images/Avatar" : item.CommentUser.Avatar.UploadPath;
+
+                                            <li class="commentListItem">
+                                                <input type="hidden" name="isNullComment" value="false" />
+                                                <div class="commentListLeft">
+                                                    <img src="@userAvatarPath" alt="用户头像" />
+                                                </div>
+                                                <div class="commentListRight">
+                                                    <div class="userNameAndTime">
+                                                        <a class="commentUser @(user.Length<3?"text-center":"")" href="javascript:">@user ：</a><span class="commentTime">@item.CreateTime.ToString("yyyy年MM月dd日 HH:mm:ss")</span>
+                                                    </div>
+                                                    <div class="commentContent">
+                                                        @item.Description
+                                                    </div>
+                                                </div>
+                                                <div class="commentListActions">
+                                                    @if (item.IsShowDeleteBtn)
+                                                    {
+                                                        <button class="btn btn-danger commentDelete" value="@item.Id" title="删除评论">删除</button>
+                                                    }
+                                                </div>
+                                            </li>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <li class="commentListItem text-center commentItemBorderNone">
+                                            <h4>该商品下的留言空空如也~</h4>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="commodityDetailConetntAd pull-left">
+            <div class="commodityDetailConetntAdHead">
+                <span class="pull-left">站内广告</span>
+                <a href="javascript:" class="pull-right">合作加盟</a>
+            </div>
+            <ul>
+                @{
+                    var advertisements = ViewBag.Advertisements as List<AdvertisementVM>;
+                    var advertisement = advertisements.Where(x => x.Position == AdvertisementPosition.Detail).FirstOrDefault();
+                    <li>
+                        <a href="@(string.IsNullOrEmpty(advertisement.Link)?" javascript":advertisement.Link)" target="_blank">
+                            <img src="@advertisement.Image.UploadPath" />
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="indexFoot-guaranteeBox">
+    <div class="indexFoot-guarantee">
+        <img src="~/images/Index/foot-guarantee.png" alt="易站保障图片">
+    </div>
+</div>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script type="text/javascript" charset="gbk" src="~/js/Common/Comment.js"></script>
+
+@*分享代码*@
+@*<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_mshare" data-cmd="mshare" title="分享到一键分享"></a><a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a></div>
+    <script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "2", "bdMiniList": false, "bdPic": "", "bdStyle": "1", "bdSize": "16" }, "share": {}, "image": { "viewList": ["sqq", "qzone", "tieba", "weixin", "tsina", "mshare", "copy"], "viewText": "分享到：", "viewSize": "16" }, "selectShare": { "bdContainerClass": null, "bdSelectMiniList": ["sqq", "qzone", "tieba", "weixin", "tsina", "mshare", "copy"] } }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>*@

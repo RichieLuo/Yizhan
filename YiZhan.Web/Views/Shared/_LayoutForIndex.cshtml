@@ -1,0 +1,245 @@
+﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="2015级软件技术2班：莫广源丨毕设指导老师：秦晖丨柳州职业技术学院">
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <title>@ViewData["Title"] - 校园二手交易平台</title>
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/Common/loader.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/Common/toastr.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/sweetAlert/dist/sweetalert2.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/common.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/Index/layoutForHead.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/Index/index.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/Index/layoutForFoot.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/Index/login/indexError.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/Index/login/noLogin.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/Index/ourTeam.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/FilesUpload/css/fileinput.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/FilesUpload/themes/explorer-fa/theme.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/FilesUpload/css/font-awesome.min.css" asp-append-version="true" />
+        <link href="~/css/Index/userCenter/userCenter.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/css/Index/userCenter/changeAvatar.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/css/Index/search.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/lib/dataTables/css/jquery.dataTables.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/css/Index/commodityDetail.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/css/tinyImgUpload.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/css/Index/userFeedback.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/css/Index/SiteNotice.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/css/Common/comment.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/css/Index/Payment.css" rel="stylesheet" asp-append-version="true" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/Common/loader.css" asp-append-version="true" />
+        <link href="~/css/Common/toastr.css" rel="stylesheet" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/sweetAlert/dist/sweetalert2.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/common.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/Index/layoutForHead.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/Index/index.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/Index/layoutForFoot.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/Index/login/indexError.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/Index/login/noLogin.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/Index/ourTeam.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/FilesUpload/css/fileinput.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/FilesUpload/themes/explorer-fa/theme.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/FilesUpload/css/font-awesome.min.css" asp-append-version="true" />
+        <link href="~/css/Index/userCenter/userCenter.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/css/Index/userCenter/changeAvatar.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/css/Index/search.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/css/Index/commodityDetail.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/css/tinyImgUpload.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/css/Index/userFeedback.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/css/Index/SiteNotice.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/css/Common/comment.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/css/Index/Payment.css" rel="stylesheet" asp-append-version="true" />
+    </environment>
+    @Html.Raw(JavaScriptSnippet.FullScript)
+</head>
+<body>
+    @*加载等待页面*@
+    @*<div id="loader-wrapper">
+            <div id="loader"></div>
+            <div class="loader-section section-left"></div>
+            <div class="loader-section section-right"></div>
+            <div class="load_title">
+                正在加载
+                <span style="display: block;">易站.V.0.1</span>
+            </div>
+        </div>*@
+
+    @*网站头部局部页面*@
+    @Html.Partial("PartialViews/_LayoutForIndexHead.cshtml")
+
+    @*网站浮动右下角*@
+    <div class="FloatBar" style="background-color:white">
+        <a href="../../Home/UserFeedback" target="_blank" class="FloatBarItem" title="意见反馈">
+            <i class=" glyphicon glyphicon-pencil"></i>
+            <span>意见反馈</span>
+        </a>
+        <a href="javascript:" class="FloatBarItem" title="问卷调查">
+            <i class="glyphicon glyphicon-edit"></i>
+            <span>问卷调查</span>
+        </a>
+        <a href="javascript:" class="FloatBarItem">
+            <i class="glyphicon glyphicon-question-sign" title="帮助中心"></i>
+            <span>帮助中心</span>
+        </a>
+        <a href="javascript:" class="FloatBarItem backTop" title="返回顶部">
+            <i class="glyphicon glyphicon-menu-up"></i>
+            <span>返回顶部</span>
+        </a>
+    </div>
+
+    @*网站主体内容*@
+    <div id="IndexContent">
+        @RenderBody()
+    </div>
+
+    @*网站底部局部页面*@
+    @Html.Partial("PartialViews/_LayoutForIndexFoot.cshtml")
+
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>
+        <script src="~/js/Common/SubStrHelper.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
+        <script src="~/js/Common/toastr.min.js" asp-append-version="true"></script>
+        <script src="~/lib/sweetAlert/dist/sweetalert2.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js" asp-append-version="true"></script>
+        <script src="~/js/Index/login/jquery.form.js" asp-append-version="true"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/Index/index.js" asp-append-version="true"></script>
+        <script src="~/lib/FilesUpload/js/fileinput.js" asp-append-version="true"></script>
+        <script src="~/lib/FilesUpload/themes/explorer-fa/theme.js" asp-append-version="true"></script>
+        <script src="~/lib/FilesUpload/themes/fa/theme.js" asp-append-version="true"></script>
+        <script src="~/lib/FilesUpload/js/locales/zh.js" asp-append-version="true"></script>
+        <script src="~/js/FilesUpload.js" asp-append-version="true"></script>
+        <script src="~/js/Index/userCenter/userCenter.js" asp-append-version="true"></script>
+        <script src="~/js/Index/userCenter/changeAvatar.js" asp-append-version="true"></script>
+        <script src="~/js/Index/filesDatatable.js" asp-append-version="true"></script>
+        <script src="~/js/common.js" asp-append-version="true"></script>
+        <script src="~/js/yiZhanSearch.js" asp-append-version="true"></script>
+        <script src="~/js/Index/commodityDetail.js" asp-append-version="true"></script>
+        <script src="~/js/tinyImgUpload.js" asp-append-version="true"></script>
+        <script src="~/js/Index/UserFeedback.js" asp-append-version="true"></script>
+        <script src="~/js/PreventionXssHelper.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+        <script src="~/js/Common/SubStrHelper.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
+        <script src="~/js/Common/toastr.min.js" asp-append-version="true"></script>
+        <script src="~/lib/sweetAlert/dist/sweetalert2.min.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js" asp-append-version="true"></script>
+        <script src="~/js/Index/login/jquery.form.js" asp-append-version="true"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script src="~/js/Index/index.js" asp-append-version="true"></script>
+        <script src="~/lib/FilesUpload/js/fileinput.js" asp-append-version="true"></script>
+        <script src="~/lib/FilesUpload/themes/explorer-fa/theme.js" asp-append-version="true"></script>
+        <script src="~/lib/FilesUpload/themes/fa/theme.js" asp-append-version="true"></script>
+        <script src="~/lib/FilesUpload/js/locales/zh.js" asp-append-version="true"></script>
+        <script src="~/js/FilesUpload.js" asp-append-version="true"></script>
+        <script src="~/js/Index/userCenter/userCenter.js" asp-append-version="true"></script>
+        <script src="~/js/Index/userCenter/changeAvatar.js" asp-append-version="true"></script>
+        <script src="~/js/Index/filesDatatable.js" asp-append-version="true"></script>
+        <script src="~/js/common.js" asp-append-version="true"></script>
+        <script src="~/js/yiZhanSearch.js" asp-append-version="true"></script>
+        <script src="~/js/Index/commodityDetail.js" asp-append-version="true"></script>
+        <script src="~/js/tinyImgUpload.js" asp-append-version="true"></script>
+        <script src="~/js/Index/UserFeedback.js" asp-append-version="true"></script>
+        <script src="~/js/PreventionXssHelper.js" asp-append-version="true"></script>
+    </environment>
+    @RenderSection("Scripts", required: false)
+    <div id="CustomerServiceAreaBefore"> </div>
+    <div id="StatisticsAreaBefore"> </div>
+    <script>
+        $(function () {
+            //获取友情链接
+            function loadFriendshipLinks() {
+                $.ajax({
+                    url: "../../SiteManager/GetFriendshipLinks"
+                }).done(function (data) {
+                    var _html = "";
+                    $.each(data, function (index, e) {
+                        var _isBlank = "";
+                        if (e.isBlank) {
+                            _isBlank = 'target="_blank"';
+                        }
+                        _html += '<li><a href="' + e.link + '" title="' + e.name + '" ' + _isBlank + ' >' + e.name + '</a></li>';
+                    })
+                    $(".FriendshipLinksTitle").after(_html);
+                })
+            }
+
+            //获取用户名称
+            function loadUserNameOrFullName() {
+                $.ajax({
+                    url: "../../SiteManager/GetUserNameOrFullName"
+                }).done(function (data) {
+                    var _html = "";
+                    if (data.name !== "") {
+                        _html = '<li class="pleaseLogin"><span id="userNameArea">' + data.name + '</span>，欢迎回来！</li>'
+                            + '<li class="pleaseLogin"><a href="../../Account/UserCenter">'
+                            + '<span style="padding:0 10px 0 0;color:dodgerblue">个人中心</span></a></li>'
+                            + '<li class="pleaseLogin"><a class="redColor" onclick="LogOut()" href="javascript:">注销</a></li>';
+                    }
+                    else {
+                        _html = '<li class="pleaseLogin"><a class="redColor" href="../../Account/Index">亲，请登录</a></li>'
+                            + '<li><a href="../../Account/Index?state=register">免费注册</a></li>';
+                    }
+                    $("#userNameAreaAfter").before(_html);
+                })
+            }
+
+            //获取客服代码
+            function loadCustomerService() {
+                $.get("../../SiteManager/GetCustomerService", null, function (data) {
+                    if (data.result) {
+                        $("#CustomerServiceAreaBefore").after(data.csCode);
+                    }
+                })
+            }
+
+            //获取网站的信息
+            function loadSiteInfo() {
+                $.get("../../SiteManager/GetSiteSettings", null, function (data) {
+                    if (data.logoPath != null) {
+                        $("#YiZhanIndexLogo").prop("src", data.logoPath)
+                    }
+                    $("meta[name=keywords]").prop("content", data.keyWords);
+                    $("meta[name=description]").prop("content", data.description);
+                    $(".copyrightInfo").text(data.copyright);
+                    $("#YiZhanICP").text(data.icp == "" ? "未设置备案信息" : data.icp);
+                    $("title").text(data.name + " - " + data.suffix);
+                    $("#YiZhanEmail").text(data.siteEmail);
+                    var _installTime = new Date(data.installTime);
+                    $("#cStartTime").text(_installTime.getFullYear());
+                    $("#StatisticsAreaBefore").after(data.statistics);
+                })
+            }
+
+            loadUserNameOrFullName();
+            loadFriendshipLinks();
+            loadCustomerService();
+            loadSiteInfo();
+        })
+    </script>
+    @*
+        <script>
+            // 等待所有加载
+            $(window).load(function () {
+                $('body').addClass('loaded');
+                $('#loader-wrapper .load_title').remove();
+            });
+        </script>*@
+</body>
+</html>

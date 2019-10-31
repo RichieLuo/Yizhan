@@ -1,0 +1,83 @@
+﻿@{
+    Layout = null;
+}
+@using YiZhan.ViewModels.BusinessManagement
+@model YZ_CommodityVM
+<!-- 模态框（Modal） -->
+<div class="modal fade yzModalCenter" id="createOrEditCommodityModal" tabindex="-1" role="dialog"
+     aria-labelledby="createOrEditCommodityModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                @if (Model.IsNew)
+                {
+                    <h4 class="modal-title" id="changeMyProfileModalLabel">
+                        添加一个新的商品
+                    </h4>
+                }
+                else
+                {
+                    <h4 class="modal-title" id="changeMyProfileModalLabel">
+                        正在编辑：@Model.Name
+                    </h4>
+                }
+
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" action="../../TestData/TestCreateOrEditCommodity" method="post">
+                    <input type="hidden" name="IsNew" value="@Model.IsNew" />
+                    <input type="hidden" name="Id" value="@Model.Id" />
+                    <div class="form-group">
+                        <label for="Name" class="col-sm-4 control-label">商品名称：</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control borderRadiusNone" name="Name" placeholder="商品名称" value="@Model.Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Description" class="col-sm-4 control-label">商品描述：</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control borderRadiusNone" name="Description" placeholder="商品描述" value="@Model.Description">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Price" class="col-sm-4 control-label">商品售价：</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control borderRadiusNone" name="Price" placeholder="商品售价" value="@Model.Price">
+                        </div>
+                    </div>
+                      <div class="form-group">
+                        <label for="Stock" class="col-sm-4 control-label">商品库存：</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control borderRadiusNone" name="Stock" placeholder="商品库存" value="@Model.Stock">
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label for="Unit" class="col-sm-4 control-label">商品单位：</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control borderRadiusNone" name="Unit" placeholder="商品单位" value="@Model.Unit">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-4 col-sm-8">
+                            <button type="submit" class="btn leftSaveBtn">保存</button>
+                            <button type="button" class="btn yzFormBtn" data-toggle="modal" data-target="#createOrEditCommodityModal">关闭</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer text-center">
+                <div class="text-center">
+                    用户中心模块：
+                    <a href="../../Account/UserCenter" title="易站-校园二手交易平台">
+                        测试弹窗添加商品
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal -->
+</div>

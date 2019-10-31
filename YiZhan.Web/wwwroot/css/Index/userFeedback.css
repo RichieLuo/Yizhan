@@ -1,0 +1,43 @@
+#YzUserFeedbackArea{
+	width: 1200px;
+	min-width: 1200px;
+	margin: 0 auto;
+	background: #fff;
+	height: 700px;
+	padding-top: 20px;
+	}
+.feedbackLeftTitle{
+	border-bottom: 1px solid #f2f2f3;
+    padding-bottom: 10px;
+    padding-left: 40px;
+    }
+.rowMarginTopAndBottom{margin: 30px 0;}
+.rowMarginTopNone{margin-top: 0!important;}
+.rowMarginBottomNone{margin-bottom: 0!important;}
+.feedbackInputWidth{width: 400px!important;}
+.consultationBtn {background-color: #f5b800;border-color: #f5b800;color:#fff}
+.feedbackLeftArea{
+	padding-right: 80px;
+}
+.feedbackRightArea{
+	padding-left: 40px;
+	padding-top: 57px;
+    padding-right: 60px;
+}
+.rightAreaCommonTitle{
+	width: 100%;
+    background: #62bcfa;
+    color: #fff;
+    overflow: hidden;
+    padding-left: 5px;
+    margin-bottom:18px;
+}
+.rightAreaTwo,.rightAreaThree{
+	margin-top: 20px;
+}
+.rightAreaOne ul li:nth-child(2){
+	margin: 10px 0;
+}
+.rightAreaTwo ul li{
+	margin: 5px 0;
+}

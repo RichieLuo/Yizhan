@@ -1,0 +1,360 @@
+﻿@model IEnumerable<YiZhan.ViewModels.ApplicationOrganization.ApplicationRoleVM>
+@using YiZhan.CustomMvcCoreExtension
+@{
+    ViewData["Title"] = "系统用户管理";
+    Layout = "_LayoutForAdmin";
+    var pageParameter = ViewBag.PageParameter as YiZhan.Common.JsonModels.ListPageParameter;
+
+}
+@{
+    var menuCollectionId = YiZhan.Web.Utilities.MenuItemCollection.CurrentMainTopMenuItemId;
+    if (ViewBag.MenuCollectionId != null)
+    {
+        menuCollectionId = Guid.NewGuid();
+    }
+
+    var whatItIs = ViewBag.WhatItIs as string;
+    var roleItems = ViewBag.RolesItems as List<YiZhan.ViewModels.ApplicationOrganization.ApplicationRoleVM>;
+}
+<div class="" id="mainWorkPlaceArea">
+    <div class="row">
+        <div class="col-sm-5 col-md-3" style="padding:0">
+            <!-- 在这里加入Tab控件，一个用于导航菜单的容器，另一个作为角色列表的容器 -->
+            <div>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation"><a href="#menuHome" aria-controls="menuHome" role="tab" data-toggle="tab">操作导航</a></li>
+                    <li role="presentation" class="active"><a href="#businessDataTab" aria-controls="businessDataTab" role="tab" data-toggle="tab">系统角色组</a></li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane" id="menuHome">
+                        @{
+                            var subMenuItems = YiZhan.Web.Utilities.MenuItemCollection.GetSubmenuItems(menuCollectionId);
+                            foreach (var item in subMenuItems.Where(x => x.ParentId == menuCollectionId))
+                            {
+                                <div class="list-group" style="border-radius:0">
+                                    <span class="list-group-item active" style="border-radius:0">@item.Name</span>
+                                    @{
+                                        foreach (var mItem in subMenuItems.Where(x => x.ParentId == item.Id))
+                                        {
+                                            <a href="@mItem.URL" class="list-group-item">@mItem.Name</a>
+                                        }
+                                    }
+                                </div>
+                            }
+                        }
+                    </div>
+                    <div role="tabpanel" class="tab-pane active" id="businessDataTab">
+                        @{
+                            if (whatItIs == "Roles")
+                            {
+                                @Html.Partial("../../Views/ApplicationOrganization/ApplicationRole/_NavigatorForRoles", roleItems);
+                            }
+                            if (whatItIs == "Users")
+                            {
+                                @Html.Partial("../../Views/ApplicationOrganization/ApplicationUser/_NavigatorForUsers", roleItems);
+                            }
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-7 col-md-9" id="userManagerWorkPlaceArea">
+            @Html.Partial("../../Views/ApplicationOrganization/ApplicationUser/_List", ViewBag.UserVMCollection as List<YiZhan.ViewModels.ApplicationOrganization.ApplicationUserVM>)
+
+        </div>
+    </div>
+
+</div>
+
+<!-- 一组和数据操作有关的会话框 -->
+@Html.Partial("../../Views/ApplicationOrganization/ApplicationUser/_ModalForEditApplicationUser")
+@Html.Partial("../../Views/ApplicationOrganization/ApplicationUser/_ModalForDeleteApplicationUser")
+@Html.Partial("../../Views/ApplicationOrganization/ApplicationUser/_ModalForResetPassword")
+
+<!-- 一组用于留存查询、分页、导航处理等相关的中间变量，方便需要的时候提取 -->
+@Html.YiZhanSetListPageParameter(pageParameter)
+
+<script type="text/javascript">
+
+    // 访问后台 ListForApplicationUser 方法，返回的是：
+    // PartialView("../../Views/ApplicationOrganization/ApplicationUser/_List", userVMCollection)
+    // 变量：id 角色Id
+    function gotoList(id) {
+        $('#yiZhanTypeId').val(id);
+        gotoListWithJson();
+    }
+    // 指定页面的访问后台的方法，用于在左侧菜单单击选择用户的时候
+    function gotoListWithPageIndex(id, pageIndex) {
+        $('#yiZhanTypeId').val(id);
+        $('#yiZhanPageIndex').val('1');
+        $('#yiZhanKeyword').val('');
+        gotoListWithJson();
+    }
+
+    // 访问后台 CreateApplicationUser 方法，返回：
+    // PartialView("../../Views/ApplicationOrganization/ApplicationUser/_CreateApplicationUser", boVM)
+    function createApplicationUser() {
+        $.ajax({
+            cache: false,
+            type: 'post',
+            async: false,
+            url: '../../ApplicationUser/Create/',
+            beforeSend: function () {
+                // alert("开始访问");
+            }
+        }).done(function (data) {
+            document.getElementById("userManagerWorkPlaceArea").innerHTML = data;
+        }).fail(function () {
+            alert("连接后台失败！");
+        }).always(function () {
+        });
+
+    }
+
+    // 使用 ajaxSubmit 方法提交在 _CreateApplicationUser.cshtml 中定义的表单：ApplicationUserCreateForm
+    function postApplicationUserCreateForm() {
+        var systemWorkPlaceFormOptions = {
+            dataType: 'json',
+            success: function (validateMessage) {
+                if (validateMessage.isOK === true) {
+                    gotoList(validateMessage.validateMessageItems[0].message);
+                }
+                else {
+                    $.each(validateMessage.validateMessageItems, function (i, item) {
+                        activeErrStatus(item.messageName, item.message);
+                    });
+                }
+            }
+        };
+        $('#ApplicationUserCreateForm').ajaxSubmit(systemWorkPlaceFormOptions);
+    }
+
+    // 编辑用户数据
+    function editApplicationUser(id, roleId) {
+        // 打开编辑数据会话框
+        $('#createOrEditModal').modal({
+            show: true,
+            backdrop: 'static'
+        });
+        // 访问后台 CreateOrEdit 方法，获取新建或者编辑数据的呈现 imports page 页面内容
+        $.ajax({
+            cache: false,
+            type: 'post',
+            async: false,
+            url: '../../ApplicationUser/Edit/' + id + "?roleId=" + roleId,
+            beforeSend: function () {
+                // alert("开始访问");
+            }
+        }).done(function (data) {
+            document.getElementById("createOrEditArea").innerHTML = data;
+        }).fail(function () {
+            alert("连接后台失败！");
+        }).always(function () {
+        });
+    }
+    // 提交编辑后的用户数据
+    function postApplicationUserEditForm() {
+        var systemWorkPlaceFormOptions = {
+            dataType: 'json',
+            success: function (validateMessage) {
+                if (validateMessage.isOK === true) {
+                    $('#createOrEditModal').modal('hide');
+                    gotoList(validateMessage.validateMessageItems[0].message);
+                } else {
+                    $.each(validateMessage.validateMessageItems, function (i, item) {
+                        activeErrStatus(item.messageName, item.message);
+                    });
+                }
+            }
+        };
+        $('#ApplicationUserEditForm').ajaxSubmit(systemWorkPlaceFormOptions);
+    }
+
+    // 呈现错误消息
+    function activeErrStatus(idName, msg) {
+        document.getElementById(idName + "_DIV").classList.add("has-error", "has-feedback");
+        document.getElementById(idName + "_Help").innerHTML = '<span class="help-block small" >' + msg + '</span>';
+    }
+    // 清理错误消息，输入域失去焦点的时候使用
+    function clearErrStyle(idName) {
+        document.getElementById(idName + "_DIV").classList.remove("has-error", "has-feedback");
+        document.getElementById(idName + "_Help").innerHTML = "";
+    }
+
+    // 失去焦点的时候进行处理的内容 TBD
+    function checkIfValidate(idName) {
+        var result = document.getElementById(idName).value;
+        alert(result);
+    }
+
+    // 详细信息 TDB
+    function userDetail(id, roleId) {
+
+    }
+
+    // 打开重置密码的会话框
+    function openResetUserPasswordModal(id) {
+        // 打开编辑数据会话框
+        $('#resetPasswordModal').modal({
+            show: true,
+            backdrop: 'static'
+        });
+        // 访问后台 ResetUserPassword 方法，获取数据后的呈现 imports page 页面内容
+        $.ajax({
+            cache: false,
+            type: 'post',
+            async: false,
+            url: '../../ApplicationUser/ResetUserPassword/' + id,
+            beforeSend: function () {
+                // alert("开始访问");
+            }
+        }).done(function (data) {
+            document.getElementById("resetPasswordArea").innerHTML = data;
+        }).fail(function () {
+            alert("连接后台失败！");
+        }).always(function () {
+        });
+    }
+    // 提交重置密码的数据
+    function resetUserPassword() {
+        var resetUserPasswordFormOptions = {
+            dataType: 'json',
+            success: function (validateMessage) {
+                if (validateMessage.isOK === true) {
+                    document.getElementById("resetPasswordModalTip").innerHTML = validateMessage.validateMessageItems[0].message;
+                    //$('#resetPasswordModal').modal('hide');
+                }
+                else {
+                    $.each(validateMessage.validateMessageItems, function (i, item) {
+                        activeErrStatus(item.messageName, item.message);
+                    });
+                }
+            }
+        };
+
+        $('#ResetUserPasswordForm').ajaxSubmit(resetUserPasswordFormOptions);
+    }
+
+    // 锁定用户
+    function lockoutUser(id, roleId) {
+        $.ajax({
+            cache: false,
+            type: 'post',
+            async: false,
+            url: '../../ApplicationUser/LockoutUser/' + id + "?roleId=" + roleId,
+            beforeSend: function () {
+                // alert("开始访问");
+            }
+        }).done(function (data) {
+            gotoList(data.roleId);
+        }).fail(function () {
+            alert("连接后台失败！");
+        }).always(function () {
+        });
+    }
+    // 启用用户
+    function unLockoutUser(id, roleId) {
+        $.ajax({
+            cache: false,
+            type: 'post',
+            async: false,
+            url: '../../ApplicationUser/UnLockoutUser/' + id + "?roleId=" + roleId,
+            beforeSend: function () {
+                // alert("开始访问");
+            }
+        }).done(function (data) {
+            gotoList(data.roleId);
+        }).fail(function () {
+            alert("连接后台失败！");
+        }).always(function () {
+        });
+    }
+
+    // 打开删除用户会话框
+    function openDeleteUserModal(id, tipString) {
+        // 打开编辑数据会话框
+        $('#deleteUserModal').modal({
+            show: true,
+            backdrop: 'static'
+        });
+        document.getElementById("deleteModalMessage").innerHTML = "<i class='fa fa-exclamation fa-1x'></i> " + tipString;
+        $('#businessObjectId').val(id);
+    }
+    // 执行删除
+    function gotoDeleteUser() {
+        var userId = $('#businessObjectId').val();
+        $.ajax({
+            cache: false,
+            type: 'post',
+            async: false,
+            url: '../../ApplicationRoleAndUser/' + deleteActionURL + '/' + pid,
+            beforeSend: function () {
+            }
+        }).done(function (delStatus) {
+            if (delStatus.deleteSatus === true) {
+                $('#deleteUserModal').modal('hide')
+                window.location.href = "../../SystemConfig/Index";
+            } else {
+                document.getElementById("deleteModalErrMessage").innerText = delStatus.message;
+            }
+        }).fail(function () {
+            alert("连接后台失败！");
+        }).always(function () {
+        });
+    }
+    // 处理分页器响应
+    function gotoPage(pageIndex) {
+        $('#yiZhanPageIndex').val(pageIndex);
+        gotoListWithJson();
+    }
+
+    // 处理常规关键词检索响应
+    function gotoSearch() {
+        var keyword = $('#inputKeyWord').val();
+        $('#yiZhanKeyword').val(keyword);
+        $('#yiZhanPageIndex').val('1');
+        $('#yiZhanSortDesc').val('')
+        $('#yiZhanSortProperty').val('UserName')
+        gotoListWithJson();
+    }
+
+    // 处理排序响应
+    function gotoSort(sortPropertyName, sortId) {
+        var sortStatus = $('#yiZhanSortDesc').val();  // 获取当前的排序形式
+        if (sortStatus == 'Default') {
+            document.getElementById(sortId).innerHTML = '<span aria-hidden="true" class="glyphicon glyphicon-chevron-down" style="color:white"></span>';
+            $('#yiZhanSortDesc').val('')
+
+        } else {
+            document.getElementById(sortId).innerHTML = '<span aria-hidden="true" class="glyphicon glyphicon-chevron-up" style="color:white"></span>';
+            $('#yiZhanSortDesc').val('Default')
+        }
+        $('#yiZhanSortProperty').val(sortPropertyName)
+        gotoListWithJson();
+    }
+
+    // 提取数据列表相关的参数，构成完成后向后端提交
+    function gotoListWithJson() {
+        var listParaJson = yiZhanGetListParaJson();
+        var jsonData = { "listPageParaJson": listParaJson };
+        $.ajax({
+            cache: false,
+            type: "POST",
+            async: true,
+            url: '../../ApplicationUser/List',
+            data: jsonData,
+            beforeSend: function () {
+                document.getElementById("userManagerWorkPlaceArea").innerHTML = "<p style='margin-top:50px;' align='center'> <i class='fa fa-spinner fa-pulse fa-2x'></i></p>" +
+                    "<p style='margin-top:50px;' align='center'>  数据加载中，请稍候...</p>";
+            }
+        }).done(function (data) {
+            document.getElementById("userManagerWorkPlaceArea").innerHTML = data;
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            //console.error("调试错误:" + errorThrown);
+        }).always(function () {
+        });
+    }
+</script>

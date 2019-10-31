@@ -1,0 +1,192 @@
+/*首页css样式书写 css文件*/
+
+/*首页主体内容CSS样式开始*/
+.indexArea{width: 100%;height: auto;}
+.indexArea .indexHeadContent{width: 1200px;height: 270px;margin: 0px auto;}
+.indexHeadContent .indexCategoryList{float: left;position: relative;width: 300px;height: 100%;border: 1px solid #f2f2f2;box-sizing: border-box;}
+.categoryListIcon{color:#62bcfa}
+    .categoryListIcon:hover {color:#2196f3;}
+.indexCategoryList ul li{overflow: hidden;width: 100%;height: 45px;line-height: 45px;padding-left: 10px;border-bottom: 1px solid #f2f2f2;box-sizing: border-box;}
+.indexCategoryList ul li:hover{background: #f2f2f2;}
+.indexCategoryList ul li:last-child{border-bottom: 0;}
+.indexCategoryList ul li .i-list-aBold{color: #62bcfa;padding: 0 6px;font-size: 16px;}
+.indexCategoryList ul li .i-list-aBold:hover{text-decoration:underline !important;color:#2196f3;}
+.indexCategoryList ul li .i-list-item{}
+.indexCategoryList ul li .i-list-item a{color: #979797;}
+.indexCategoryList ul li .i-list-item a:hover{color: #337ab7;}
+
+.indexCategoryList .cListShow{}
+.indexCategoryList .cListShow div{z-index: 999;width: 500px;height: 300px;background: #fff;border: 1px solid #f2f2f2;}
+.indexCategoryList .cListShow div:first-child{display: none;position: absolute;right: -500px;top: -1px;}
+.indexCategoryList .cListShow div:nth-child(2){display: none;position: absolute;right: -500px;top: 44px;}
+.indexCategoryList .cListShow div:nth-child(3){display: none;position: absolute;right: -500px;top: 89px;}
+.indexCategoryList .cListShow div:nth-child(4){display: none;position: absolute;right: -500px;top: 134px;}
+.indexCategoryList .cListShow div:nth-child(5){display: none;position: absolute;right: -500px;top: 179px;}
+.indexCategoryList .cListShow div:last-child{display: none;position: absolute;right: -500px;top: 224px;}
+.cShow{display: block !important;}
+
+/*首页轮播图*/
+.indexHeadContent .indexBanner{position: relative;float: left;width: 600px;height: 270px;margin-left:20px;background: #2aabd2}
+#show-area { width: 100%;height: 100%;margin: 0px auto;overflow: hidden;}
+#show-area ul {position: relative;}
+#show-area ul li {float: left;width:600px;height: 270px;}
+#show-area ul li img{ width: 100%;height: 100%;}
+#controler {width: 120px;text-align: center;position: absolute;bottom: 30px;left: 46%;z-index: 66;}
+#controler div {height: 15px;width: 15px;border-radius: 100%!important;background:rgba(0,0,0,0.5);float: left;margin-left: 5%;cursor: pointer}
+#tab-lr{display: none}
+#tab-left {
+    z-index: 99;position: absolute;left: 0px;top:45%;text-align: center;width: 30px;height: 40px;cursor: pointer;color: #fff;font-size: 30px;
+    background: rgba(0,0,0,.5);line-height: 40px;
+}
+#tab-right {
+    z-index: 99;position: absolute;right: 0px;top:45%;text-align: center;width: 30px;height: 40px;cursor: pointer;color: #fff;font-size: 30px;
+    background: rgba(0,0,0,.5);line-height: 40px;
+}
+.onclick {
+    background-color: #FFF !important;
+}
+
+.indexHeadContent .indexHeadRight{float: left;border:1px solid #f2f2f2}
+.websiteBulletinArea{width: 260px; height: 270px; margin-left: 20px;background: #fff;}
+.websiteBulletinHead{position: relative;width: 100%;height: 40px;line-height: 39px;
+	padding-left: 10px;border-bottom: 1px solid #f2f2f2;box-sizing: border-box;
+}
+    .websiteBulletinHead span {
+        color: #62bcfa;
+    }
+.websiteBulletinHead>h4{display: inline-block;padding-left: 5px;font-size:16px;color: #62bcfa;}
+.websiteBulletinHead>a{position: absolute;top: 0px;right: 5px;color: #62bcfa;}
+.websiteBulletinContent{height: 229px;/*padding-top: 12px;*/overflow: hidden;}			
+/*.websiteBulletinContent ol li{padding: 7px 10px;list-style-position:inside;
+	width: 100%;cursor: pointer;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;
+    list-style:decimal inside none;
+}*/	
+/*.websiteBulletinContent ol li a{padding-left: 5px;text-decoration: underline;}旧的样式*/
+
+.websiteBulletinContent ol li{
+    padding: 8px 10px;
+    list-style-position: inside;
+    width: 100%;
+    cursor: pointer;
+    overflow: hidden;
+    list-style: decimal inside none;
+    color:#337ab7;
+}	
+.websiteBulletinContent ol li a{  
+    width: 145px;
+    height: 18px;
+    /*padding-top: 3px;*/
+     padding-top: 6px;
+    display: inline-block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;}/*新的样式*/
+
+
+/*首页推荐模块*/
+
+/*首页推荐模块*/
+.indexArea .indexGuessYouLike{width: 1200px;height: 250px;margin:20px auto;background: #fff;}
+.indexGuessYouLike .indexGuess-User{float: left;overflow: hidden;width: 300px;height:250px;background: #fff;}
+.indexGuess-User .i-User-Head{width: 100%;height: 100px;padding:10px 10px 0 10px;box-sizing: border-box;}
+.i-User-Head .u-h-img{float: left;width: 80px;height: 80px;border-radius: 50%!important;border: 6px solid #ebebeb;box-sizing: border-box;}
+.i-User-Head .u-h-text{float: left;width: 200px;padding:20px 0 0 20px;}
+.indexGuess-User .i-User-Foot{width: 100%;height: 150px;overflow: hidden;padding:0 10px;box-sizing: border-box;}
+.i-User-Foot ul li{border: 1px solid #eee;float: left;margin: 2px 5px;}
+.i-User-Foot ul li a{display: block;background: #f7f7f7;color: #888;padding: 2px 5px;}
+.i-User-Foot ul li a:hover{background: #62bcfa;color: #fff;}
+
+.indexGuessYouLike .indexGuess-Ylike{float: left;width: 900px;height:250px;padding-left: 20px;}
+.indexGuess-Ylike .i-Ylike-tabHead{width: 100%;height:40px;border-bottom:1px solid #e6e6e6;position: relative;}
+.i-Ylike-tabHead ul li{float: left;width: 100px;height: 40px;line-height: 40px;text-align: center;}
+.i-Ylike-tabHead ul li:hover a{color: #62bcfa;}
+.i-Ylike-tabHead ul li a{color: #000;font-size: 16px;display: block;}
+.i-Ylike-tabHead .likeChange{display: block;position: absolute;top: 10px;right: 0px;color: #000;}
+.i-Ylike-tabHead .moreSecond-hand{display: none;position: absolute;top: 10px;right: 0px;color: #000;}
+
+.indexGuess-Ylike .i-Ylike-tabContent{position: relative;overflow: hidden;width: 100%;height: 210px;border-bottom: 1px solid #e6e6e6;}
+.i-Ylike-tabContent .tabContentItems{display: none;position: absolute;left: 0;top: 0;width: 100%;height: 210px;}
+.tabContentItems .tab-c-item{text-align: center;float: left;display: block;width: 176px;height: 210px;background: #fff;padding: 10px;box-sizing: border-box;}
+.tabContentItems .tab-c-item a img{width:152px;height: 160px;}
+.tabContentItems .tab-c-item a p{display: block;width: 100%;height: 30px;line-height: 30px;color: #000;margin-top: 5px;}
+
+.i-tabMenu-active{border-bottom:2px solid #62bcfa;}
+.i-tabContent-active{display: block!important;}
+
+/*首页商品楼层(Common)样式开始*/
+#indexFloorDemo{margin-top:10px;}
+.indexArea .indexFloorCommon{margin: 10px auto;padding-bottom:10px;width: 1200px;min-width: 1200px;}
+.indexFloorCommon .fCommonHead{width: 100%;height: 40px;overflow: hidden;line-height: 30px; border-bottom: 2px solid #62bcfa;}
+.fCommonHead .fCommonHeadTitle{float: left;}
+.fCommonHeadTitle h4{margin: 0;font-weight: bold;color: #62bcfa;/*color: #00548e;*/}
+.fCommonHeadTitle h4 .fNum{display: inline-block;margin:0 5px;text-align: center;font-size: 30px;
+border-radius: 50%!important;width: 30px;height: 30px;background: #62bcfa;color: #fff;}
+.fCommonHead .fCommonHeadMore{float: right;}
+.fCommonHeadMore .fch-more {width: 60px;height: 39px;margin-top: 9px;display: block;text-align: center;
+  border-radius: 0px!important;border: 1px solid #62bcfa;background: #62bcfa;color: #fff;}
+.indexFloorCommon .fCommonContent{width: 100%;height:auto;overflow: hidden;padding-top: 15px;}
+.fCommonContent ul li{float: left;width: 224px;height: 280px;margin:10px;border: 1px solid #e6e6e6;overflow: hidden;}
+.userCommonContent ul li {width: 215px!important;}
+.fCommonContent ul li:nth-child(1),
+.fCommonContent ul li:nth-child(6),
+.fCommonContent ul li:nth-child(11),
+.fCommonContent ul li:nth-child(16),
+.fCommonContent ul li:nth-child(21),
+.fCommonContent ul li:nth-child(26),
+.fCommonContent ul li:nth-child(31),
+.fCommonContent ul li:nth-child(36),
+.fCommonContent ul li:nth-child(41),
+.fCommonContent ul li:nth-child(46),
+.fCommonContent ul li:nth-child(51),
+.fCommonContent ul li:nth-child(56),
+.fCommonContent ul li:nth-child(61){margin-left: 0;}
+.fCommonContent ul li:nth-child(5),
+.fCommonContent ul li:nth-child(10),
+.fCommonContent ul li:nth-child(15),
+.fCommonContent ul li:nth-child(20),
+.fCommonContent ul li:nth-child(25),
+.fCommonContent ul li:nth-child(30),
+.fCommonContent ul li:nth-child(35),
+.fCommonContent ul li:nth-child(40),
+.fCommonContent ul li:nth-child(45),
+.fCommonContent ul li:nth-child(50),
+.fCommonContent ul li:nth-child(55),
+.fCommonContent ul li:nth-child(60){margin-right: 0;}
+/*.fCommonContent ul li:nth-child(1){margin-right: 10px!important;}
+.fCommonContent ul li:nth-child(5){margin-left: 10px!important;}
+.fCommonContent ul li:nth-child(5n+1){margin-left: 0;}
+.fCommonContent ul li:nth-child(4n+1){margin-right: 0;}*/
+
+.fCommonContentCommodityItem {   
+    transition:All 0.2s ease-in-out;
+    -webkit-transition:All 0.2s ease-in-out;
+    -moz-transition:All 0.2s ease-in-out;
+    -o-transition:All 0.2s ease-in-out;
+}
+.fCommonContentCommodityItem:hover {
+    transform:translate(0,-10px);
+    -webkit-transform:translate(0,-10px);
+    -moz-transform:translate(0,-10px);
+    -o-transform:translate(0,-10px);
+    -ms-transform:translate(0,-10px);
+    -webkit-box-shadow:0px 5px 15px #e5e5e5;
+    -moz-box-shadow:0px 5px 15px #e5e5e5;
+    box-shadow:0px 5px 15px #e5e5e5;
+}
+.fCommonContentCommodity{overflow: hidden;}
+.fCommonContentCommodityItem>a{display: block;}
+.fCommonContentCommodityItem>a>img{width: 100%;height: 190px;min-height:190px;max-height:190px}
+.fCommonContentCommodityItem .fCCItemDetail{width: 100%;padding: 10px 5px 5px 5px;}
+.fCCItemDetail>a {max-height:36px;min-height: 36px;overflow:hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;}
+.fCCItemDetail a p{margin-bottom: 5px;color:#000;overflow:hidden;}
+.fCCItemDetail .fCCItemPriceAndBtn{width: 100%;padding-top: 10px;line-height: 24px;margin: 0!important;overflow: hidden;}
+.fCCItemPriceAndBtn .priceContent{float: left;padding-top: 2px;}
+.priceContent .priceSymbol{color: #62bcfa;font-size:18px;}
+.priceContent .priceColor {font-size:18px;}
+.fCCItemPriceAndBtn .contactSeller{float: right;padding: 0px 5px;width: 66px;height: 24px;color: #fff;text-decoration: none;
+background: #62bcfa;border: 0;text-align:center;line-height:24px;}
+
+/*商品楼层(Common)样式结束*/
+
+
+/*首页主体内容CSS样式结束*/

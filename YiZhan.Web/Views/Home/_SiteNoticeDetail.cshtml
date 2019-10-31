@@ -1,0 +1,47 @@
+﻿@{
+    Layout = null;
+}
+@using YiZhan.ViewModels.WebSettingManagement
+@model SiteNoticeVM
+<div class="row">
+    <div class="col-xs-12 headTitleCenter">
+        <h4>标题：@Model.Name</h4>
+        <p>
+            <span>发布人：</span><span style="color:#337ab7">@(Model.Publisher.ChineseFullName == string.Empty ? Model.Publisher.UserName : Model.Publisher.ChineseFullName)</span>
+            丨<span>发布时间：</span><span style="color:#337ab7">@Model.CreateTime.ToString("yyyy-MM-dd HH:mm")</span>
+        </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="yzNoticesContent">
+            <div class="yzNoticesTexts">
+                @Model.Description
+            </div>
+            <div class="yzNoticesIMGs">
+                @if (Model.Attachments.Count() > 0)
+                {
+                    foreach (var item in Model.Attachments)
+                    {
+                        <img src="@item.UploadPath" alt="@item.Name" />
+                    }
+                }
+            </div>
+        </div>
+        <div class="yzTeamFeedbackContact">
+            @if (ViewBag.YiZhanEmail != null)
+            {
+                <p>
+                    <span>如果您有任何问题和疑问，请发送邮件到官方邮箱，我们会第一时间回复！</span>
+                    <span>E-Mail：</span><span class="yzError">@ViewBag.YiZhanEmail</span>
+                </p>
+            }
+            else
+            {
+                <p>
+                    <span>如果您有任何问题和疑问，请 <a href="../../Home/UserFeedback" target="_blank" class="yzError">点击此处</a> 提交反馈给我们，我们会第一时间回复！</span>
+                </p>
+            }
+        </div>
+    </div>
+</div>

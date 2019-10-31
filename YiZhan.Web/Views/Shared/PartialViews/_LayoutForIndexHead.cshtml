@@ -1,0 +1,86 @@
+﻿ <!--头部导航 用于局部页面 分开-->
+<div class="headBox" id="headBox">
+    <div class="navSmall">
+        <div class="navSmall-content">
+            <div class="navSmall-left">
+                <ul>                 
+                    <li id="userNameAreaAfter"><a href="../../Home/DownloadApp" target="_blank">手机易站</a></li>
+                </ul>
+            </div>
+            <div class="navSmall-right">
+                <ul>
+                    @*<li><a class="redColor" href="/">易站首页</a></li>*@
+                    <li class="dropdown dw-MyYiZhan">
+                        <a href="javascript:">我的易站</a>
+                        <ul class="dropdown-content">
+                            <li><a href="../../Account/UserCenter">买到的宝贝</a></li>
+                            <li><a href="../../Account/UserCenter">我的足迹</a></li>
+                        </ul>
+                    </li>
+                    @*<li><a href="javascript:">购物车</a></li>*@
+                    @*<li><a href="javascript:">收藏夹</a></li>*@
+                    @*<li><a href="javascript:">商品分类</a></li>*@
+                    <li class="dropdown dw-SellerCenter">
+                        <a href="javascript:">卖家中心</a>
+                        <ul class="dropdown-content">
+                            <li><a href="../../Account/UserCenter">卖出的宝贝</a></li>
+                            <li><a href="../../Account/UserCenter">出售的宝贝</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="../../Home/UserFeedback" target="_blank" >反馈中心</a></li>                   
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="navBig">
+        <div class="navBig-content">
+            <div class="navBig-logo">
+                <a href="/" >
+                    <img id="YiZhanIndexLogo" src="~/images/Index/logo.png" alt="易站LOGO">
+                </a>
+            </div>
+            <div class="navBig-right">
+                <div class="navBig-right-search">
+                    <div class="input-group">
+                        <input type="text" id="YiZhanSearchKeyword" class="form-control" placeholder="请输入商品名/描述等关键字..." style="margin-top:28px">
+                        <span class="input-group-btn">
+                            <a href="javascript:" class="btn btn-default" id="YiZhanSearch">搜索</a>
+                        </span>
+                    </div>
+                </div>
+                <ul>
+                    <li><a href="/">首页</a></li>
+                    <li><a href="../../Account/UserCenter">发布闲置</a></li>
+                    <li><a href="../../Account/UserCenter">我的闲置</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@*该方法仅用于添加默认的用户，不作为项目发布时使用*@
+@* 开发时候使用，发布时，请将此方法删除*@
+<script>
+    function AddDefaultUsers() {
+        $.ajax({
+            cache: false,
+            type: 'POST',
+            async: false,
+            url: "../Account/AddDefaultUsers",
+            dataType: 'json',
+            beforeSend: function () {
+            }
+        }).done(function (addStatus) {
+            if (addStatus.result === true) {
+                alert(addStatus.message);
+            } else {
+                alert(addStatus.message);
+            }
+        }).fail(function () {
+            alert("连接后台失败！");
+        }).always(function () {
+        });
+    }
+</script>

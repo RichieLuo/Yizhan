@@ -1,0 +1,118 @@
+﻿.siteNoticesArea {
+    width: 1200px;
+    height: 650px;
+    overflow: hidden;
+    margin: 0 auto;
+    background: #fff;
+    padding: 40px;
+}
+
+.table-bordered > thead > tr > th {
+    text-align: center;
+    border-bottom-width: 0px !important;
+}
+
+.yzNoticeLeft {
+    border-right: 1px solid #f2f2f2;
+    height: 570px;
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.yzNoticeLeftList ol li {
+    list-style: decimal inside none;
+    padding-top: 9px;
+    height: 35px;
+    border-bottom: 1px solid #f2f2f2;
+    padding-left: 10px;
+    position: relative;
+    /*width: 260px;*/
+    cursor: pointer;
+    color: #337ab7;
+}
+
+    .yzNoticeLeftList ol li:last-child {
+        border-bottom: 0;
+    }
+
+    .yzNoticeLeftList ol li:hover {
+        background: #f2f2f2!important;
+    }
+
+    .yzNoticeLeftList ol li a {
+        position: absolute;
+        top: 9px;
+        left: 40px;
+        width: 150px;
+        height: 17px;
+        display: inline-block;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        color: #337ab7;
+    }
+
+    .yzNoticeLeftList ol li span {
+        position: absolute;
+        top: 9px;
+        right: 30px;
+    }
+.yzNoticeH4 {
+    text-align: left;
+    padding-left: 12px;
+    border-left: 4px solid #62bcfa;
+}
+.yzNoticeLeftList {
+    height: 500px;
+    overflow-y: auto;
+    /*padding-top: 7px !important;*/
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.yzTeamFeedbackContact {
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    color: #337ab7;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.headTitleCenter {
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.yzNoticesContent {
+    padding: 40px;
+    height: 450px;
+    padding-bottom: 20px;
+    overflow-y: auto;
+}
+
+.yzNoticesTexts {
+    text-indent: 2em;
+    line-height:24px;
+}
+
+.siteNoticesArea .row .col-xs-12 {
+    padding: 0;
+}
+
+.yzNoticesIMGs {
+    text-align: center;
+    margin-top: 10px;
+}
+
+    .yzNoticesIMGs img {
+        width: 360px;
+        height: 200px;
+        margin: 5px;
+    }
+
+.yzActive {
+    background: #f2f2f2!important;
+    padding-top: 14px!important;
+    height: 44px!important;
+}
+.yzActiveA,.yzActiveSpan{top:14px!important;}

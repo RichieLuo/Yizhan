@@ -1,0 +1,349 @@
+/*商品明细页面css样式*/
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#commodityDetailArea {
+    width: 1200px;
+    min-width: 1200px;
+    margin: 0 auto;
+}
+
+.commodityDetailHead {
+    overflow: hidden;
+}
+
+.commodityPrice {
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.priceSymbol {
+    font-size: 17px;
+    font-weight: 400;
+    font-family: Arial,Verdana;
+    padding-right: 2px;
+    color: #999;
+}
+
+.isBargain {
+    color: #fc0;
+    font-size: 12px;
+    margin-left: 8px;
+}
+
+.buyContent p {
+    padding: 5px 0;
+}
+
+.commodityHr {
+    padding-bottom: 10px !important;
+}
+
+/*轮播图主体*/
+#bannerBox {
+    float: left;
+    width: 750px;
+    height: 500px;
+    position: relative;
+    overflow: hidden;
+}
+
+    #bannerBox .commodityImages {
+        width: 100%;
+        height: 360px;
+        overflow: hidden;
+        border: 1px solid #e3e3e3;
+        border-top: 0;
+        border-bottom: 0;
+    }
+
+.commodityImages ul li {
+    width: 100%;
+    height: 360px;
+    position: relative;
+    cursor: pointer;
+    text-align: center;
+}
+
+    .commodityImages ul li img { /*width:100%;*/
+        height: 100%;
+    }
+/*轮播图左右控制上一张和下一张样式*/
+#bannerBox .tab-lr {
+    display: none
+}
+
+    #bannerBox .tab-lr .tab-left {
+        z-index: 99;
+        position: absolute;
+        left: 0px;
+        top: 28%;
+        text-align: center;
+        width: 30px;
+        height: 80px;
+        cursor: pointer;
+        color: #fff;
+        font-size: 30px;
+        background: rgba(0,0,0,.3);
+        line-height: 80px;
+        border-radius: 0 5px 5px 0;
+    }
+
+    #bannerBox .tab-lr .tab-right {
+        z-index: 99;
+        position: absolute;
+        right: 0px;
+        top: 28%;
+        text-align: center;
+        width: 30px;
+        height: 80px;
+        cursor: pointer;
+        color: #fff;
+        font-size: 30px;
+        background: rgba(0,0,0,.3);
+        line-height: 80px;
+        border-radius: 5px 0 0 5px;
+    }
+/*轮播图底部缩略图*/
+#bannerBox .banner-thumbnail {
+    z-index: 99;
+    left: 0;
+    width: 100%;
+    height: 110px;
+    padding-top: 18px;
+    border: 1px solid #e3e3e3;
+    overflow: hidden;
+}
+
+#bannerBox ol {
+    margin: 0 auto;
+    height: 70px
+}
+
+    #bannerBox ol li {
+        cursor: pointer;
+        width: 80px;
+        height: 70px;
+        margin-left: 15px;
+        float: left;
+    }
+
+        #bannerBox ol li:first-child {
+            margin-left: 0
+        }
+
+        #bannerBox ol li.current {
+            border: 2px solid #62bcfa;
+        }
+
+        #bannerBox ol li img {
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+#buyContent {
+    float: left;
+    padding-left: 30px;
+    width: 450px;
+    height: 500px;
+}
+
+.userInfo {
+    width: 100%;
+    height: 70px;
+    border: 1px solid #e6e6e6;
+    border-top: 1px solid #62bcfa;
+    box-sizing: border-box;
+}
+
+    .userInfo .userInfoLeft {
+        width: 299px;
+        height: 68px;
+        overflow: hidden;
+        border-right: 1px solid #e6e6e6;
+    }
+
+.userInfoLeft .userInfoAvatar {
+    float: left;
+    width: 60px;
+    padding: 14px 0 0 10px;
+}
+
+    .userInfoLeft .userInfoAvatar img {
+        width: 40px;
+        height: 40px;
+    }
+
+.userInfoLeft .userInfoDetail {
+    float: left;
+    width: 238px;
+    overflow: hidden;
+}
+
+.userInfoDetail > div {
+    overflow: hidden;
+}
+
+    .userInfoDetail > div > h5 > a {
+        font-size: 14px;
+        font-weight: 100;
+    }
+
+    .userInfoDetail > div > h5 {
+        font-weight: 700;
+        margin-bottom: 5px;
+        padding-left: 5px;
+        min-width: 90px;
+    }
+
+.userInfoDetail > div {
+    display: inline-block;
+    overflow: hidden;
+}
+
+    .userInfoDetail > div > img {
+        margin-right: 5px;
+    }
+
+.userInfo .userInfoRight {
+    width: 899px;
+    height: 68px;
+}
+
+.userInfoRight .userInfoCommon {
+    width: 150px;
+    height: 68px;
+    border-right: 1px dotted #e6e6e6;
+    padding-top: 10px;
+}
+
+.userInfoRight .userLastEdit {
+    width: 200px;
+}
+
+.userInfoRight .reportTheCommodity {
+    display: block;
+    height: 100%;
+    line-height: 68px;
+    color: #62bcfa;
+    padding: 0 10px;
+}
+
+.commodityHr {
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.commodityName {
+    font-weight: bold;
+    margin-top: 0 !important;
+}
+
+.detailNameItem { /*color: #e6a43b;font-size: 16px;font-weight: bold;*/
+}
+
+.commodityDetailNav {
+    background-color: #f8f8f8;
+    border-color: #e7e7e7;
+}
+
+.buyAbout {
+    height: 360px;
+    border-right: 1px solid #e3e3e3; /*padding-left: 10px;*/
+    padding-top: 20px;
+}
+
+    .buyAbout .lastP {
+        margin-bottom: 30px;
+    }
+
+.platformDeclaration { /*margin: 10px 0;*/
+    padding: 4px 10px;
+    overflow: hidden;
+    border: 1px solid #e3e3e3;
+    box-sizing: border-box;
+}
+
+    .platformDeclaration .declarationOne {
+        border-bottom: 1px solid #e3e3e3;
+    }
+
+.declarationOne img {
+    padding: 12px 7px 0 7px;
+    width: 40px;
+    margin-right: 8px;
+}
+
+.declarationTwo img {
+    padding-top: 15px;
+    width: 50px
+}
+
+.declarationCommon > h4, .declarationCommon > p {
+    margin: 0;
+    padding: 0;
+    padding-left: 5px;
+}
+
+.declarationCommon {
+    width: 100%;
+    height: 50px;
+    line-height: 50px !important;
+}
+
+    .declarationCommon .declarationStyle {
+        float: left;
+        line-height: 50px !important;
+        display: inline-block;
+    }
+
+.commodityDetailConetnt {
+    margin-bottom: 10px;
+    width: 870px;
+}
+
+.commodityDetailConetntAd {
+    margin-left: 10px;
+    width: 320px;
+}
+
+.commodityDetailConetntAdHead {
+    width: 320px;
+    background-color: #f8f8f8;
+    line-height: 42px;
+    border-color: #e7e7e7;
+    height: 42px;
+    border-bottom: 1px solid #ddd;
+    padding: 0 5px
+}
+
+.commodityDetailConetntAd ul li {
+    margin: 2px 0px;
+    width: 320px;
+    height: 320px;
+}
+
+    .commodityDetailConetntAd ul li:first-child {
+        margin-top: 0;
+    }
+
+.commodityDetailConetntAd img {
+    width: 100%;
+    height: 100%;
+}
+
+.blankArea {
+    width: 100%;
+    min-height: 320px;
+    border: 1px solid #e7e7e7;
+    border-top: 0;
+    overflow: hidden;
+    padding: 15px;
+}
+
+    .blankArea > h4 {
+        font-weight: bold;
+    }

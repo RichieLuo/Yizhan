@@ -1,0 +1,119 @@
+﻿@{
+    Layout = null;
+}
+@using YiZhan.Common.JsonModels
+@using YiZhan.ViewModels.BusinessManagement
+@model List<YZ_CommodityVM>
+@{
+    var oneFMaxShowCount = 0;
+}
+<div class="area-right-head">
+    <h3 class="user-right-head-title">个人中心首页</h3>
+</div>
+<div class="area-right-container">
+    <div class="row">
+        <a href="##">
+            <div style="width: 100%">
+                <img src="~/images/DefaultImg/userCenterIndexAd.jpg" style="height: 100%;width: 100%" alt="广告图片">
+            </div>
+        </a>
+    </div>
+
+    <div class="row" style="padding-top: 46px;padding-bottom: 47px;">
+        <div class="col-xs-4">
+            <div style="height: 100px;background: #62bcfa;text-align:center;color:white">
+                <p style="line-height:50px;font-size:26px">我的闲置</p>
+                <p>
+                    <a href="#">
+                        <span style="font-size:20px;color:white" class="commoditiesCount">@ViewBag.CommoditiesCount</span>
+                    </a>
+                </p>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div style="height: 100px;background: #62bcfa;text-align:center;color:white">
+                <p style="line-height:50px;font-size:26px">待审核</p>
+                <p>
+                    <a href="#">
+                        <span style="font-size:20px;color:white" class="awaitExamineCount">0</span>
+                    </a>
+                </p>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div style="height: 100px;background: #62bcfa;text-align:center;color:white">
+                <p style="line-height:50px;font-size:26px">未通过审核</p>
+                <p>
+                    <a href="#">
+                        <span style="font-size:20px;color:white" class="notExamineCount">0</span>
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="indexFloorOne" class="indexFloorCommon">
+        <div class="fCommonHead">
+            <!--楼层头部：左侧标题，右侧更多-->
+            <div class="fCommonHeadTitle">
+                <h4 style="margin-top:10px;">猜你喜欢</h4>
+            </div>
+            <div class="fCommonHeadMore">
+                <a href="javascript:" class="moreKeyword">
+                    @{
+                        var maxDataLen = 0;
+                        foreach (var item in Model)
+                        {
+                            if (maxDataLen > 0)
+                            {
+                                break;
+                            }
+                            <input type="hidden" value="@item.Category.Name" />
+                            maxDataLen++;
+                        }
+                    }
+                    <span class="fch-more">More +</span>
+                </a>
+            </div>
+        </div>
+        <div class="userCommonContent fCommonContent">
+            <ul class="fCommonContentCommodity">
+                @foreach (var item in Model)
+                {
+                    if (oneFMaxShowCount >= 4)
+                    {
+                        break;
+                    }
+                    <li class="fCommonContentCommodityItem">
+                        <a href="../../Home/GetCommodityDetail?id=@item.Id" title="@item.Description">
+                            <img src="@item.Images.FirstOrDefault(f=>f.Type==ImageType.CommodityCover).UploadPath" alt="@item.Name" />
+                        </a>
+                        <div class="fCCItemDetail">
+                            <a href="../../Home/GetCommodityDetail?id=@item.Id" title="@item.Description">
+                                <p>@item.Description</p>
+                            </a>
+                            <div class="fCCItemPriceAndBtn">
+                                <div class="priceContent">
+                                    <span class="priceSymbol">￥:</span>
+                                    <span class="priceColor">@item.Price</span>
+                                </div>
+                                <a href="../../Home/GetCommodityDetail?id=@item.Id" class="contactSeller">查看</a>
+                            </div>
+                        </div>
+                    </li>
+                    oneFMaxShowCount++;
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.onload = function () {
+        $.get("../../CommoditiesManager/GetMyCount", null, function (data) {
+            $(".commoditiesCount").text(data.commoditiesCount);
+            $(".awaitExamineCount").text(data.awaitExamineCount);
+            $(".notExamineCount").text(data.notExamineCount);
+        })
+    }
+</script>

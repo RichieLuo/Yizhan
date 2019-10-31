@@ -1,0 +1,91 @@
+﻿@model IEnumerable<YiZhan.ViewModels.BusinessManagement.YZ_CommodityVM>
+@using YiZhan.CustomMvcCoreExtension
+@{
+    ViewData["Title"] = "商品管理";
+    Layout = "_LayoutForAdmin";
+    var pageParameter = ViewBag.PageParameter as YiZhan.Common.JsonModels.ListPageParameter;
+
+}
+@{
+    <!-- 一组和数据操作有关的会话框 -->
+    @Html.Partial("../../Views/AdminCenter/CommodityManagement/_ModalForEditCommodity", Model)
+    @Html.Partial("../../Views/AdminCenter/CommodityManagement/_ModalForDeleteCommodity", Model)
+    @Html.Partial("../../Views/AdminCenter/CommodityManagement/_ModalForCancelSale", Model)
+    @Html.Partial("../../Views/AdminCenter/CommodityManagement/_ModalForCommodityDetail", Model)
+}
+<div id="adCommodityArea">
+    @Html.Partial("../../Views/AdminCenter/CommodityManagement/_List", ViewBag.CommodityVMCollection as List<YiZhan.ViewModels.BusinessManagement.YZ_CommodityVM>)
+</div>
+
+<!-- 一组用于留存查询、分页、导航处理等相关的中间变量，方便需要的时候提取 -->
+@Html.YiZhanSetListPageParameter(pageParameter)
+
+
+<script type="text/javascript">
+
+    // 变量：id
+    function gotoList(id) {
+        $('#yiZhanTypeId').val(id);
+        gotoListWithJson();
+    }
+    // 指定页面的访问后台的方法
+    function gotoListWithPageIndex(id, pageIndex) {
+        $('#yiZhanTypeId').val(id);
+        $('#yiZhanPageIndex').val('1');
+        $('#yiZhanKeyword').val('');
+        gotoListWithJson();
+    }
+
+    // 处理分页器响应
+    function gotoPage(pageIndex) {
+        $('#yiZhanPageIndex').val(pageIndex);
+        gotoListWithJson();
+    }
+
+    // 处理常规关键词检索响应
+    function gotoSearch() {
+        var keyword = $('#inputKeyWord').val();
+        $('#yiZhanKeyword').val(keyword);
+        $('#yiZhanPageIndex').val('1');
+        $('#yiZhanSortDesc').val('')
+        $('#yiZhanSortProperty').val('name')
+        gotoListWithJson();
+    }
+
+    // 处理排序响应
+    function gotoSort(sortPropertyName, sortId) {
+        var sortStatus = $('#yiZhanSortDesc').val();  // 获取当前的排序形式
+        if (sortStatus == 'Default') {
+            document.getElementById(sortId).innerHTML = '<span aria-hidden="true" class="glyphicon glyphicon-chevron-down" style="color:white"></span>';
+            $('#yiZhanSortDesc').val('')
+
+        } else {
+            document.getElementById(sortId).innerHTML = '<span aria-hidden="true" class="glyphicon glyphicon-chevron-up" style="color:white"></span>';
+            $('#yiZhanSortDesc').val('Default')
+        }
+        $('#yiZhanSortProperty').val(sortPropertyName)
+        gotoListWithJson();
+    }
+
+    // 提取数据列表相关的参数，构成完成后向后端提交
+    function gotoListWithJson() {
+        var listParaJson = yiZhanGetListParaJson();
+        var jsonData = { "listPageParaJson": listParaJson };
+        $.ajax({
+            cache: false,
+            type: "POST",
+            async: true,
+            url: '../../AdCommodities/List',
+            data: jsonData,
+            beforeSend: function () {
+                document.getElementById("adCommodityArea").innerHTML = "<p style='margin-top:50px;' align='center'> <i class='fa fa-spinner fa-pulse fa-2x'></i></p>" +
+                    "<p style='margin-top:50px;' align='center'>  数据加载中，请稍候...</p>";
+            }
+        }).done(function (data) {
+            document.getElementById("adCommodityArea").innerHTML = data;
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            //console.error("调试错误:" + errorThrown);
+        }).always(function () {
+        });
+    }
+</script>

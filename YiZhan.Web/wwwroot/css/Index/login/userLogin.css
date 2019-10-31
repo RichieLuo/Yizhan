@@ -1,0 +1,164 @@
+/*用户登录页面css样式*/
+
+.loginAndRegisterArea {
+    background: url(../../../images/Index/login/loginbg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin: 10px auto;
+    width: 100%;
+    min-width: 1200px;
+    height: 550px;
+}
+.loginAndRegisterArea .loginAndRegisterAreaContent {
+    width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+input[class='form-control'] {
+    border-radius: 0;
+    background: rgba(0, 0, 0, 0);
+    color: #000;
+}
+
+.addOnWadnH {
+    width: 85px;
+    height: 34px;
+    padding: 0;
+    border: 0;
+    background-color: #fff;
+    border-radius: 0;
+}
+
+.addOnStyle {
+    background-color: #fff;
+    border-radius: 0
+}
+
+.btn {
+    border-radius: 0
+}
+
+#forgetPass {
+    margin-left: 0
+}
+
+.login {
+    opacity: 1;
+    padding: 20px 40px 12px 40px;
+    /*background-color: rgba(34, 34, 34, .6);
+	/*background-color:  rgba(255,255,255,.4);*/
+    background: #fff;
+    width: 350px;
+    box-sizing: border-box;
+    overflow: hidden;
+    position: absolute;
+    top: 80px;
+    right: 50px;
+}
+
+.login-head {
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+    .login-head img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%!important;
+        box-sizing: border-box;
+        border: 2px solid #fff;
+        transform: rotateZ(-360deg);
+        -webkit-transform: rotateZ(-360deg);
+    }
+
+.login-title {
+    color: #fff;
+    display: none;
+}
+
+#login-btn {
+    width: 120px;
+    background: #2375b0;
+    border: #2375b0;
+    color: #fff;
+}
+
+#forgetPass {
+    width: 85px;
+    height: 34px;
+    border: 0;
+    background: #ccc;
+    color: #fff; /*font-family: Arial;*/
+}
+
+.register {
+    opacity: 0;
+    padding: 12px 40px;
+    /*background-color: rgba(34, 34, 34, .6);*/
+    /*background-color:  rgba(255,255,255,.4);*/
+    background: #fff;
+    width: 350px;
+    box-sizing: border-box;
+    position: absolute;
+    top: 80px;
+    right: 0px;
+    z-index: -1;
+}
+
+.register-head {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#register-btn {
+    width: 120px;
+    background: #2375b0;
+    border: #2375b0;
+    color: #fff;
+}
+
+.goIndex {
+    color: #000;
+}
+
+.no-bottom {
+    margin-bottom: 0 !important;
+}
+
+.remember, .agree {
+    padding: 10px 0;
+}
+
+.agree {
+    padding: 10px 0;
+}
+
+.navBig-right ul li a {
+    color: #222;
+    font-size: 15px;
+}
+
+.navBig-right-search .indexSearch {
+    border: 1px solid #aeaeae;
+}
+
+.navBig-right-search .indexSearchBtn {
+    background: #2375b0;
+    color: #fff;
+}
+#code {
+font-family: STLiti;
+font-style: italic;
+font-weight: bold;
+border: 1px solid #ccc;
+border-left:0;
+font-size:18px;
+letter-spacing: 2px;
+color: #607D8B;
+width: 85px;
+height: 34px;
+background: rgba(0, 0, 0, 0);
+/*background:url(../../../images/Index/login/code.png);*/
+}

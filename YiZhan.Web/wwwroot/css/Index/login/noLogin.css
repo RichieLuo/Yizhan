@@ -1,0 +1,37 @@
+.noLoginContainer {
+	min-width: 1200px;
+	position: relative;
+	height: auto;
+	padding: 40px 0;
+}
+
+.panel-content {
+    border-radius: 4px;
+    height: 400px;
+    padding-top: 100px;
+    box-sizing: border-box;
+}
+
+.panel-top {
+	font-weight: bold;
+}
+
+.float-left {
+	position: absolute;
+	left: 150px;
+	top: 100px;
+	width: 250px;
+}
+
+.float-right {
+	position: absolute;
+	right: 150px;
+	top: 100px;
+}
+
+.padding-big {
+	margin-top: 106px;
+}
+    .padding-big .btn {
+     border-radius:0;
+    }

@@ -1,0 +1,81 @@
+﻿@{
+    Layout = null;
+}
+@*@using YiZhan.ViewModels.WebSettingManagement
+    @model SiteNoticeVM*@
+@{
+
+    //var isNew = Model.Id == Guid.Empty ? "true" : "false";
+}
+<!-- 模态框（Modal） -->
+<div class="modal fade yzModalCenter" id="createSiteNoticeModal" tabindex="-1" role="dialog"
+     aria-labelledby="createSiteNoticeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="createSiteNoticeLabel">
+                    发布公告
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" action="../../SiteManager/CreateSiteNotice" method="post" enctype="multipart/form-data" role="form" id="createSiteNoticeForm">
+                    <input type="hidden" name="IsNew" value="true" />
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <label for="Name" class="col-sm-3 control-label">公告标题： </label>
+                        <div class="col-sm-7">
+                            <input type="text" name="Name" class="form-control " placeholder="请输入公告标题" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="CanRegister" class="col-sm-3 control-label">公告内容： </label>
+                        <div class="col-sm-7">
+                            <textarea name="Description" class="form-control " placeholder="请输入公告内容" required style="height:150px"></textarea>
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label class="col-sm-3 control-label">已选图片： </label>
+                        <div class="col-sm-7">
+                            <p class="yzError">总共选择了 <span id="imagesCountArea">0</span> 张图片</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-7">
+                            <div class="uploadLogoBtnArea" style="height:35px;">
+                                <button type="button" style="top:0;left:0;" class="btn leftSaveBtn uploadLogoBtn form-control" title="选择图片" id="uploadLogoBtn">选择图片</button>
+                                <input type="file" multiple style="top:0;left:0;width:100%;height:34px" id="uploadLogoInput" name="Logo" value="" title="选择图片" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="col-xs-3 control-label"></label>
+                        <div class="col-xs-6">
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <button type="button" class="btn leftSaveBtn form-control createSiteNoticeSave" id="createSiteNoticeSave">发布</button>
+                                </div>
+                                <div class="col-xs-4">
+                                    <button type="reset" class="btn btn-default form-control">清空</button>
+                                </div>
+                                <div class="col-xs-4">
+                                    <button type="button" class="btn btn-default form-control createSiteNoticeClose" data-dismiss="modal" aria-hidden="true" data-target="#createSiteNoticeModal">关闭</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer text-center">
+                <div class="text-center">
+                    <a href="../../AdminCenter/Index" title="易站-校园二手交易平台">
+                        易站-管理中心
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

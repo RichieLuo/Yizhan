@@ -1,0 +1,126 @@
+﻿@{
+    Layout = "_LayoutForAdmin";
+    ViewData["Title"] = "个人中心";
+}
+@using YiZhan.ViewModels.ApplicationOrganization
+@model ApplicationUserVM
+
+<div>
+    <h3 class="sub-header">个人中心</h3>
+</div>
+<div id="adProfileArea">
+    <div class="adadPageCommonContent" id="adadPageCommonContent">
+        <ul id="adProfileTab" class="nav nav-tabs">
+            <li class="active"><a href="#adChangeProfile" data-toggle="tab">个人信息</a></li>
+            <li><a href="#adChangePassword" data-toggle="tab">修改密码</a></li>
+            <li><a href="#adChangeAvatar" data-toggle="tab">修改头像</a></li>
+        </ul>
+        <div id="adProfileTabContent" class="tab-content">
+            <div class="tab-pane fade in active" id="adChangeProfile">
+                @*修改个人信息*@
+                <div class="userProfileBottom">
+                    <form class="form-horizontal" action="../../Account/SaveChangeProfile" method="post" role="form" id="ChangeProfileForm">
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">昵称：</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control borderRadiusNone" name="Name" placeholder="昵称" value="@Model.Name" maxlength="8">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="MobileNumber" class="col-sm-2 control-label">手机号码：</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="MobileNumber" placeholder="手机号码" value="@Model.MobileNumber" maxlength="11">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="QQNumber" class="col-sm-2 control-label">QQ：</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="QQNumber" placeholder="QQ号码" value="@Model.QQNumber" maxlength="11">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="EMail" class="col-sm-2 control-label">电子邮件：</label>
+                            <div class="col-sm-2">
+                                <input type="email" class="form-control" name="EMail" placeholder="电子邮件" value="@Model.EMail" maxlength="30" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Description" class="col-sm-2 control-label">个性签名：</label>
+                            <div class="col-sm-2">
+                                <input type="email" class="form-control" name="Description" placeholder="个性签名" value="@Model.Description" maxlength="14">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-2">
+                                <button type="button" class="btn leftSaveBtn" id="ChangeProfileSaveBtn">保存修改</button>
+                                <button type="reset" class="btn yzFormBtn">清空</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="adChangePassword" style="margin-top:10%">
+                @*修改密码*@
+                <form class="form-horizontal" action="../../Account/SaveChangePassword" id="ChangePasswordForm">
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <label for="Password" class="col-sm-2 control-label">新密码：</label>
+                        <div class="col-sm-2">
+                            <input type="password" class="form-control borderRadiusNone" name="Password" placeholder="新密码" value="" maxlength="16" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ConfirmPassword" class="col-sm-2 control-label">确认密码：</label>
+                        <div class="col-sm-2">
+                            <input type="password" class="form-control borderRadiusNone" name="ConfirmPassword" placeholder="再次确认密码" value="" maxlength="16" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-2">
+                            <p id="changePasswordErrorMessage" class=""></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-2">
+                            <button type="button" onclick="resetUserPassword()" class="btn yzFormBtn leftSaveBtn">保存修改</button>
+                            <button type="reset" class="btn btn-default yzFormBtn borderRadiusNone">重置</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="adChangeAvatar">
+                @*修改头像*@
+                <div id="avatarArea" class="text-center">
+                    <div class="avatarUploadArea" style="margin-top:10%;">
+                        <form id="avatarUploadForm" name="avatarUploadForm" action="../../Account/SaveChangeAvatar" enctype="multipart/form-data" method="post">
+                            <div class="row text-left">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    @if (Model.Avatar == null)
+                                    {
+                                        <img style="width:200px;height:200px;border-radius:50%!important" class="logoPreview" id="avatarPreview" src="~/images/Avatars/notChooseAvatar.jpg" alt="头像" />
+                                    }
+                                    else
+                                    {
+                                        <img style="width:200px;height:200px;border-radius:50%!important" class="logoPreview" id="avatarPreview" src="@Model.Avatar.UploadPath" alt="头像" />
+                                    }
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <div class="uploadLogoBtnArea">
+                                        <button style="left:0!important" type="button" class="btn leftSaveBtn uploadLogoBtn" title="点击选择头像" id="uploadLogoBtn">选择头像</button>
+                                        <input style="left:0!important" type="file" id="uploadLogoInput" name="Logo" onchange="imgPreview(this)" value="" title="点击选择头像" required="">
+                                        <button style="left:110px" type="button" class="btn rightSaveBtn siteSettingSubmitSave" id="submitUploadBtn">保存头像</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"asp-append-version="true"></script>
+<script src="~/js/Admin/MyProfile.js" asp-append-version="true"></script>

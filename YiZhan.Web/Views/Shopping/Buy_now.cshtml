@@ -1,0 +1,56 @@
+﻿@model YiZhan.ViewModels.BusinessManagement.CommodityVM.Shopping.YZ_BuyVM
+@{
+    ViewData["Title"] = "商品购买";
+    //Layout = "~/Views/Shared/_LayoutForIndex.cshtml";
+    Layout = "~/Views/Shared/_LayoutForIndex.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <h3>购买商品</h3>
+                <hr />
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>商品名称</th>
+                            <th width="200">卖家</th>
+                            <th width="100">价格</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="row">
+                                    <div class="col-md-2 text-center">
+                                        @if (!String.IsNullOrEmpty(Model.Cover))
+                                        {
+                                            <img width="90" height="90" src="@Model.Cover" alt="商品封面" />
+                                        }
+                                    </div>
+                                    <div class="col-md-10">
+                                        <h4>商品名称：@Model.Commodity.Name</h4>
+                                        <p title="@Model.Description" style="width: 100%;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;">商品描述：@Model.Commodity.Description</p>
+                                    </div>
+                                </div>
+
+                            </td>
+                            <td class="text-center">@Model.Commodity.AscriptionUser.ChineseFullName</td>
+                            <td class="text-center">@Model.Commodity.Price</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div>
+        <form asp-action="Payment" asp-controller="Shopping" method="post">
+            <input type="hidden" name="Id" value="@Model.Commodity.Id" />
+            <input type="hidden" name="OrderId" value="@Guid.NewGuid()" />
+            <button class="btn rightSaveBtn" type="submit">现在购买</button>
+        </form>
+    </div>
+</div>
+
+

@@ -1,0 +1,122 @@
+﻿@{
+    ViewData["Title"] = "广告轮播图管理";
+    Layout = "_LayoutForAdmin";
+}
+@using YiZhan.ViewModels.WebSettingManagement
+@model List<AdvertisementVM>
+@{
+    @Html.Partial("../../Views/AdminCenter/_EditAdvertisementModal")
+}
+<div>
+    <h3 class="sub-header">广告轮播图管理</h3>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered text-center">
+        <thead style="">
+            <tr style="height:40px">
+                <th style="width:50px;" valign="middle">序号</th>
+                <th style="min-width:50px;" valign="middle">规格</th>
+                <th style="width:200px;" valign="middle">图片</th>
+                <th valign="middle">广告位置</th>
+                <th valign="middle">链接</th>
+                <th style="width:200px;" valign="middle">添加时间</th>
+                <th style="width:80px;" valign="middle">数据操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.OrderNumber</td>
+                        <td>@item.Name</td>
+                        <td><img src="@item.Image.UploadPath" alt="@item.Name" style="width:200px;height:60px;" /></td>
+                        <td>@item.Description</td>
+                        <td>@item.Link</td>
+                        <td>@item.CreateTime</td>
+                        <td>
+                            <div class="btn-group btn-group-xs" role="group" aria-label="...">
+                                <a href="javascript:" class="btn btn-default openEditAdvertisementModal">
+                                    编辑
+                                    <input type="hidden" value="@item.Id" />
+                                </a>
+
+                            </div>
+                        </td>
+                    </tr>
+                }
+
+                // 补充处理空行
+                for (int i = 0; i < 6; i++)
+                {
+                    <tr>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function imgPreview(fileDom) {
+        //判断是否支持FileReader
+        if (window.FileReader) {
+            var reader = new FileReader();
+        } else {
+            alert("您的设备不支持图片预览功能，如需该功能请升级您的设备！");
+        }
+        //获取文件
+        var file = fileDom.files[0];
+        var imageType = /^image\//;
+        //是否是图片
+        if (!imageType.test(file.type)) {
+            alert("请选择图片！");
+            return;
+        }
+        //读取完成
+        reader.onload = function (e) {
+            //获取图片dom
+            var img = document.getElementById("logoPreview");
+            //图片路径设置为读取的图片
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+    window.onload = function () {
+        $(".openEditAdvertisementModal").click(function () {
+            // 打开编辑数据会话框
+            $('#editAdvertisementModal').modal({
+                show: true,
+                backdrop: 'static'
+            });
+            $.get("../../SiteManager/GetAdvertisement", { id: $(this).find("input").val() }, function (html) {
+                $("#ModalContentArea").html(html);
+            })
+        })
+ 
+        // 提交
+        $(document).on("click", "#EditAdvertisementSaveBtn", function () {
+            var options = {
+                dataType: 'json',
+                success: function (data) {
+                    if (data.result) {
+                        $('#editAdvertisementModal').modal('hide');
+                        toastr.success("操作成功，正在刷新界面！");
+                        window.location.href = "../../AdminCenter/Advertisements";
+                    }
+                    else {
+                        alert(data.message);
+                    }
+                }
+            };
+            $('#EditAdvertisementForm').ajaxSubmit(options);
+        })
+    }
+</script>

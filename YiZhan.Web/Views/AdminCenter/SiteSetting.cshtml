@@ -1,0 +1,158 @@
+﻿@{
+    Layout = "_LayoutForAdmin";
+    ViewData["Title"] = "系统参数设置";
+}
+@using YiZhan.ViewModels.WebSettingManagement
+@model SiteSettingVM
+@{
+    //@Html.Partial("../../Views/AdminCenter/_SiteConfigurationModal", ViewBag.SiteConfiguration as SiteConfigurationVM);
+    @Html.Partial("../../Views/AdminCenter/_SiteConfigurationModal");
+    var csPlaceholder = "在这里填写您的客服代码，客服代码可以在美洽官网申请：https://meiqia.com/";
+    var ssPlaceholder = "在这里填写您的统计代码，本站配置使用百度统计，申请地址：https://tongji.baidu.com/";
+    //var shPlaceholder = "在这里填写您的分享代码，本站推荐使用百度分享，申请地址：http://share.baidu.com/";
+}
+<div>
+    <h3 class="sub-header">站点信息设置</h3>
+    <button class="btn rightSaveBtn userCenterCreateBtn1" style="top: 15px;" id="OpenSiteConfiguration">打开网站配置</button>
+</div>
+<div class="siteSettingArea" id="siteSettingArea">
+    <form action="../../SiteManager/UploadLOGO" name="siteSettingForm" class="form-horizontal" method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="Id" value="@Model.Id" />
+        <table class="table table-bordered text-center">
+            <thead>
+                <tr>
+                    <th class="text-center">参数说明</th>
+                    <th class="text-center">参数值</th>
+                    <th class="text-center">参数变量名</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><h5>站点名称</h5></td>
+                    <td><input type="text" class="form-control" name="Name" placeholder="请输入站点名称" value="@Model.Name" required /></td>
+                    <td><h5>Name</h5></td>
+                </tr>
+                <tr>
+                    <td><h5>站点后缀</h5></td>
+                    <td><input type="text" class="form-control" name="Suffix" placeholder="请输入站点网站名称后缀" value="@Model.Suffix" required /></td>
+                    <td><h5>Suffix</h5></td>
+                </tr>
+                @*<tr>
+                    <td><h5>站点域名</h5></td>
+                    <td><input type="text" class="form-control" name="DomainName" placeholder="请输入站点域名" value="@Model.DomainName" required /></td>
+                    <td><h5>DomainName</h5></td>
+                </tr>*@
+                <tr>
+                    <td><h5>站点关键字</h5></td>
+                    <td><input type="text" class="form-control" name="KeyWords" placeholder="请输入站点站点关键字，使用英文 “,” 逗号隔开" value="@Model.KeyWords" required /></td>
+                    <td><h5>KeyWords</h5></td>
+                </tr>
+                <tr>
+                    <td><h5>站点描述</h5></td>
+                    <td><textarea class="form-control" name="Description" placeholder="请输入站点描述" value="" required>@Model.Description</textarea></td>
+                    <td><h5>Description</h5></td>
+                </tr>
+                <tr>
+                    <td><h5>网站邮箱</h5></td>
+                    <td><input type="text" class="form-control" name="SiteEmail" placeholder="请输入网站邮箱" value="@Model.SiteEmail" /></td>
+                    <td><h5>SiteEmail</h5></td>
+                </tr>
+                <tr>
+                    <td><h5>LOGO</h5></td>
+                    <td>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                @if (Model.Logo == null)
+                                {
+                                    <img class="logoPreview" id="logoPreview" src="~/images/Index/logo-blue.png" alt="LOGO" />
+                                }
+                                else
+                                {
+                                    <img class="logoPreview" id="logoPreview" src="@Model.Logo.UploadPath" alt="LOGO" />
+                                }
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="uploadLogoBtnArea">
+                                    <button type="button" class="btn leftSaveBtn uploadLogoBtn" title="选择图片" id="uploadLogoBtn">选择图片</button>
+                                    <input type="file" id="uploadLogoInput" name="Logo" onchange="imgPreview(this)" value="" title="选择图片" required />
+                                    <button type="button" class="btn rightSaveBtn siteSettingSubmitSave" id="siteSettingSubmitSave">确认上传</button>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td><h5>Logo</h5></td>
+                </tr>
+                <tr>
+                    <td><h5>版权信息</h5></td>
+                    <td><input type="text" class="form-control copyright" name="Copyright" placeholder="请输入站点版权信息" value="@Model.Copyright" required /></td>
+                    <td><h5>Copyright</h5></td>
+                </tr>
+                <tr>
+                    <td><h5>ICP备案号</h5></td>
+                    <td><input type="text" class="form-control" name="ICP" placeholder="请输入ICP备案号" value="@Model.ICP" required /></td>
+                    <td><h5>ICP</h5></td>
+                </tr>
+                <tr>
+                    <td><h5>客服代码</h5></td>
+                    <td><textarea class="form-control" name="CustomerService" placeholder="@csPlaceholder" value="" required>@Model.CustomerService</textarea></td>
+                    <td><h5>CustomerService</h5></td>
+                </tr>
+                <tr>
+                    <td><h5>统计代码</h5></td>
+                    <td><textarea class="form-control" name="Statistics" placeholder="@ssPlaceholder" value="" required>@Model.Statistics</textarea></td>
+                    <td><h5>Statistics</h5></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="row siteSettingMarginNone">
+            <div class="col-md-3"></div>
+            <div class="col-md-3">
+                <button type="button" class="btn leftSaveBtn form-control" id="siteSettingSave">提交保存</button>
+            </div>
+            <div class="col-md-3">
+                <a href="../../AdminCenter/SiteSetting" class="btn btn-default form-control">重新加载</a>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </form>
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    function imgPreview(fileDom) {
+        //判断是否支持FileReader
+        if (window.FileReader) {
+            var reader = new FileReader();
+        } else {
+            alert("您的设备不支持图片预览功能，如需该功能请升级您的设备！");
+        }
+        //获取文件
+        var file = fileDom.files[0];
+        var imageType = /^image\//;
+        //是否是图片
+        if (!imageType.test(file.type)) {
+            alert("请选择图片！");
+            return;
+        }
+        //读取完成
+        reader.onload = function (e) {
+            //获取图片dom
+            var img = document.getElementById("logoPreview");
+            //图片路径设置为读取的图片
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    window.onload = function () {
+        $("#OpenSiteConfiguration").click(function () {
+            $('#setSiteConfigurationModal').modal({
+                show: true,
+                backdrop: 'static'
+            });
+            switchChecked();
+        })
+    }
+</script>
+<script src="~/js/Admin/SetSiteConfiguration.js"></script>
+

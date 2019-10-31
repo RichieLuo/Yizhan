@@ -1,0 +1,23 @@
+﻿@{
+    Layout = null;
+}
+@using YiZhan.ViewModels.ApplicationOrganization
+@model ApplicationUserVM
+<div class="area-right-head">
+    <h3 class="user-right-head-title">修改头像</h3>
+</div>
+<div class="area-right-container">
+    <div id="avatarArea" class="text-center">
+        <img class="avatar" src="@Model.Avatar.UploadPath" alt="头像预览" />
+        <div class="avatarUploadArea">
+            <form id="avatarUploadForm" action="/" enctype="multipart/form-data" method="post">
+                <p id="changeAvatarErrorMessage" class=""></p>
+                <div class="btn yzFormBtn leftSaveBtn chooseAvatarBtn" title="点击选择头像">
+                    <span class="btnText" title="点击选择头像">选择新的头像</span>
+                    <input type="file" class="form-control" id="avatarFile" name="file" title="点击选择头像" accept="image/*">
+                </div>
+                <button type="submit" class="btn yzFormBtn rightSaveBtn submitUploadBtn">保存</button>
+            </form>
+        </div>
+    </div>
+</div>

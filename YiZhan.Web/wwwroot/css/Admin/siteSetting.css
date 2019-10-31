@@ -1,0 +1,67 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+.siteSettingArea {
+    padding-bottom: 30px;
+}
+
+.siteSettingMarginNone {
+    margin: 0 !important;
+}
+
+.siteSettingBorderAll {
+    border: 1px solid #888;
+}
+
+.siteSettingArea tbody > tr > td {
+    vertical-align: middle !important;
+}
+
+    .siteSettingArea tbody > tr > td > h4 {
+        margin: 0 !important;
+    }
+
+.siteSettingArea .logoPreview {
+    width: 210px;
+    height: 90px;
+}
+
+.uploadLogoBtnArea {
+    height: 90px;
+    position: relative;
+    overflow: hidden;
+}
+
+    .uploadLogoBtnArea .uploadLogoBtn {
+        position: absolute;
+        top: 28px;
+        left: 50px;
+    }
+
+    .uploadLogoBtnArea input[name=Logo] {
+        position: absolute;
+        top: 28px;
+        left: 50px;
+        width: 82px;
+        height: 34px;
+        opacity: 0;
+    }
+
+textarea[name=Description], textarea[name=Statistics],textarea[name=CustomerService] {
+    resize: vertical;
+}
+
+textarea[name=Statistics],textarea[name=CustomerService] {
+    min-height: 80px;
+}
+
+.siteSettingSubmitSave {
+    position: absolute;
+    top: 28px;
+    left: 150px;
+}
+

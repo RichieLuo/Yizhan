@@ -1,0 +1,108 @@
+﻿@{
+    Layout = null;
+}
+@using YiZhan.ViewModels.WebSettingManagement
+@model List<UserFeedbackVM>
+@{
+    var count = 16;
+    var dataCount = Model.Count;
+    var loopCount = dataCount == 0 ? count - 1 : (count - dataCount);
+    var _isDisable = "disabled";
+}
+
+<div class="area-right-head">
+    <h3 class="user-right-head-title">我的反馈</h3>
+    <a href="../../Home/UserFeedback" class="btn rightSaveBtn userCenterCreateBtn1" target="_blank">提交反馈</a>
+</div>
+<div class="area-right-container">
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered text-center">
+            <thead style="">
+                <tr style="height:40px">
+                    <th style="min-width:50px;" valign="middle">序号</th>
+                    <th style="min-width:100px;" valign="middle">反馈类型</th>
+                    <th style="min-width:90px;" valign="middle">页面链接</th>
+                    <th valign="middle">反馈内容</th>
+                    <th style="min-width:90px;" valign="middle">联系方式</th>
+                    <th style="min-width:100px;" valign="middle">反馈时间</th>
+                    <th style="min-width:100px;" valign="middle">反馈状态</th>
+                    <th style="min-width:80px;" valign="middle">数据操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.OrderNumber</td>
+                            <td>@item.Type</td>
+                            <td>@item.Link</td>
+                            <td>@item.Description</td>
+                            <td>@item.ContactWay</td>
+                            <td>@item.CreateTime</td>
+                            <td>
+                                @if (item.State)
+                                {
+                                    <span class="yzSuccess">已接收</span>
+                                }
+                                else
+                                {
+                                    <span class="yzError">未接收</span>
+                                }
+                            </td>
+                            <td>
+                                <div class="btn-group btn-group-xs" role="group" aria-label="...">
+                                    <button type="button" @(item.State ? "" : _isDisable) class="btn btn-default deleteFeedback" value="@item.Id">删除</button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+
+                    // 补充处理空行
+                    for (int i = 0; i < loopCount; i++)
+                    {
+                        <tr>
+                            <td>　</td>
+                            <td>　</td>
+                            <td>　</td>
+                            <td>　</td>
+                            <td>　</td>
+                            <td>　</td>
+                            <td>　</td>
+                            <td>　</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        @if (dataCount <= 0)
+        {
+            <div class="center-block text-center" style="font-size:16px;"> 您还没有过任何反馈记录。</div>
+        }
+    </div>
+</div>
+
+<script>
+    $(function () {
+        //反馈记录删除操作
+        $(".deleteFeedback").on("click", function () {
+            console.info(111);
+            if (confirm("您确定要删除吗？")) {
+                $.ajax({
+                    url: "../../SiteManager/DeleteUserFeedback",
+                    type: "post",
+                    dataType: "json",
+                    data: { id: $(this).val() },
+                }).done(function (data) {
+                    if (data.result) {
+                        toastr.success("删除成功！");
+                        LoadMyMyFeedbacksView();
+                        LoadDefaultViewCss(11);
+                    } else {
+                        alert("删除失败！");
+                    }
+                })
+            }
+        })
+    })
+</script>

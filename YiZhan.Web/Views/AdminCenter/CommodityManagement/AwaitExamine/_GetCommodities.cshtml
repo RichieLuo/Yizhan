@@ -1,0 +1,156 @@
+﻿@{
+    ViewData["Title"] = "审核闲置商品";
+    Layout = "_LayoutForAdmin";
+}
+@using YiZhan.Common.JsonModels
+@using YiZhan.Entities.BusinessManagement.Commodities
+@model List<YiZhan.ViewModels.BusinessManagement.YZ_CommodityVM>
+@{
+    @Html.Partial("../../Views/AdminCenter/CommodityManagement/AwaitExamine/_AdCommonModal")
+    var price = "￥：";
+}
+<div>
+    <h3 class="sub-header">待审核的闲置商品</h3>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered text-center">
+        <thead style="">
+            <tr style="height:40px">
+                <th style="width:50px;" valign="middle">序号</th>
+                <th style="min-width:50px;" valign="middle">商品名称</th>
+                <th style="width:100px;" valign="middle">图片封面</th>
+                <th valign="middle">描述</th>
+                <th style="width:100px;" valign="middle">类别</th>
+                <th style="width:100px;" valign="middle">单位</th>
+                <th style="width:100px;" valign="middle">售价</th>
+                <th style="width:120px;" valign="middle">添加时间</th>
+                <th style="width:120px;" valign="middle">发布用户</th>
+                <th style="width:100px;" valign="middle">状态</th>
+                <th style="width:80px;" valign="middle">数据操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var cState = "";
+                foreach (var commondity in Model)
+                {
+                    <tr>
+                        <td>@commondity.OrderNumber</td>
+                        <td>
+                            <a href="../../Home/GetCommodityDetail?id=@commondity.Id" target="_blank" title="@commondity.Name">
+                                <span class="strSubArea showPartText gtName" title="">@commondity.Name</span>
+                            </a>
+                        </td>
+                        <td>
+                            @{
+                                var noImg = "/images/Index/systemImg/commodNoIMG.png";
+                                var imgPath = commondity.Images.Count <= 0 ? noImg : commondity.Images.FirstOrDefault(x=>x.Type==ImageType.CommodityCover).UploadPath;
+                                <a href="../../Home/GetCommodityDetail?id=@commondity.Id" target="_blank" title="@commondity.Name">
+                                    <img src="@imgPath" alt="@commondity.Name" style="width:50px;height:60px;" />
+                                </a>
+                            }
+                        </td>
+                        <td>
+                            <span class="strSubArea showPartText gtDescription" title="">@commondity.Description</span>
+                        </td>
+                        <td>@commondity.Category.Name</td>
+                        <td>@commondity.Unit</td>
+                        <td>@price@commondity.Price </td>
+                        <td>@commondity.AddTime</td>
+                        <td>@(commondity.AscriptionUser == null ? "默认数据无用户" : commondity.AscriptionUser.ChineseFullName)</td>
+                        <td>
+                            @switch (commondity.State)
+                            {
+                                case YZ_CommodityState.OnSale: cState = "出售中"; break;
+                                case YZ_CommodityState.CancelASale: cState = "已下架"; break;
+                                case YZ_CommodityState.IsExamine: cState = "待审核"; break;
+                                case YZ_CommodityState.IsExamineOk: cState = "已审核"; break;
+                                case YZ_CommodityState.IsReject: cState = "已驳回"; break;
+                                default: cState = ""; break;
+                            }
+                            @cState
+                        </td>
+                        <td>
+                            <div class="btn-group btn-group-xs" role="group" aria-label="...">
+                                <button onclick="LoadEditCommodity('@commondity.Id.ToString()')" type="button" class="btn btn-default">审核</button>                               
+                            </div>
+                        </td>
+                    </tr>
+                }
+
+                // 补充处理空行
+                for (int i = 0; i < 20; i++)
+                {
+                    <tr>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+
+    function LoadEditCommodity(id) {
+        // 打开编辑数据会话框
+        $('#adCommonCommodityModal').modal({
+            show: true,
+            backdrop: 'static'
+        });
+
+        $.ajax({
+            cache: false,
+            type: 'post',
+            async: false,
+            url: '../../AdCommodities/EditCommodity/' + id,
+            beforeSend: function () {
+                // alert("开始访问");
+            }
+        }).done(function (data) {
+            document.getElementById("contentArea").innerHTML = data;
+        }).fail(function () {
+            alert("连接后台失败！");
+        }).always(function () {
+        });
+    }
+    // 提交
+    function EditCommodity() {
+        var $tip = $("#adCommonCommodityModalTip");
+        var $examineDescription = $("textarea[name=ExamineDescription]");
+        var $state = $("input[name=State]:checked");
+        if ($state.val() == "IsReject" && $examineDescription.val() == "") {
+            $tip.text("请填写审核失败原因");
+            $tip.addClass("yzError").removeClass("yzSuccess");
+            return;
+        }
+        var options = {
+            dataType: 'json',
+            success: function (data) {
+                if (data.result) {
+                    //$tip.text(data.message);
+                    //$tip.addClass("yzSuccess").removeClass("yzError");
+                    window.location = "../../AdCommodities/GetAwaitExamineCommodities";
+                    $('#adCommonCommodityModal').modal('hide');
+                    toastr.success("操作成功，正在刷新界面！");
+                }
+                else {
+                    $tip.text(data.message);
+                    $tip.addClass("yzError").removeClass("yzSuccess");
+                }
+            }
+        };
+
+        $('#editCommodityForm').ajaxSubmit(options);
+    }
+</script>

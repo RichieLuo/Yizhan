@@ -1,0 +1,152 @@
+﻿@{
+    Layout = null;
+}
+@using YiZhan.Common.JsonModels
+@using YiZhan.Entities.BusinessManagement.Commodities
+@model List<YiZhan.ViewModels.BusinessManagement.YZ_CommodityVM>
+@{
+    @Html.Partial("../../Views/Account/UserCenterPartialViews/_ModalForDelete")
+    var price = "￥：";
+    var count = 16;
+    var dataCount = Model.Count;
+    var loopCount = dataCount == 0 ? count - 1 : (count - dataCount);
+}
+<div class="area-right-head">
+    <h3 class="user-right-head-title">我发布的闲置</h3>
+    <button class="btn rightSaveBtn userCenterCreateBtn1" onclick="LoadAddOrEditCommodityView('',7)">发布闲置</button>
+    <input type="hidden" name="PageIndex" value="6" />
+</div>
+<div class="area-right-container">
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered text-center">
+            <thead style="">
+                <tr style="height:40px">
+                    <th style="width:59px;" valign="middle">序号</th>
+                    <th style="width:100px;" valign="middle">商品名称</th>
+                    <th style="width:100px;" valign="middle">图片封面</th>
+                    <th style="min-width:150px;width:150px;" valign="middle">描述</th>
+                    <th style="width:100px;" valign="middle">类别</th>
+                    <th style="width:100px;" valign="middle">单位</th>
+                    <th style="width:100px;" valign="middle">售价</th>
+                    <th style="width:120px;" valign="middle">添加时间</th>
+                    <th style="width:100px;" valign="middle">状态</th>
+                    <th style="width:150px;" valign="middle">数据操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+
+                    var cState = "";
+                    foreach (var commondity in Model)
+                    {
+                        <tr>
+                            <td>@commondity.OrderNumber</td>
+                            <td> <a href="../../Home/GetCommodityDetail?id=@commondity.Id" target="_blank" title="@commondity.Name">@commondity.Name</a></td>
+                            <td>
+                                @{
+                                    var noImg = "/images/Index/systemImg/commodNoIMG.png";
+                                    var imgPath = commondity.Images.Count <= 0 ? noImg : commondity.Images.FirstOrDefault(x => x.Type == ImageType.CommodityCover).UploadPath;
+                                    <a href="../../Home/GetCommodityDetail?id=@commondity.Id" target="_blank" title="@commondity.Name">
+                                        <img src="@imgPath" alt="@commondity.Name" style="width:50px;height:50px;" />
+                                    </a>
+                                }
+                            </td>
+                            <td>
+                                <span class="strSubArea showPartText shw" title=" @commondity.Description">
+                                    @commondity.Description
+                                </span>
+                            </td>
+                            <td>@commondity.Category.Name</td>
+                            <td>@commondity.Unit</td>
+                            <td>@price@commondity.Price </td>
+                            <td>@commondity.AddTime</td>
+                            <td>
+                                @switch (commondity.State)
+                                {
+                                    case YZ_CommodityState.OnSale: cState = "出售中"; break;
+                                    case YZ_CommodityState.CancelASale: cState = "已下架"; break;
+                                    case YZ_CommodityState.IsExamine: cState = "审核中"; break;
+                                    case YZ_CommodityState.IsExamineOk: cState = "已审核"; break;
+                                    case YZ_CommodityState.IsReject: cState = "已驳回"; break;
+                                    default: cState = ""; break;
+                                }
+                                @cState
+                            </td>
+                            <td>
+                                <div class="btn-group btn-group-xs" role="group" aria-label="...">     
+                                    <a href="../../Home/GetCommodityDetail?id=@commondity.Id" target="_blank"  class="btn btn-default">查看</a>
+                                   @* <button type="button" class="btn btn-default" onclick="LoadCommodityDetailView('@commondity.Id.ToString()')">查看明细</button>*@
+                                    <button type="button" class="btn btn-default"
+                                            onclick="openDeleteModal('@commondity.Id.ToString()','你所选择下架的商品是：@commondity.Name（@commondity.Description），下架后将无法恢复，请确认是否继续执行。')">
+                                        下架
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    for (int i = 0; i < loopCount; i++)
+                    {
+                        <tr>
+                            <td>　</td>
+                            <td>　</td>
+                            <td>　</td>
+                            <td>　</td>
+                            <td>　</td>
+                            <td>　</td>
+                            <td>　</td>
+                            <td>　</td>
+                            <td>　</td>
+                            <td>　</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        @if (Model.Count() <= 0)
+        {
+            <div class="center-block text-center" style="font-size:16px;"> 您还没有发布过任何闲置。</div>
+        }
+    </div>
+</div>
+<script>
+    // 打开删除会话框
+    function openDeleteModal(id, tipString) {
+        $('#deleteConfirmModal').modal({
+            show: true,
+            backdrop: 'static'
+        });
+        document.getElementById("deleteModalMessage").innerHTML = "<i class='fa fa-exclamation fa-1x'></i> " + tipString;
+        $('#businessObjectId').val(id);
+    }
+    // 执行删除
+    function gotoDelete() {
+        var _id = $('#businessObjectId').val();
+        $.ajax({
+            cache: false,
+            type: 'post',
+            async: false,
+            url: '../../CommoditiesManager/DeleteCommodity/' + _id,
+            beforeSend: function () {
+            }
+        }).done(function (data) {
+            if (data.result) {
+                $('#deleteConfirmModal').modal('hide')
+                loadPage($("input[name=PageIndex]").val());
+            } else {
+                document.getElementById("deleteModalErrMessage").innerText = data.message;
+            }
+        }).fail(function () {
+            alert("下架失败");
+        }).always(function () {
+        });
+    }
+    function loadPage(index) {
+        switch (index) {
+            case 6: LoadMySecondhandView(); break;
+            case 7: LoadAwaitExamineCommoditiesView(); break;
+            case 8: LoadIsNotExamineCommoditiesView(); break;
+        }
+        LoadDefaultViewCss(index);
+        toastr.success("下架成功");
+    }
+</script>

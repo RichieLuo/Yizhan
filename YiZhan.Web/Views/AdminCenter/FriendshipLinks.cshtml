@@ -1,0 +1,255 @@
+﻿
+@{
+    ViewData["Title"] = "友情链接管理";
+    Layout = "_LayoutForAdmin";
+}
+@using YiZhan.ViewModels.WebSettingManagement
+@model List<FriendshipLinkVM>
+@{
+
+    var count = 18;
+    var dataCount = Model.Count;
+    var loopCount = (count - dataCount) <= 0 ? 0 : (count - dataCount);
+}
+
+<div>
+    <h3 class="sub-header">友情链接管理</h3>
+    <button class="btn rightSaveBtn userCenterCreateBtn1" style="top: 15px;" id="CreateModal">添加</button>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered text-center">
+        <thead style="">
+            <tr style="height:40px">
+                <th style="width:50px;" valign="middle">序号</th>
+                <th style="min-width:250px;" valign="middle">名称</th>
+                <th style="width:600px" valign="middle">链接</th>
+                <th style="width:200px;" valign="middle">是否新窗口打开</th>
+                <th style="width:200px;" valign="middle">添加时间</th>
+                <th style="width:150px;" valign="middle">数据操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.OrderNumber</td>
+                        <td>@item.Name</td>
+                        <td>@item.Link</td>
+                        <td>@(item.IsBlank ? "是" : "否")</td>
+                        <td>@item.CreateTime.ToString("yyyy-MM-dd hh:mm:ss")</td>
+                        <td>
+                            <div class="btn-group btn-group-xs" role="group" aria-label="...">
+                                <button type="button" class="btn btn-success updateFriendLink" data-id="@item.Id">编辑</button>
+                                <button type="button" class="btn btn-default deleteFriendLink" data-id="@item.Id">删除</button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+
+                // 补充处理空行
+                for (int i = 0; i < loopCount; i++)
+                {
+                    <tr>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<!-- 模态框（Modal） -->
+<div class="modal fade yzModalCenter" id="friendLinksModal" tabindex="-1" role="dialog"
+     aria-labelledby="friendLinksModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                    添加链接
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" id="FriendLinksForm">
+                    <input type="hidden" name="IsNew" value="true" />
+                    <input type="hidden" name="Id" value="" /> 
+                    <div class="form-group">
+                        <label for="Name" class="col-sm-3 control-label">名称： </label>
+                        <div class="col-sm-7">
+                            <input type="text" name="Name" class="form-control " placeholder="请输入名称" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Link" class="col-sm-3 control-label">链接： </label>
+                        <div class="col-sm-7">
+                            <input type="text" name="Link" class="form-control" placeholder="请输入链接" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="IsBlank" class="col-sm-3 control-label">是否新窗口： </label>
+                        <div class="col-sm-7">
+                            <label class="radio-inline">
+                                <input type="radio" name="IsBlank" value="true" checked> 是
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="IsBlank" value="false"> 否
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="CanRegister" class="col-sm-3 control-label">备注： </label>
+                        <div class="col-sm-7">
+                            <textarea name="Description" class="form-control " placeholder="请输入备注（选填）" required style="height:150px"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="col-xs-3 control-label"></label>
+                        <div class="col-xs-9">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <button type="button" class="btn leftSaveBtn form-control createSaveBtn" id="CreateSaveBtn">保存</button>
+                                </div>
+                                <div class="col-xs-3">
+                                    <button type="button" class="btn btn-default form-control CloseBtn" data-dismiss="modal" aria-hidden="true" data-target="#friendLinksModal">关闭</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer text-center">
+                <div class="text-center">
+                    <a href="../../AdminCenter/Index" title="易站-校园二手交易平台">
+                        易站-管理中心
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<script src="~/lib/jquery/dist/jquery.min.js"></script>*@
+@section Scripts{
+    <script>
+        window.onload = function () {
+
+            jQuery.prototype.serializeObject = function () {
+                var obj = new Object();
+                $.each(this.serializeArray(), function (index, param) {
+                    if (!(param.name in obj)) {
+                        obj[param.name] = param.value;
+                    }
+                });
+                return obj;
+            };
+
+            //打开新建模态框
+            $(document).on("click", "#CreateModal", function () {
+                $("#friendLinksModal").modal({
+                    show: true,
+                    backdrop: 'static'
+                });
+                Save();
+
+            })
+             
+
+            $(".updateFriendLink").off('click').on('click', function () {
+
+                $.ajax({
+                    url: "../../SiteManager/GetFriendshipLink",
+                    type: "post",
+                    dataType: "json",
+                    data: { id: $(this).data("id") },
+                }).done(function (data) {
+                    console.log(data);
+                    if (data) {
+                        $("input[name=Id]").val(data.id);
+                        $("input[name=IsNew]").val("false");
+                        $("input[name=Name]").val(data.name);
+                        $("input[name=Link]").val(data.link);
+                        $("textarea[name=Description]").val(data.description); 
+
+                        if (data.isBlank) { 
+                            $(':radio[name=IsBlank]').eq(0).attr("checked", "checked");
+                        }
+                        else { 
+                            $(':radio[name=IsBlank]').eq(1).attr("checked", "checked");
+                        }
+
+                        $("#friendLinksModal").modal({
+                            show: true,
+                            backdrop: 'static'
+                        });
+                        Save();
+                    } else {
+                        toastr.error("获取数据失败！");
+                    }
+                })
+            })
+
+
+            //保存新建
+            function Save() {
+                $("#CreateSaveBtn").off('click').on("click", function () {
+                    var _formData = $("#FriendLinksForm").serializeObject();
+                
+                    console.log(_formData);
+                    $.ajax({
+                        url: "../../SiteManager/CreateOrUpdateFriendshipLinks",
+                        type: "post",
+                        dataType: "json",
+                        data: _formData,
+                    }).done(function (data) {
+                        if (data.isOk) {
+                            $(".CloseBtn").click();
+                            toastr.success(data.message);
+                            window.location.reload();
+                        } else {
+                            toastr.error(data.message);
+                        }
+                    })
+                })
+            }
+
+           
+            //删除操作
+            $(".deleteFriendLink").off('click').on("click", function () {
+                var _dId = $(this).data("id");
+                if (confirm("您确定要删除吗？")) {
+                    $.ajax({
+                        url: "../../SiteManager/DeleteFriendshipLink",
+                        type: "post",
+                        dataType: "json",
+                        data:{ id:_dId } ,
+                    }).done(function (data) {
+                        if (data.isOk) {
+                            toastr.success(data.message);
+                            window.location.reload();
+                        } else {
+                            toastr.error(data.message);
+                        }
+                    })
+                }
+            })
+
+
+            function resetModal() {
+                $('#friendLinksModal').on('hidden.bs.modal', function () {
+                    $(':input', '#FriendLinksForm').not(':button,:submit,:reset').val('').removeAttr('checked').removeAttr('checked');
+                });
+            }
+            resetModal();
+        }
+    </script>
+}
